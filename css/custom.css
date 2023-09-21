@@ -1,0 +1,312 @@
+html{
+	font-family: Source Serif Pro;
+	scroll-behavior: smooth;
+    background-color: #FAEDDF;
+}
+
+body, .site, #secondary{
+    background-color: #FAEDDF;
+}
+
+@font-face {
+    font-family:CooperBlack;
+    src: local(CooperBlack.otf);
+}
+
+h1.site-title{
+    font-family:CooperBlack;
+}
+
+h2.about_me{
+	margin-top: 0px;
+    display:inline-block;
+    
+}
+
+#primary-menu a{
+    color: #220E10;
+}
+
+div#primary-menu li.current_page_item a{
+    color: #726E97;
+}
+
+div#primary-menu li a:hover{
+    color:#fff;
+    background-color: #220e10;
+}
+
+
+
+#content a{
+    color: #726E97;
+
+}
+
+#content a:hover{
+    color: #7698B3;
+}
+
+#primary-menu{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+a#wrapper{
+    width: 100%;
+    margin: 0;
+}
+
+
+nav#site-navigation{
+    margin: 0;
+}
+
+p{
+	margin-bottom: 0px;
+}
+
+.site-description, .page_item{
+	font-family: IBM Plex Sans;
+}
+.page_item{
+	font-weight: 400;
+}
+
+.entry-content {
+    width:100%;
+    max-width:none;
+    padding-left:20px;
+    padding-right:20px;
+    font-size: 15px;
+
+	/*todo: fix responsive css here*/;
+}
+
+#frontPageText{
+    width: 60%;
+}
+
+#wrapper.home-link{
+	min-height: 0;
+	margin-bottom: -11px;
+}
+
+
+/* Font awesome */
+.fa-solid, .fa-brands{
+    font-size: 34px;
+    width:50px;
+}
+
+
+@media (max-width: 643px) {
+    li.bar{
+        display:none;
+    }
+}
+
+
+
+@media (min-width: 640px) {
+	.fa {
+		display:none;
+	}
+}
+
+@media (max-width: 1000px) {
+	.entry-content {
+		width:inherit;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+
+}
+
+@media (max-width:639px) {
+	h1.site-title{
+		font-size:30px;
+		padding-top: 10px;
+		
+	}
+
+	h2.site-description{
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 359px) {
+	h1.site-title{
+		padding-top:4px;
+	}
+
+	h2.site-description{
+		font-size: 18px;
+	}
+
+	.img-custom{
+		display: none;
+	}
+
+
+}
+
+/*a#wrapper.home-link{
+	min-height: 210px;
+}*/
+
+.site-title{
+	font-size: 44px;
+	padding-top: 18px;
+}
+.site-description{
+	font-size: 26px;
+}
+
+.img-custom{
+  width:350px;
+	padding:5px;
+	float:right;
+        margin: 2px;
+}
+
+/*html, body, div#page, footer#sitefooter, div#loadfooter{
+	height: 100%;
+}*/
+
+#loadfooter{
+	min-height: 286px!important;
+}
+
+h2, h3, h4{
+	font-weight:501;
+	margin: 12px 0px;
+}
+
+
+h3#research{
+	display: inline-block;
+}
+
+button:active{
+	padding:inherit;
+}
+
+
+.paper-buttons button{
+	display: inline-block;
+	font-size: 9pt;
+	background: none;
+	color: #000000;
+	border:none;
+	padding: none;
+	border: 1px solid #e9c682 !important;
+}
+
+.paper-buttons button.btn-info, .paper-buttons button.btn-info:active, .paper-buttons button.btn-info:focus{
+	padding: 1px 6px;
+	border:none;
+}
+
+.paper-buttons button.btn-info:hover{
+	background-color:#b22f18;
+	border: 1px solid #b22f18 !important;
+}
+
+.paper-buttons button.btn-info:active, .paper-buttons button.btn-info:focus{
+	background-color:#fff;
+    color: #000;
+	border: 1px solid #e9c682 !important
+}
+
+
+.paper-buttons button i.fa{
+	display: inline;
+	vertical-align: baseline;
+	font-size: 10pt;
+	margin-right:2px;
+}
+
+[data-toggle="collapse"] .fa:before {   
+  content: "\f139";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+  content: "\f13a";
+}
+
+.abstract{
+	background:#f7f5e7;
+	border-radius: 5px;
+	padding-left: 4px;
+}
+
+ol#research-list{
+	margin-top:0;
+}
+
+/* Dropdown Buttons */
+/*
+.paper-buttons{
+	max-width:700px;
+}
+
+.paper-buttons .btn-info{
+	background:linear-gradient(to bottom, #ed6a31 0%, #e55627 100%);
+	border:none;
+	padding:4px;
+}
+
+.paper-buttons .btn-info:hover, .paper-buttons .btn-info:active, .paper-buttons .btn-info:focus{
+	background:none;
+	background-color:#b22f18;
+	border:none;
+	padding:4px;
+
+}
+.abstract{
+	background-color: #eeebeb;
+	width: 100%;
+	border-left: 1px dashed black;
+	padding: 2px;
+	padding-left:4px;
+}
+
+.abstract p{
+	margin-bottom:0px;
+}
+
+
+div.papers_in_progress, div.accepted_papers, div.publications{
+}
+*/
+
+
+header#masthead.site-header {
+    /*background: url("../images/maxine-banner.jpeg") no-repeat scroll top;*/
+    background-color: #FAEDDF!important;
+ }
+
+div#primary-menu,.navbar,div#main{
+    background-color: #FAEDDF;
+}
+
+ #banner-description{
+ 	display: block;
+	font-size: 10px;
+	padding-left: 80%;
+	color: #403f3f;
+ }
+
+
+
+/* for Research page*/
+
+#clebsch{
+	max-width: 400px;
+    margin: auto;
+    display: block;
+    float: right;
+}
+
