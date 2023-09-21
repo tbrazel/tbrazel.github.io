@@ -10,11 +10,12 @@ body, .site, #secondary{
 
 @font-face {
     font-family:CooperBlack;
+    font-style: normal;
     src: local(CooperBlack.otf);
 }
 
 h1.site-title{
-    font-family:CooperBlack;
+    font-family:CooperBlack,Bitter,Georgia,Serif;
 }
 
 h2.about_me{
