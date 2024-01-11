@@ -143,7 +143,7 @@
 					<div id="primary-menu" class="nav-menu">
 
 						<ul>
-							<li class="page_item page-item-2 current_page_item">
+							<li class="page_item page-item-2">
 								<a href="index.html">
 									<!-- <i class="fa fa-home"></i> -->
 									Home
@@ -174,7 +174,6 @@
 							<li class="page_item page-item-2 bar">
 								|
 							</li>
-
 							
 
 							<li class="page_item page-item-46 page_item_has_children">
@@ -188,7 +187,7 @@
 								|
 							</li>
 
-							<li class="page_item page-item-2">
+							<li class="page_item page-item-2 current_page_item">
 								<a href="links.html">
 									<!-- <i class="fa fa-book"></i> -->
 									Links &amp;c
@@ -214,69 +213,78 @@
 
 
 					<div class="entry-content">
-					<h2 class="about_me" id="paragraph">About Me</h2>
-										<img class="img-custom" src="images/me.jpg">
-
 
 					<div id="frontPageText">
-						<p>I am an NSF Postdoc at Harvard, supervised by <a href="https://people.math.harvard.edu/~mjh/" target="_blank">Mike Hopkins</a>. I did my PhD at the University of Pennsylvania, and was co-advised by <a href="https://www.math.upenn.edu/~mmerling/" target="_blank">Mona Merling</a> and <a href="https://services.math.duke.edu/~kgw/" target="_blank">Kirsten Wickelgren</a>. <br>
+						<h2 id="paragraph">Techy workflow stuff</h2>
+					
+					<h4>Arxiv</h4>
+
+					I wrote a bot that sends me readable HTML-formatted emails with my arXiV subscriptions. To fork it and get it running for your own purposes, see the repository here: <a href="https://github.com/tbrazel/arxiv-email" target="_blank">https://github.com/tbrazel/arxiv-email</a>.
+
+					<h4>GitHub</h4>
+					To host a LaTeX project on GitHub, I use <a href="https://pbelmans.ncag.info/blog/2023/08/17/github-latex-template/" target="_blank">this setup</a> by Pieter Belmans. This uses workflows to build a pdf on push, and compiles the pdf to an orphaned branch so that the repository contains an updated pdf without it being tracked. With <a href="gitignore.txt">the right .gitignore</a>, the only changes tracked by GitHub are to the .tex files themselves, which makes collaboration and version control really easy.
 
 
-						<br>I am interested in motivic homotopy theory, equivariant homotopy theory, and enumerative geometry. My CV is <a href="CV.pdf">here</a>.<br><br>
+					<h4>LaTeX</h4>
+					I use a Vim setup with <a href="https://github.com/SirVer/ultisnips" target="_blank">UltiSnips</a>, which uses Python and Regex for macros in writing LaTeX. My snippets files are available here: <a href="https://github.com/tbrazel/vim-latex-snippets" target="_blank">https://github.com/tbrazel/vim-latex-snippets</a>.
 
-						brazelton at math.harvard.edu
-						<!-- <br><br> -->
-<!-- 						<b>Upcoming stuff:</b><br>
+					
+
+
+					
+
+	<!-- 				<h4>Macaulay2</h4>
+					The best way to run Macaulay2 is <a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Macaulay2Doc/html/_setting_spup_spthe_sp__Macaulay2_spemacs_spinterface.html" target="_blank">through Emacs</a>. -->
+
+					<h4>Website hosting</h4>
+					This website is hosted on GitHub - if you're not sure how to start a "username.io" website, there's a <a href="https://pages.github.com/" target="_blank">good reference to get started here</a>. If you want to host your academic website on your department's server, for example, but you'd still like version control (and you don't want to use an app like Fetch or Cyberduck every time you want to update your website), I recommend using a third-party service like <a href="https://www.deployhq.com/" target="_blank">DeployHQ</a>, which links a GitHub repository to your SFTP credentials. This way every time you want to update your webpage, just commit to your repository, and DeployHQ will launch it for you.
+
+					<h4>Keeping track of math papers</h4>
+					I use <a href="https://www.zotero.org/" target="_blank">Zotero</a> to organize math papers. If you make sure the automatic importing gets accurate metadata, this makes it really easy to quickly generate BibTex citations for papers you're working with. See here for a guide on <a href="https://libguides.rhul.ac.uk/referencing/Zoterolatex" target="_blank">using BibTex and Zotero</a>.
+
+
+
+					<h2>References</h2>
+					
+					<h4>Listservs</h4>
+					<ul>
+						<li>
+							<a href="https://lists.illinois.edu/lists/info/algtop-l" target="_blank">Algtop-L</a>, algebraic topology listserv
+						</li>
+						<li>
+							<a href="https://www.listserv.dfn.de/sympa/info/eager-gen" target="_blank">eager-gen</a>, algebraic geometry listserv
+						</li>
+							
 						
-						Fall 2023 I am running an <a href="https://s.wayne.edu/echt/echt-reading-seminars/echt-algebraic-vector-bundles-fall-2023/" target="_blank">eCHT Seminar</a> on <i>Algebraic, motivic and topological vector bundles</i> with <a href="https://www.math.ucla.edu/~mopie/" target="_blank">Morgan Opie</a>.<br><br>
+					</ul>
 
-						At JMM 2024 I'm co-organizing a <a href="https://www.jointmathematicsmeetings.org/meetings/national/jmm2024/2300_program_ss47.html#title">Special Session on Homotopy Theory</a> with Krysztof Kapulkin, Dan Dugger, and Jonathan Beardsley.<br><br>
+					<h4>Algebraic databases</h4>
 
-						March 23-24 I'm co-organizing the <a href="https://sites.google.com/northeastern.edu/matc2024/home?authuser=0">Mid-Atlantic Topology Conference</a> at Northeastern with Iva Halacheva, Ben Knudsen, and Jose Perea. -->
+					<ul>
+						<li><a href="https://ringtheory.herokuapp.com/" target="_blank">Database of Ring Theory</a></li>
+						<li><a href="https://smallcats.info/" target="_blank">SmallCategories</a></li>
+						<li><a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/index.html">GroupNames</a></li>
+						<li><a href="https://docs.gap-system.org/pkg/smallgrp/doc/chap1.html" target="_blank">Small Groups Library</a> in GAP </li>
+					</ul>
 
-						<br><br></p>
+					<h4>Web apps for typesetting stuff</h4>
+					<ul>
+						<li><a href="">Quiver</a>, for Tikz commutative diagrams</li>
+					</ul>
 
-						
-
-
-<style>
-.vl {
-  border-top: 1px solid gray;
-  height: 5px;
-  width:100%;
-}
-</style>
-
-<div class="vl"></div> <br>
-
-						<p><b>Upcoming activities/travel:</b><br>
-
-							<ul>
-		<!-- 						<li>June 5-9, <a href="https://www-users.cse.umn.edu/~mahrud/M2Week/" target="_blank">Macaulay2 Workshop</a>, Minnesota</li>
-								<li>June 26-30, <a href="https://topology.sitehost.iu.edu/Summer2023/" target="_blank">Scissors Congruence, Algebraic K-Theory and Trace Methods</a>, Indiana</li>
-								<li>July 3-7, <a href="https://www.math.ru.nl/mnc-conference/">Motivic and Non-Commutative Geometry, Trace Methods</a>, Nijmegen</li>
-								<li>July 12-21, <a href="https://indico.math.cnrs.fr/event/8837/">Algebraic K-Theory</a>, IHES</li>
-								<li>August 7-11, <a href="https://stacks.github.io/" target="_blank">Stacks Project Workshop</a>, Michigan</li>
-								<li>Nov 6-10, 2023, Texas A&amp;M</li> -->
-								<li>Jan 3-7, 2024, <a href="https://www.jointmathematicsmeetings.org/meetings/national/jmm2024/2300_program_ss47.html#title" target="_blank">Joint Mathematics Meeting</a>, San Francisco</li>
-								<li>Jan 8-12, 2024, UCLA</li>
-								<li>Jan 15-19, 2024, UC-Irvine</li>
-								<li>February 12-16, 2024, University of Chicago</li>
-								<li>March 11-25, 2024, <a href="https://sites.google.com/view/wsumht24/home" target="_blank">Winter School on Motivic Homotopy Theory</a>, Mainz</li>
-								<li>March 18-22, 2024, <a href="https://sites.google.com/view/motivesinmainz/" target="_blank">Motives in Mainz</a></li>
-								<li>March 23-24, 2024, <a href="https://sites.google.com/northeastern.edu/matc2024/home" target="_blank">Mid-Atlantic Topology Seminar</a>, Northeastern University</li>
-
-								<li>June 3-7, 2024, <a href="http://www.fields.utoronto.ca/activities/23-24/enumerative-geometry" target="_blank">Workshop on Computation and Applied Enumerative Geometry</a>, Fields Institute</li>
-								<li>August 25-30, <a href="https://www.birs.ca/events/2024/5-day-workshops/24w5258" target="_blank">Enumerative Geometry Beyond Spaces</a>, Banff</li>
-							</ul>
-						
-
-						<!-- <p>I co-founded the Penn chapter of the <a href="drp/index.html">Directed Reading Program</a> with Mona Merling, which I now co-organize with <a href="https://sites.google.com/site/marielleongswebpage/">Marielle Ong</a>. We were recently featured in an article in <a href="https://omnia.sas.upenn.edu/story/new-math">Omnia</a>.<br><br></p> -->
 					</div>
 
 
 
-					
+					<h2>Things I frequently need to copy/paste</h2>
+
+					<h4>For LaTeX stuff</h4>
+
+					<a href="gitignore.txt">a .gitignore file for LaTeX projects</a><br>
+
+					<a href="fullref.txt">hack to get autoref running correctly</a><br>
+
+					<a href="regex.txt">regex for math mode and prose snippets</a><br>
 
 
 					
@@ -297,17 +305,16 @@
 		</div><!-- #main -->
 		
 		<footer id="sitefooter" class="site-footer" role="contentinfo">
-			<div id="secondary" class="sidebar-container" role="complementary">
-				<a href="mailto:brazelton@math.harvard.edu"><i class="fa-solid fa-envelope fa-3x"></i></a>
+					<div id="secondary" class="sidebar-container" role="complementary">
+						<a href="mailto:brazelton@math.harvard.edu"><i class="fa-solid fa-envelope fa-3x"></i></a>
 
-				<a href="https://github.com/tbrazel" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
+						<a href="https://github.com/tbrazel" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
 
-				<a href="https://machineappreciation.wordpress.com/" target="_blank"><i class="fa-brands fa-wordpress"></i></a>
+						<a href="https://machineappreciation.wordpress.com/" target="_blank"><i class="fa-brands fa-wordpress"></i></a>
 
-				<a href="https://www.math.harvard.edu/" target="_blank"><i class="fa-solid fa-building-columns"></i></a>
-			</div><!-- #secondary -->
-</footer><!-- #colophon -->
-
+						<a href="https://www.math.harvard.edu/" target="_blank"><i class="fa-solid fa-building-columns"></i></a>
+					</div><!-- #secondary -->
+		</footer><!-- #colophon -->
 
 	</div><!-- #page -->
 
