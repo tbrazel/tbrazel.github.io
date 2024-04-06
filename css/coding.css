@@ -19,6 +19,7 @@ ul#projects{
   -webkit-align-content: flex-start;
   align-content: flex-start;
   width: 100%;
+  max-width: 1300px;
 }
 
 li.project{
