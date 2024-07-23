@@ -1,5 +1,4 @@
 <html lang="en-US"><!--<![endif]-->
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
@@ -35,13 +34,9 @@
 	<script src="https://kit.fontawesome.com/c57a0a3195.js" crossorigin="anonymous"></script>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 	<link rel="stylesheet" id="twentythirteen-fonts-css" href="css/twentythirteen-fonts-css.css" type="text/css" media="all">
-
 	<link rel="stylesheet" id="genericons-css" href="css/genericons-css.css" type="text/css" media="all">
 	<link rel="stylesheet" id="twentythirteen-style-css" href="css/twentythirteen-style-css.css" type="text/css" media="all">
-	
-	
 	<link rel="stylesheet" id="custom-css" href="css/custom.css" type="text/css" media="all">
 
 	<link rel="https://api.w.org/" href="https://wp-themes.com/index.php?rest_route=/">
@@ -82,47 +77,32 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
-
-<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-	  	jax: ["input/TeX", "output/HTML-CSS"],
-	  	tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-	  	"HTML-CSS": {
-	  		preferredFont: "STIX-Web",
-	  		webFont: "STIX-Web",
-	  		imageFont: "TeX"
-	  		}
-	  	});
+	<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+			"HTML-CSS": {
+				preferredFont: "STIX-Web",
+				webFont: "STIX-Web",
+				imageFont: "TeX"
+				}
+			});
 	</script>
 	<script>
-    $(document).ready(function(){
-        // Add minus icon for collapse element which is open by default
-        $(".collapse.show").each(function(){
-        	$(this).find(".fa").addClass("fa-minus").removeClass("fa-plus");
-        });
-        
-        // Toggle plus minus icon on show hide of collapse element
-        $(".collapse").on('show.bs.collapse', function(){
-        	$(this).find(".fa").removeClass("fa-plus").addClass("fa-minus");
-        }).on('hide.bs.collapse', function(){
-        	$(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
-        });
-    });
-
+		$(document).ready(function(){
+				// Add minus icon for collapse element which is open by default
+				$(".collapse.show").each(function(){
+					$(this).find(".fa").addClass("fa-minus").removeClass("fa-plus");
+				});
+				
+				// Toggle plus minus icon on show hide of collapse element
+				$(".collapse").on('show.bs.collapse', function(){
+					$(this).find(".fa").removeClass("fa-plus").addClass("fa-minus");
+				}).on('hide.bs.collapse', function(){
+					$(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
+				});
+		});
 	</script>
-
-
-
-
-
-
-
-
-
-
-
-	
 </head>
 
 <body class="home blog single-author">
@@ -171,11 +151,7 @@
 								</a>
 							</li>
 
-							<li class="page_item page-item-2 bar">
-								|
-							</li>
-
-							
+							<li class="page_item page-item-2 bar">|</li>
 
 							<li class="page_item page-item-2">
 								<a href="coding.html">
@@ -200,8 +176,6 @@
 
 					</div>
 					
-		
-
 				</nav><!-- #site-navigation -->
 			</div><!-- #navbar -->
 		</header><!-- #masthead -->
@@ -210,18 +184,14 @@
 
 			<div id="primary" class="content-area">
 				<div id="content" class="site-content" role="main">
-		
-
-
 
 					<div class="entry-content">
 					<h2 class="about_me" id="paragraph">About Me</h2>
-										<img class="img-custom" src="images/me.jpg">
+					<img class="img-custom" src="images/me.jpg">
 
 
 					<div id="frontPageText">
 						<p>I am an NSF Postdoc at Harvard, supervised by <a href="https://people.math.harvard.edu/~mjh/" target="_blank">Mike Hopkins</a>. I did my PhD at the University of Pennsylvania, and was co-advised by <a href="https://www.math.upenn.edu/~mmerling/" target="_blank">Mona Merling</a> and <a href="https://services.math.duke.edu/~kgw/" target="_blank">Kirsten Wickelgren</a>. <br>
-
 
 						<br>I am interested in motivic homotopy theory, equivariant homotopy theory, and enumerative geometry. My CV is <a href="CV.pdf">here</a>.<br><br>
 
@@ -237,18 +207,15 @@
 
 						<br><br></p>
 
-						
+						<style>
+						.vl {
+							border-top: 1px solid gray;
+							height: 5px;
+							width:100%;
+						}
+						</style>
 
-
-<style>
-.vl {
-  border-top: 1px solid gray;
-  height: 5px;
-  width:100%;
-}
-</style>
-
-<div class="vl" id="travel"></div> <br>
+						<div class="vl" id="travel"></div> <br>
 
 						<p><b>Upcoming activities/travel:</b><br>
 
@@ -279,7 +246,7 @@
 								<li>June 10-14, 2024, <a href="https://algtoppr.github.io/" target="_blank">Algebraic Structures in Topology II</a>, San Juan</li>
 
 							</s>
-               <li>June 23-27, 2024, <a href="https://iwoat.github.io/school2024.html" target="_blank">IWOAT Summer School on Stable Motivic Homotopy Theory</a>, Shanghai <a href="talknotes/iwoat24-lecture-1.pdf">[talk 1]</a>, <a href="talknotes/iwoat24-lecture-2.pdf">[talk 2]</a></li>
+							 <li>June 23-27, 2024, <a href="https://iwoat.github.io/school2024.html" target="_blank">IWOAT Summer School on Stable Motivic Homotopy Theory</a>, Shanghai <a href="talknotes/iwoat24-lecture-1.pdf">[talk 1]</a>, <a href="talknotes/iwoat24-lecture-2.pdf">[talk 2]</a></li>
 								<li>July 7-27, 2024, <a href="https://www.ias.edu/pcmi/pcmi-2024-research-program" target="_blank">Research Program in Motivic Homotopy Theory</a>, Park City Math Institute</li>
 								<li>August 25-30, 2024, <a href="https://www.birs.ca/events/2024/5-day-workshops/24w5258" target="_blank">Enumerative Geometry Beyond Spaces</a>, Banff</li>
 							</ul>
@@ -288,22 +255,12 @@
 						<!-- <p>I co-founded the Penn chapter of the <a href="drp/index.html">Directed Reading Program</a> with Mona Merling, which I now co-organize with <a href="https://sites.google.com/site/marielleongswebpage/">Marielle Ong</a>. We were recently featured in an article in <a href="https://omnia.sas.upenn.edu/story/new-math">Omnia</a>.<br><br></p> -->
 					</div>
 
-
-
-					
-
-
-					
-
 					</div>
 	
 					<footer class="entry-meta">
 		
 					</footer><!-- .entry-meta -->
 
-			
-			
-		
 				</div><!-- #content -->
 			</div><!-- #primary -->
 
@@ -311,41 +268,42 @@
 		</div><!-- #main -->
 		
 		<footer id="sitefooter" class="site-footer" role="contentinfo">
-			<div id="secondary" class="sidebar-container" role="complementary">
-				<a href="mailto:brazelton@math.harvard.edu"><i class="fa-solid fa-envelope fa-3x"></i></a>
+		<div id="secondary" class="sidebar-container" role="complementary">
+		<a href="mailto:brazelton@math.harvard.edu"><i class="fa-solid fa-envelope fa-3x"></i></a>
 
-				<a href="https://github.com/tbrazel" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
+		<a href="https://github.com/tbrazel" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
 
-				<a href="https://machineappreciation.wordpress.com/" target="_blank"><i class="fa-brands fa-wordpress"></i></a>
+		<a href="https://machineappreciation.wordpress.com/" target="_blank"><i class="fa-brands fa-wordpress"></i></a>
 
-				<a href="https://www.math.harvard.edu/" target="_blank"><i class="fa-solid fa-building-columns"></i></a>
-			</div><!-- #secondary -->
-</footer><!-- #colophon -->
+		<a href="https://www.math.harvard.edu/" target="_blank"><i class="fa-solid fa-building-columns"></i></a>
+		</div><!-- #secondary -->
+		</footer><!-- #colophon -->
 
 
-	</div><!-- #page -->
+</div><!-- #page -->
 
 	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/imagesloaded.min.js?ver=3.2.0"></script>
-<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/masonry.min.js?ver=3.3.2"></script>
-<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b"></script>
-<script type="text/javascript" src="https://wp-themes.com/wp-content/themes/twentythirteen/js/functions.js?ver=20160717"></script>
-<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/wp-embed.min.js?ver=5.0-alpha-42991"></script>
+	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/masonry.min.js?ver=3.3.2"></script>
+	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b"></script>
+	<script type="text/javascript" src="https://wp-themes.com/wp-content/themes/twentythirteen/js/functions.js?ver=20160717"></script>
+	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/wp-embed.min.js?ver=5.0-alpha-42991"></script>
 
-<script>
-	var coll = document.getElementsByClassName("collapsible");
-var i;
+	<script>
+		var coll = document.getElementsByClassName("collapsible");
+	var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
+	for (i = 0; i < coll.length; i++) {
+		coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block") {
+				content.style.display = "none";
+			} else {
+				content.style.display = "block";
+			}
+		});
+	}
+	</script>
 
-</body></html>
+</body>
+</html>
