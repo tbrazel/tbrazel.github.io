@@ -1,0 +1,40 @@
+#frontPageText {
+    width:95%;
+}
+
+
+td#university {
+    min-width: 100px;
+}
+
+#university img{
+    max-width:25px;
+}
+
+
+#university p{
+    display: inline-block;
+}
+
+/* Width of columns on table */
+
+table.teaching-table td#university{
+    width:5%;
+}
+table.teaching-table td#semester{
+    width:6%;
+}
+
+table.teaching-table td#course-name{
+    width:20%;
+}
+
+table.teaching-table td#description{
+
+    width:45%;
+}
+
+/* Table margins */
+table.teaching-table{
+    margin: 0;
+}
