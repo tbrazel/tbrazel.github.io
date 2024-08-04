@@ -400,3 +400,7 @@ div#primary-menu,.navbar,div#main{
 
 
 
+/* MathJax sizing */
+.mjx-chtml{
+	font-size: 110%!important;
+}
