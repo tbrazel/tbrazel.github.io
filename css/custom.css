@@ -1,3 +1,51 @@
+/* removed from old css */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 14px;
+  line-height: 2;
+}
+td {
+  border-top: 1px solid #ededed;
+  padding: 6px 10px 6px 0;
+}
+caption, th, td {
+  font-weight: normal;
+  text-align: left;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media (max-width: 643px) {
+  .menu-toggle::after {
+    font-family: FontAwesome;
+    content: "\f0d7";
+    font-size: 12px;
+    padding-left: 8px;
+    vertical-align: -4px;
+  }
+}
+@media (max-width: 643px) {
+  .toggled-on .menu-toggle::after {
+  	font-family: FontAwesome;
+   	content: "\f0d8";
+/*    content: none;*/
+    vertical-align: 2px;
+  }
+}
+
+
+
+/******
+
+Custom
+
+*******/
+
 html{
 	font-family: Source Serif Pro;
 	scroll-behavior: smooth;
@@ -6,6 +54,7 @@ html{
 
 body, .site, #secondary{
     background-color: #FAEDDF;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 @font-face {
@@ -14,8 +63,32 @@ body, .site, #secondary{
     src: local(CooperBlack.otf);
 }
 
+
+background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+
+/*Site title*/
+a#wrapper.home-link{
+	text-decoration: none;
+}
+
 h1.site-title{
     font-family:CooperBlack,Bitter,Georgia,Serif;
+}
+
+/* Don't underline header when hovering */
+.site-header .site-title:hover {
+  text-decoration: none!important;
 }
 
 h2.about_me{
@@ -80,6 +153,10 @@ p{
     padding-left:20px;
     padding-right:20px;
     font-size: 15px;
+
+    /* From original css */
+  	-moz-hyphens: auto;
+  	hyphens: auto;
 
 	/*todo: fix responsive css here*/;
 }
@@ -320,3 +397,6 @@ div#primary-menu,.navbar,div#main{
     margin-left: 9px;
     font-family: inherit;
     }
+
+
+

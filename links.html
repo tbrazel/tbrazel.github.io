@@ -1,15 +1,10 @@
-<html lang="en-US"><!--<![endif]-->
-
+<html lang="en-US">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Thomas Brazelton</title>
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="https://wp-themes.com/wp/xmlrpc.php">
-	<!--[if lt IE 9]>
-	<script src="https://wp-themes.com/wp-content/themes/twentythirteen/js/html5.js"></script>
-	<![endif]-->
-	<meta name="robots" content="noindex,follow">
+
+	<meta name="robots" content="follow">
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//s.w.org">
 	<link href="https://fonts.gstatic.com" crossorigin="" rel="preconnect">
@@ -17,63 +12,17 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans|Source+Serif+Pro|IBM+Plex+Sans:100,400,700" rel="stylesheet"> 
 
-	<style type="text/css">
-		img.wp-smiley,
-		img.emoji {
-			display: inline !important;
-			border: none !important;
-			box-shadow: none !important;
-			height: 1em !important;
-			width: 1em !important;
-			margin: 0 .07em !important;
-			vertical-align: -0.1em !important;
-			background: none !important;
-			padding: 0 !important;
-		}
-	</style>
-
+	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/c57a0a3195.js" crossorigin="anonymous"></script>
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+	<!-- Web fonts -->
 	<link rel="stylesheet" id="twentythirteen-fonts-css" href="css/twentythirteen-fonts-css.css" type="text/css" media="all">
-
-	<link rel="stylesheet" id="genericons-css" href="css/genericons-css.css" type="text/css" media="all">
 	<link rel="stylesheet" id="twentythirteen-style-css" href="css/twentythirteen-style-css.css" type="text/css" media="all">
 	
-	
+	<!-- Custom css -->
 	<link rel="stylesheet" id="custom-css" href="css/custom.css" type="text/css" media="all">
 
-	<link rel="https://api.w.org/" href="https://wp-themes.com/index.php?rest_route=/">
-	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://wp-themes.com/wp/xmlrpc.php?rsd">
-	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://wp-themes.com/wp/wp-includes/wlwmanifest.xml"> 
-	<meta name="generator" content="WordPress 5.0-alpha-42991">
-	<style type="text/css">
-		.recentcomments a{
-			display:inline !important;
-			padding:0 !important;
-			margin:0 !important;
-			}
-	</style>
-	<style type="text/css" id="twentythirteen-header-css">
-		.site-header {
-/*		background: url("images/circle.png") no-repeat scroll top;*/
-		background-size: 1600px auto;
-		}
-		@media (max-width: 767px) {
-			.site-header {
-				background-size: 768px auto;
-			}
-		}
-		@media (max-width: 359px) {
-			.site-header {
-				background-size: 360px auto;
-			}
-		}
-	</style>
-	<!--[if lt IE 9]>
-	<link rel='stylesheet' id='twentythirteen-ie-css'  href='https://wp-themes.com/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
-	<![endif]-->
+	<!-- JavaScript and JQuery -->
 	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
 	<script type="text/javascript" src="https://wp-themes.com/wp/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1"></script>
 
@@ -82,34 +31,31 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
-
-<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-	  	jax: ["input/TeX", "output/HTML-CSS"],
-	  	tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-	  	"HTML-CSS": {
-	  		preferredFont: "STIX-Web",
-	  		webFont: "STIX-Web",
-	  		imageFont: "TeX"
-	  		}
-	  	});
+	<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+			"HTML-CSS": {
+				preferredFont: "STIX-Web",
+				webFont: "STIX-Web",
+				imageFont: "TeX"
+				}
+			});
 	</script>
 	<script>
-    $(document).ready(function(){
-        // Add minus icon for collapse element which is open by default
-        $(".collapse.show").each(function(){
-        	$(this).find(".fa").addClass("fa-minus").removeClass("fa-plus");
-        });
-        
-        // Toggle plus minus icon on show hide of collapse element
-        $(".collapse").on('show.bs.collapse', function(){
-        	$(this).find(".fa").removeClass("fa-plus").addClass("fa-minus");
-        }).on('hide.bs.collapse', function(){
-        	$(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
-        });
-    });
-
+		$(document).ready(function(){
+				// Add minus icon for collapse element which is open by default
+				$(".collapse.show").each(function(){
+					$(this).find(".fa").addClass("fa-minus").removeClass("fa-plus");
+				});
+				
+				// Toggle plus minus icon on show hide of collapse element
+				$(".collapse").on('show.bs.collapse', function(){
+					$(this).find(".fa").removeClass("fa-plus").addClass("fa-minus");
+				}).on('hide.bs.collapse', function(){
+					$(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
+				});
+		});
 	</script>
 </head>
 
