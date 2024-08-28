@@ -40,20 +40,26 @@ caption, th, td {
 
 
 
+
 /******
 
-Custom
+Colors
 
 *******/
+
+/*Background color*/
+html, body, div#primary-menu,.navbar, div#main, header#masthead.site-header, .site, #secondary {
+    background-color: #FFFCF9;
+ }
+
 
 html{
 	font-family: Source Serif Pro;
 	scroll-behavior: smooth;
-    background-color: #FAEDDF;
+/*    background-color: #FAEDDF;*/
 }
 
 body, .site, #secondary{
-    background-color: #FAEDDF;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -63,6 +69,49 @@ body, .site, #secondary{
     src: local(CooperBlack.otf);
 }
 
+/*Link and text colors*/
+
+h2.about_me{
+	margin-top: 0px;
+    display:inline-block;
+    
+}
+
+#primary-menu a{
+    color: #220E10;
+}
+
+/*Color of current page link, and a links throughout*/
+div#primary-menu li.current_page_item a, #content a{
+    color: #862B2B;
+}
+
+/*Link colors on hover*/
+#content a:hover{
+    color: #C11F1F;
+}
+
+/*Color of menu blocks on hover*/
+div#primary-menu li a:hover{
+    color:#fff;
+    background-color: #220e10;
+}
+
+/*Color of abstract backgrounds*/
+tr.showabstract{
+	background:#fff;
+}
+
+
+
+
+
+
+
+
+/************
+ * Responsive
+ * ***********/
 
 background-size: 1600px auto;
 		}
@@ -91,35 +140,7 @@ h1.site-title{
   text-decoration: none!important;
 }
 
-h2.about_me{
-	margin-top: 0px;
-    display:inline-block;
-    
-}
 
-#primary-menu a{
-    color: #220E10;
-}
-
-div#primary-menu li.current_page_item a{
-    color: #726E97;
-}
-
-div#primary-menu li a:hover{
-    color:#fff;
-    background-color: #220e10;
-}
-
-
-
-#content a{
-    color: #726E97;
-
-}
-
-#content a:hover{
-    color: #7698B3;
-}
 
 #primary-menu{
     margin-top: 5px;
@@ -361,14 +382,7 @@ div.papers_in_progress, div.accepted_papers, div.publications{
 */
 
 
-header#masthead.site-header {
-    /*background: url("../images/maxine-banner.jpeg") no-repeat scroll top;*/
-    background-color: #FAEDDF!important;
- }
 
-div#primary-menu,.navbar,div#main{
-    background-color: #FAEDDF;
-}
 
  #banner-description{
  	display: block;
@@ -389,7 +403,7 @@ div#primary-menu,.navbar,div#main{
 
 
 /* blockquotes */
-#frontPageText blockquote{
+#.entry-content blockquote{
     font-size: 15px;
     border-left: 1px solid black;
     font-style: normal;
