@@ -99,6 +99,13 @@
 		padding: 3px;
 	}
 
+	td img{
+		max-width: 200px;
+	}
+	td#cd img{
+		max-width: 150px;
+	}
+
 	</style>
 
 
@@ -230,15 +237,18 @@
 
 						<br><br>
 
-
+						IP = number of isolated points<br>
+						OS = orbit size (under promotion)<br>
+						ED = number of extended descents<br>
 						<table id="quintics">
 							<tr>
 								<th>Sottile index</th>
 								<th>Picture</th>
 								<th>Young tab</th>
-								<th>Num isolated points</th>
-								<th>Size of promotion orbit</th>
-								<th>Num ext. descents</th>
+								<th>Isolated pts.</th>
+								<th>Promotion orbit size</th>
+								<th>Ext. descents</th>
+								<th>Chord diagram</th>
 								<th>more info</th>
 							</tr>
 
@@ -254,9 +264,10 @@
 										<tr><td>3</td><td>6</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 6</td>
+								<td>IP: 3</td>
+								<td>OS: 3</td>
+								<td>ED: 6</td>
+								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
 							</tr>
 
 							<tr>
@@ -271,9 +282,10 @@
 										<tr><td>5</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 6</td>
+								<td>IP: 3</td>
+								<td>OS: 3</td>
+								<td>ED: 6</td>
+								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
 							</tr>
 
 							<tr>
@@ -288,9 +300,10 @@
 										<tr><td>4</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 6</td>
+								<td>IP: 3</td>
+								<td>OS: 3</td>
+								<td>ED: 6</td>
+								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
 							</tr>
 
 							<tr style="border-bottom:2px solid black"></tr>
@@ -307,9 +320,10 @@
 										<tr><td>3</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
 								<td>$\text{mouse}$</td>
 							</tr>
 
@@ -323,9 +337,10 @@
 										<tr><td>7</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
 								<td>$p^8(\text{mouse})$</td>
 							</tr>
 
@@ -339,9 +354,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
 								<td>$p^2(\text{mouse})$</td>
 							</tr>
 
@@ -355,9 +371,10 @@
 										<tr><td>7</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
 								<td>$p^8(\text{mouse})$</td>
 							</tr>
 
@@ -371,9 +388,10 @@
 										<tr><td>4</td><td>6</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
 								<td>$p(\text{mouse})$</td>
 							</tr>
 
@@ -387,9 +405,10 @@
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 								<td>$p^7(\text{mouse})$</td>
 							</tr>
 
@@ -403,9 +422,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
+								<td>IP: 3</td>
 								<td>Orbits size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 								<td>$p^3(\text{mouse})$</td>
 							</tr>
 
@@ -419,9 +439,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 								<td>$p^3(\text{mouse})$</td>
 							</tr>
 
@@ -435,9 +456,10 @@
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 3</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 3</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 								<td>$p^7(\text{mouse})$</td>	
 							</tr>
 
@@ -455,9 +477,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>$\text{BL}$</td>
 							</tr>
 
@@ -471,9 +494,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -487,9 +511,10 @@
 										<tr><td>4</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -503,9 +528,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>In BL</td>
 							</tr>
 
@@ -519,9 +545,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -535,9 +562,10 @@
 										<tr><td>4</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -551,9 +579,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -567,9 +596,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 
@@ -583,9 +613,10 @@
 										<tr><td>4</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 5</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 5</td>
+								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
 								<td>in BL</td>
 							</tr>
 							
@@ -603,9 +634,10 @@
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 4</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 4</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td>in sandcrawler</td>
 							</tr>
 
@@ -619,9 +651,10 @@
 										<tr><td>7</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 4</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 4</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td>own orbit</td>
 							</tr>
 
@@ -635,9 +668,10 @@
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 4</td>
+								<td>IP: 4</td>
+								<td>OS: 9</td>
+								<td>ED: 4</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td>in sandcrawler</td>
 							</tr>
 
@@ -651,9 +685,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
 							</tr>
 
@@ -667,10 +702,11 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
-								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
+								<td>Note: 23 and 24 should be <br>vertically symmetric, so one<br> of these pictures should be backwards</td>
 							</tr>
 
 							<tr>
@@ -683,9 +719,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
 							</tr>
 
@@ -699,9 +736,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
 							</tr>
 
@@ -715,9 +753,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
 							</tr>
 
@@ -731,9 +770,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 4</td>
+								<td>IP: 4</td>
 								<td></td>
 								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
 							</tr>
 
@@ -751,8 +791,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -765,8 +807,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -779,8 +823,10 @@
 										<tr><td></td><td></td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -793,8 +839,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -807,8 +855,10 @@
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -821,8 +871,10 @@
 										<tr><td>5</td><td>7</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -835,8 +887,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -849,8 +903,10 @@
 										<tr><td>4</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
+								<td>IP: 5</td>
 								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<tr>
@@ -863,9 +919,10 @@
 										<tr><td>6</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 5</td>
-								<td>Orbit size: 9</td>
-								<td>Ext. descents: 4</td>
+								<td>IP: 5</td>
+								<td>OS: 9</td>
+								<td>ED: 4</td>
+								<td id="cd"><img src="chord-diagrams/one_node.png"></td>
 							</tr>
 
 							<!---------------------------------------------------------->
@@ -884,9 +941,10 @@
 									</table>
 
 								</td>
-								<td>Isolated pts: 6</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 3</td>
+								<td>IP: 6</td>
+								<td>OS: 3</td>
+								<td>ED: 3</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 							</tr>
 
 							<tr>
@@ -899,9 +957,10 @@
 										<tr><td>5</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 6</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 3</td>
+								<td>IP: 6</td>
+								<td>OS: 3</td>
+								<td>ED: 3</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 							</tr>
 
 							<tr>
@@ -914,9 +973,10 @@
 										<tr><td>7</td><td>8</td><td>9</td></tr>
 									</table>
 								</td>
-								<td>Isolated pts: 6</td>
-								<td>Orbit size: 3</td>
-								<td>Ext. descents: 3</td>
+								<td>IP: 6</td>
+								<td>OS: 3</td>
+								<td>ED: 3</td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 							</tr>
 						</table>
 					
