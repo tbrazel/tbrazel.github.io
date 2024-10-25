@@ -112,6 +112,7 @@
 
 	td#notes{
 		font-size: 9pt;
+		max-width: 200px;
 	}
 
 	.sageTab{
@@ -282,6 +283,7 @@
 								<td>OS: 3</td>
 								<td>ED: 6</td>
 								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
+								<td id="notes">self-evacuative</td>
 							</tr>
 
 							<tr>
@@ -302,6 +304,7 @@
 								<td>OS: 3</td>
 								<td>ED: 6</td>
 								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
+								<td id="notes"></td>
 							</tr>
 
 							<tr>
@@ -322,6 +325,7 @@
 								<td>OS: 3</td>
 								<td>ED: 6</td>
 								<td id="cd"><img src="chord-diagrams/mantis.png"></td>
+								<td id="notes"></td>
 							</tr>
 
 							<tr style="border-bottom:2px solid black"></tr>
@@ -344,7 +348,7 @@
 								<td>OS: 9</td>
 								<td>ED: 5</td>
 								<td id="cd"><img src="chord-diagrams/asterisk.png"></td>
-								<td id="notes">$\text{mouse}$</td>
+								<td id="notes">if we pick 1 to be the flex at $\infty$, we get a self-evacuative tableau</td>
 							</tr>
 
 							<tr>
@@ -519,7 +523,7 @@
 								<td>OS: 9</td>
 								<td>ED: 5</td>
 								<td id="cd"><img src="chord-diagrams/two_nodes.png"></td>
-								<td id="notes">$\text{BL}$</td>
+								<td id="notes">if we pick 1 to be the flex at $\infty$, we get a self-evacuative tableau</td>
 							</tr>
 
 							<tr>
@@ -764,24 +768,7 @@
 							</tr>
 
 							<tr>
-								<td>31</td>
-								<td><img src="quinticpics/31.gif"></td>
-								<td>
-									<table id="yt">
-										<tr><td>1</td><td></td><td></td></tr>
-										<tr><td></td><td><p style="color:white">?</p></td><td></td></tr>
-										<tr><td></td><td></td><td>9</td></tr>
-									</table>
-								</td>
-								<td>IP: 4</td>
-								<td></td>
-								<td></td>
-								<td id="cd"><img src="chord-diagrams/empty.png"></td>
-								<td id="notes"></td>
-							</tr>
-
-							<tr>
-								<td>32</td>
+								<td>32<br>(zorro)</td>
 								<td><img src="quinticpics/32.gif"></td>
 								<td>
 									<table id="yt">
@@ -795,6 +782,23 @@
 								<td></td>
 								<td id="cd"><img src="chord-diagrams/empty.png"></td>
 								<td></td>
+							</tr>
+
+							<tr>
+								<td>31<br>(co-zorro)</td>
+								<td><img src="quinticpics/31.gif"></td>
+								<td>
+									<table id="yt">
+										<tr><td>1</td><td></td><td></td></tr>
+										<tr><td></td><td><p style="color:white">?</p></td><td></td></tr>
+										<tr><td></td><td></td><td>9</td></tr>
+									</table>
+								</td>
+								<td>IP: 4</td>
+								<td></td>
+								<td></td>
+								<td id="cd"><img src="chord-diagrams/empty.png"></td>
+								<td id="notes"></td>
 							</tr>
 
 							<tr>
@@ -985,7 +989,7 @@
 							<!-- 6 isolated points -->
 
 							<tr>
-								<td>04</td>
+								<td>04<br>(vendetta)</td>
 								<td><img src="quinticpics/04.gif"></td>
 								<td>
 									<table id="yt">
@@ -993,6 +997,8 @@
 										<tr><td>3</td><td>4</td><td>8</td></tr>
 										<tr><td>6</td><td>7</td><td>9</td></tr>
 									</table>
+									<p class="sageTab" id="tab04">StandardTableau([[1,2,5],[3,4,8],[6,7,9]])</p>
+									<button onclick="CopyToClipboard('tab04');return false;">copy</button>
 
 								</td>
 								<td>IP: 6</td>
@@ -1010,6 +1016,8 @@
 										<tr><td>2</td><td>6</td><td>7</td></tr>
 										<tr><td>5</td><td>8</td><td>9</td></tr>
 									</table>
+									<p class="sageTab" id="tab19">StandardTableau([[1,3,4],[2,6,7],[5,8,9]])</p>
+									<button onclick="CopyToClipboard('tab19');return false;">copy</button>
 								</td>
 								<td>IP: 6</td>
 								<td>OS: 3</td>
@@ -1026,6 +1034,8 @@
 										<tr><td>4</td><td>5</td><td>6</td></tr>
 										<tr><td>7</td><td>8</td><td>9</td></tr>
 									</table>
+									<p class="sageTab" id="tab20">StandardTableau([[1,2,3],[4,5,6],[7,8,9]])</p>
+									<button onclick="CopyToClipboard('tab20');return false;">copy</button>
 								</td>
 								<td>IP: 6</td>
 								<td>OS: 3</td>
