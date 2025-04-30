@@ -417,3 +417,8 @@ div.papers_in_progress, div.accepted_papers, div.publications{
 .mjx-chtml{
 	font-size: 110%!important;
 }
+
+/* For notes page */
+.entry-content .fa-brands{
+    font-size:inherit;
+}
