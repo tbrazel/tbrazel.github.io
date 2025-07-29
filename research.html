@@ -147,6 +147,35 @@
 									<tbody>
 
 										<!-------------------------------->
+										<tr id="paper">
+											<td id="papernumber">(17)</td>
+											<td id="icons" class="paper-buttons">
+												<button id="fourfoldsshow" title="abstract" type="button" class="btn btn-info collapsed" data-toggle="collapse">
+													<i class="fa"></i>
+												</button>
+
+												<a href="papers/fourfolds.pdf" target=”_blank”>
+													<i title="pdf" class="fa-solid fa-file"></i>
+												</a>
+
+												<a href="https://arxiv.org/pdf/2507.21029" target=”_blank”>
+													<img title="arXiV" class="arxiv" src="images/arxiv.png">
+												</a>
+											</td>
+											<td id="paperinfo">
+												<b>On algebraic vector bundles of rank 2 over smooth affine fourfolds</b>, with M. Opie and T. Syed. <br>37 pages, 2025. Preprint.
+											</td>
+										</tr>
+
+										<tr id="fourfoldsabs" class="hideabstract">
+											<td></td>
+											<td></td>
+											<td>
+												<p>The classification of algebraic vector bundles of rank 2 over smooth affine fourfolds is a notoriously difficult problem. Isomorphism classes of such vector bundles are not uniquely determined by their Chern classes, in contrast to the situation in lower dimensions. Given a smooth affine fourfold over an algebraically closed field of characteristic not equal to $2$ or $3$, we study cohomological criteria for finiteness of the fibers of the Chern class map for rank $2$ bundles. As a consequence, we give a cohomological classification of such bundles in a number of cases. For example, if $d\leq 4$, there are precisely $d^2$ non-isomorphic algebraic vector bundles over the complement of a smooth hypersurface of degree $d$ in $\mathbb{P}^4_{\mathbb C}$</p>
+											</td>
+										</tr>
+
+										<!-------------------------------->
 									
 										<tr id="paper">
 											<td id="papernumber">(16)</td>
@@ -681,8 +710,12 @@
 					
 						<h3>Software:</h3>
 						<ul>
+							<li><a href="https://github.com/Macaulay2/M2/tree/development/M2/Macaulay2/packages/CpMackeyFunctors" target="_blank">CpMackeyFunctors.m2</a>, a Macaulay2 package for doing homological algebra computations with $C_p$-Mackey functors. With D. Chan, B. Mudrak, C. Vogeli, C. Wang, M. Zeng, S. Zotine.
+							</li>
 							<li><a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/A1BrouwerDegrees/html/index.html" target="_blank">A1BrouwerDegrees.m2</a>, a Macaulay2 package for computing local and global $\mathbb{A}^1$-Brouwer degrees, and manipulating the associated symmetric bilinear forms. With N. Borisov, F. Espino, T. Hagedorn, Z. Han, J. Lopez Garcia, J. Louwsma, G. Ong, and A. Tawfeek.
 							</li>
+
+							
 							
 						</ul>
 
@@ -731,6 +764,7 @@
 	<!-- Show/collapse abstracts -->
 	<script>
 		var myPapers = [
+			"fourfolds",
 			"BSLnc",
 			"K4",
 			"bitangents",
