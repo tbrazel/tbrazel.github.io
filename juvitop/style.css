@@ -1,0 +1,289 @@
+* { margin: 0; padding: 0; list-style-type: none; }
+
+body {
+    background-color: #1e1e1e;
+    color: white;
+    font: 14px Verdana, Arial, sans-serif;
+}
+
+a { color: #deb0ff; text-decoration: none;}
+a:visited { color: #deb0ff; }
+a:active { color: #00f; text-decoration: none;}
+a:hover { color: #9165b0; }
+
+sub {  font-size: .8em; line-height: 0; }
+sup {  font-size: .8em;  vertical-align: super;    line-height: 0; }
+
+h2, h3, h4 { font-weight: normal; }
+
+
+#header {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#header h1 {
+    font-size: 34px;
+    margin: 15px auto;
+}
+
+#content {
+    margin: 0 auto;
+    /* background-color: rgb(180, 180, 180); */
+    /* border-left-style:solid;
+    border-left-width: 40px;
+    border-left-color:rgb(0, 255, 0);*/
+    width: 570px;
+}
+
+#content > h1 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+p { margin-bottom: 10px; }
+
+#content > h2 {
+    margin: 0px 0px 25px auto;
+    font-size: 24px;
+    text-align: center;
+}
+
+#nav {
+    margin: 20px auto;
+    overflow: hidden;
+}
+#nav a {
+    padding: 4px 0;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    margin: 0 1px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    width: 49%;
+}
+#nav .active a,
+#nav a:hover {
+    color: #8850b0;
+    background: #1e1e1e;
+}
+
+
+.meta .date {
+    float: left;
+    margin-left: -85px;
+    margin-top: -4px;
+    padding: 5px;
+    width: 60px;
+    border: 2px solid black;
+    background: #62986f;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.meta .date b {
+    display: block;
+    font-weight: normal;
+    color: black;
+    font-size: 16px;
+    line-height: 22px;
+}
+.meta .datenow {
+    float: left;
+    margin-left: -85px;
+    margin-top: -4px;
+    padding: 5px;
+    width: 60px;
+    border: 2px solid black;
+    background: rgb(240, 20, 20);
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.meta .datenow b {
+    display: block;
+    font-weight: normal;
+    color: black;
+    font-size: 16px;
+    line-height: 22px;
+}
+.meta .datemon {
+    float: left;
+    margin-left: -85px;
+    margin-top: -4px;
+    padding: 5px;
+    width: 60px;
+    border: 2px solid black;
+    background: aqua;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.meta .datemon b {
+    display: block;
+    font-weight: normal;
+    color: black;
+    font-size: 16px;
+    line-height: 22px;
+}
+.meta .datenext {
+    float: left;
+    margin-left: -85px;
+    margin-top: -4px;
+    padding: 5px;
+    width: 60px;
+    border: 2px solid rgb(248, 142, 30);
+    background: black;
+    color: rgb(248, 142, 30);
+    text-align: center;
+    font-size: 14px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.meta .datenext b {
+    display: block;
+    font-weight: normal;
+    color: rgb(248, 142, 30);
+    font-size: 16px;
+    line-height: 22px;
+}
+.meta .calendar,
+.meta .poster {
+    float: right;
+    margin: -2px 5px 0 0;
+}
+.meta .calendar a,
+.meta .poster a {
+    display: block;
+    text-indent: 9000px;
+    overflow: hidden;
+    width: 20px;
+    height: 20px;
+}
+.meta .calendar a { background: url(img/calendar-gray.gif) 0 1px no-repeat; }
+.meta .calendar a:hover { background-image: url(img/calendar.gif); }
+.meta .poster a { background: url(img/pdf-gray.gif) 0 0 no-repeat; }
+.meta .poster a:hover { background-image: url(img/pdf.gif); }
+
+
+.talks { margin-top: 35px; }
+.talks > li {
+    margin-bottom: 45px;
+    line-height: 20px;
+    min-height: 55px;
+}
+
+.talk .title { /* title */
+    font-size: 20px;
+    margin-top: -6px;
+    margin-bottom: 10px;
+    line-height: 25px;
+    display: table;
+    max-width: 520px;
+    float: left;
+}
+.talk .title label { display: inline-block; width: 100%; }
+
+.talk .speaker {
+    float:left;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.talk .speaker span { font-size: 16px; } /* institution */
+
+/* A ul with this class encloses the non-meta part of each talk.
+ *  The point of it is to make it possible to clear the floated parts of the talk
+ *  without clearing the meta stuff.
+ */
+.talk_float {
+    float: left;
+    /* If the element is too wide, everything moves down to avoid passing underneath the google calendar icon. Prevent this!*/
+    /* This value can't be larger than 95% */
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.notes h3 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.notes strong {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.notes ul {
+    padding-bottom: 3px;
+    padding-left: 18px;
+}
+
+
+.notes li {
+    padding-top: 3px;
+    list-style-type: circle;
+}
+
+.talk .notice {
+    font: italic 14px Georgia;
+    color: #666;
+    margin: 0 0 10px 15px;
+}
+
+
+input { display: none;}
+.begroup { display: none;}
+
+.plusminus {
+    display: inline-block;
+    width: 20px;
+    background: url('img/plus.gif ') no-repeat;
+}
+input:checked ~ .plusminus { background-image: url('img/minus.gif'); }
+
+.talk .plusminus { /* This applies to the talk abstracts */
+    margin-top: -6px;
+    background-position: 100% 50%;
+    height: 25px;
+    float: left;
+}
+.talk .abstract { display: none; }
+.talk .notes { display: none; }
+.talk input:checked ~ .abstract { display: block; }
+.talk input:checked ~ .notes { display: block; }
+
+
+.semester h2 { /* semester level stuff for past talks */
+    color: #deb0ff;
+    text-transform: uppercase;
+    font: normal 16px Georgia;
+    text-align: center;
+    display: inline-block;
+    letter-spacing: 2px;
+    margin: 30px 0 25px;
+}
+
+.semester .talks { display:none; }
+.semester input:checked ~ .talks { display: block; }
+
+
+.semester h2 label { display: inline-block; width: 100%; }
+
+.semester h2 {
+    width: 570px;
+}
+
