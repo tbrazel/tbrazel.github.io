@@ -137,14 +137,81 @@
 						<div id="research">
 							<div id="researchInterests">
 								<h2 class="about_me" id="paragraph">Research</h2><br>
+								<p>I work at the interface of algebraic topology and algebraic geometry. In particular I'm interested in enriching results in classical enumerative algebraic geometry using modern tools (particularly motivic and equivariant homotopy theory).
+								</p>
+								
 
-								<p>I am interested in algebraic topology and algebraic geometry. In particular much of my research has focused on the interplay between enumerative geometry and homotopy theory, particularly motivic and equivariant homotopy theory.</p>
+								
 								<br>
 						
 						
 								<h3 id="research">Preprints:</h3>
 								<table class="papers-and-preprints">
 									<tbody>
+
+										<!-------------------------------->
+
+										<tr id="paper">
+											<td id="papernumber">(19)</td>
+											<td id="icons" class="paper-buttons">
+												<button id="evolutionshow" title="abstract" type="button" class="btn btn-info collapsed" data-toggle="collapse">
+													<i class="fa"></i>
+												</button>
+
+												<!-- <a href="papers/evolution.pdf" target=”_blank”>
+													<i title="pdf" class="fa-solid fa-file"></i>
+												</a> -->
+
+												
+											</td>
+											<td id="paperinfo">
+												<b>The evolution of enumerative geometry: a narrative from classical problems to enriched invariants</b>, with C. Bethea. <br>21 pages, 2025. Preprint.
+											</td>
+										</tr>
+
+										<tr id="evolutionabs" class="hideabstract">
+											<td></td>
+											<td></td>
+											<td>
+												<p>Enumerative geometry, which is the art and science of counting geometric objects satisfying specific conditions, has seen a resurgence of activity in recent years due to an influx of new techniques that allows for <i>enriched</i> computations. This paper offers a historical survey of enumerative geometry, starting with its classical origins and real counterparts, to the new frontier of quadratic enrichment. We include a brief survey of the paradigm shift initiated by Gromov-Witten theory, whose impact can be seen in recent results in quadratically enriched enumerative geometry. Finally, we conclude with an overview of emerging directions including random and equivariant enumerative geometry. By weaving these strands into a single narrative, we provide a panoramic overview of the field’s evolution and its ongoing transformation.</p>
+											</td>
+										</tr>
+
+										
+
+										<!-------------------------------->
+										<tr id="paper">
+										<td id="papernumber">(18)</td>
+										<td id="icons" class="paper-buttons">
+											<button id="cpm2show" title="abstract" type="button" class="btn btn-info collapsed" data-toggle="collapse">
+												<i class="fa"></i>
+											</button>
+											
+											<a href="papers/cpm2.pdf" target=”_blank”>
+												<i title="pdf" class="fa-solid fa-file"></i>
+											</a>
+
+											<!-- <a href="" target=”_blank”>
+												<img title="arXiV" class="arxiv" src="images/arxiv.png">
+											</a> -->
+
+											<a href="https://github.com/Macaulay2/M2/pull/3919" target="_blank">
+												<i title="code" class="fa-solid fa-code"></i>
+											</a>
+										</td>
+										<td id="paperinfo">
+											<b>$C_p$-Mackey functors in Macaulay2</b>, with D. Chan, B. Mudrak, B. Spitz, C. Vogeli, C. Wang, M. Zeng, and S. Zotine. <br>13 pages, 2025. Preprint.
+											
+										</td>
+
+										</tr>
+										<tr id="cpm2abs" class="hideabstract">
+											<td></td>
+											<td></td>
+											<td>
+												<p>We introduce the "CpMackeyFunctors" package for Macaulay2, which allows for computations with Mackey functors over a cyclic group of prime order.</p>
+											</td>
+										</tr>
 
 										<!-------------------------------->
 										<tr id="paper">
@@ -163,7 +230,7 @@
 												</a>
 											</td>
 											<td id="paperinfo">
-												<b>On algebraic vector bundles of rank 2 over smooth affine fourfolds</b>, with M. Opie and T. Syed. <br>37 pages, 2025. Preprint.
+												<b>On algebraic vector bundles of rank 2 over smooth affine fourfolds</b>, with M. Opie and T. Syed. <br>37 pages, 2025. Submitted.
 											</td>
 										</tr>
 
@@ -285,7 +352,7 @@
 
 						<!-- Papers -->
 
-						<h3 id="research">Papers:</h3>
+						<h3 id="research">Publications:</h3>
 
 						<table class="papers-and-preprints">
 							<tbody>
@@ -764,6 +831,8 @@
 	<!-- Show/collapse abstracts -->
 	<script>
 		var myPapers = [
+			"evolution",
+			"cpm2",
 			"fourfolds",
 			"BSLnc",
 			"K4",
