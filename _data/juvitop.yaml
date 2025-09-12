@@ -1,0 +1,85 @@
+talks:
+  - date: 2025-09-11
+    title: "An introduction to Bloch-Kato and the Milnor conjectures."
+    speaker: "Thomas Brazelton"
+    speaker_url: "https://tbrazel.github.io/"
+    abstract: "We will give an overview of ideas for the semester."
+    references:
+      - text: "Intro to [HW19]"
+
+  - date: 2025-09-18
+    title: "Milnor $K$-theory and étale cohomology"
+    speaker: "Rosie Shen"
+    speaker_url: "https://sites.google.com/view/wanchun-shen"
+    abstract: "tbd"
+    references:
+      - text: "tbd"
+
+  - date: 2025-09-25
+    title: "The transfer argument"
+    speaker: "Logan Hyslop"
+    speaker_url: "https://loganhyslop.github.io/"
+    abstract: "tbd"
+    references:
+      - text: "[HW19], Chapter 1"
+
+  - date: 2025-10-02
+    title: "Motivic complexes"
+    speaker: "Tyler Lane"
+    abstract: "tbd"
+
+  - date: 2025-10-09
+    title: "Hilbert 90$(n)$ and Bloch-Lichtenbaum"
+    speaker: "Thomas Brazelton"
+    speaker_url: "https://tbrazel.github.io/"
+    abstract: "tbd"
+
+  - date: 2025-10-16
+    title: "Norm varieties, Rost varieties, and Rost motives"
+    speaker: "Matt Broe"
+    speaker_url: "https://sites.google.com/view/mattbroe/home"
+    abstract: "tbd"
+
+  - date: 2025-10-23
+    title: "Equivariant motivic cohomology"
+    speaker: "tbd"
+    abstract: "tbd"
+
+  - date: 2025-10-30
+    title: "Motivic cohomology operations"
+    speaker: "Jonathan Buchanan"
+    abstract: "tbd"
+
+  - date: 2025-11-06
+    title: "Rost varieties exist"
+    speaker: "Isabel Longbottom"
+    speaker_url: "https://isabel-prime.github.io/"
+    abstract: "tbd"
+
+  - date: 2025-11-13
+    title: "Rost motives exist"
+    speaker: "Jeremy Hahn"
+    speaker_url: "https://web.mit.edu/~jhahn01/www/"
+    abstract: "tbd"
+
+  - date: 2025-11-20
+    title: "Tying up the proof"
+    speaker: "tbd"
+    abstract: "tbd"
+
+  - date: 2025-11-27
+    special: true
+    title: "🦃 Thanksgiving 🦃"
+    speaker: "(no talk)"
+
+  - date: 2025-12-04
+    title: "Application: Quillen-Lichtenbaum"
+    speaker: "Keita Allen"
+    speaker_url: "https://ktallen.github.io/"
+    abstract: "tbd"
+
+  - date: 2025-12-11
+    title: "Application: $K(\\mathbb{Z})$"
+    speaker: "Dhilan Lahoti"
+    speaker_url: "https://dhilanlahoti.com/"
+    abstract: "tbd"

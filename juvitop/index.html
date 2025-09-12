@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +55,6 @@
 
 <body>
 <div id="content">
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 
 <div id="header">
   <h1> Juvitop seminar (Fall 2025)</h1>
@@ -86,510 +88,67 @@
 </p>
 
 <ul class="talks" id="upcoming">
-
+{% assign talks = site.data.juvitop.talks | default: site.data.juvitop | sort: "date" %}
+{% for t in talks %}
   <li class="talk">
     <ul class="meta">
       <li class="date">
-        <b> Sept 11 </b>2025
+        <b>{{ t.date | date: "%b %-d" }}</b> {{ t.date | date: "%Y" }}
       </li>
     </ul>
-    <input id="09_11_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="09_11_2025">
-          An introduction to Bloch-Kato and the Milnor conjectures.
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://tbrazel.github.io/">
-          Thomas Brazelton
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        We will give an overview of ideas for the semester
-      </p>
-    </div>
-    <div class="notes">
-      <h3>
-        References:
-      </h3>
-      <ul>
-        <li>Intro to [HW19]</li>
-      </ul>
-    </div>
-  </li>
+    {% unless t.special %}
+    <input id="{{ t.date | date: "%m_%d_%Y" }}" type="checkbox">
+    {% endunless %}
 
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Sept 18 </b>2025
-      </li>
-    </ul>
-    <input id="09_18_2025" type="checkbox">
-  
     <ul class="talk_float">
       <h4 class="title">
-        <label for="09_18_2025">
-          Milnor $K$-theory and étale cohomology
+        {% unless t.special %}
+        <label for="{{ t.date | date: "%m_%d_%Y" }}">
+          {{ t.title }}
         </label>
+        {% else %}
+          {{ t.title }}
+        {% endunless %}
       </h4>
       <div style="clear: both;"></div>
-  
+
       <h3 class="speaker">
-        <a href="https://sites.google.com/view/wanchun-shen">
-          Rosie Shen
-        </a>
+        {% if t.speaker_url %}
+          <a href="{{ t.speaker_url }}">
+            {{ t.speaker }}
+          </a>
+        {% else %}
+          {{ t.speaker }}
+        {% endif %}
       </h3>
       <div style="clear: both;"></div>
     </ul>
-  
+
+    {% if t.abstract %}
     <div class="abstract">
       <p>
-        <b>Abstract:</b> tbd
+        {% if t.abstract_is_html %}{{ t.abstract }}{% else %}<b>Abstract:</b> {{ t.abstract }}{% endif %}
       </p>
     </div>
+    {% endif %}
+
+    {% if t.references and t.references.size > 0 %}
     <div class="notes">
-      <h3>
-        References:
-      </h3>
+      <h3>References:</h3>
       <ul>
+        {% for r in t.references %}
         <li>
-          tbd
+          {% if r.url %}<a href="{{ r.url }}">{{ r.text }}</a>{% else %}{{ r.text }}{% endif %}
         </li>
+        {% endfor %}
       </ul>
     </div>
+    {% endif %}
   </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Sept 25 </b>2025
-      </li>
-    </ul>
-    <input id="09_25_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="09_25_2025">
-          The transfer argument
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-
-      <h3 class="speaker">
-        <a href="https://loganhyslop.github.io/">
-          Logan Hyslop
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-      </ul>
-    
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-
-    <div class="notes">
-      <h3>
-        References:
-      </h3>
-      <ul>
-        <li>[HW19], Chapter 1</li>
-      </ul>
-    </div
-    </li>
-
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Oct 2 </b>2025
-      </li>
-    </ul>
-    <input id="10_02_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="10_02_2025">
-          Motivic complexes
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="">
-          Tyler Lane
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Oct 9 </b>2025
-      </li>
-    </ul>
-    <input id="10_09_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="10_09_2025">
-          Hilbert 90$(n)$ and Bloch-Lichtenbaum
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://tbrazel.github.io/">
-          Thomas Brazelton  
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Oct 16 </b>2025
-      </li>
-    </ul>
-    <input id="10_16_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="10_16_2025">
-          Norm varieties, Rost varieties, and Rost motives
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://sites.google.com/view/mattbroe/home">
-          Matt Broe
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Oct 23 </b>2025
-      </li>
-    </ul>
-    <input id="10_23_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="10_23_2025">
-          Equivariant motivic cohomology
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="">
-          <b>Speaker:</b> tbd
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Oct 30 </b>2025
-      </li>
-    </ul>
-    <input id="10_30_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="10_30_2025">
-          Motivic cohomology operations
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="">
-          Jonathan Buchanan
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Nov 6 </b>2025
-      </li>
-    </ul>
-    <input id="11_06_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="11_06_2025">
-          Rost varieties exist
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://isabel-prime.github.io/">
-          Isabel Longbottom
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Nov 13 </b>2025
-      </li>
-    </ul>
-    <input id="11_13_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="11_13_2025">
-          Rost motives exist
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://web.mit.edu/~jhahn01/www/">
-          Jeremy Hahn
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Nov 20 </b>2025
-      </li>
-    </ul>
-    <input id="11_20_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="11_20_2025">
-          Tying up the proof
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="">
-          <b>Speaker:</b> tbd
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Nov 27 </b>2025
-      </li>
-    </ul>
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        🦃 Thanksgiving 🦃
-      </h4><div style="clear: both;"></div>
-      <h3 class="speaker">
-        <a href="">
-          (no talk)
-        </a>
-      </h3>
-    </ul>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Dec 4 </b>2025
-      </li>
-    </ul>
-    <input id="12_04_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="12_04_2025">
-          Application: Quillen-Lichtenbaum
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://ktallen.github.io/">
-          Keita Allen
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Dec 11 </b>2025
-      </li>
-    </ul>
-    <input id="12_11_2025" type="checkbox">
-  
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="12_11_2025">
-          Application: $K(\mathbb{Z})$
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-  
-      <h3 class="speaker">
-        <a href="https://dhilanlahoti.com/">
-          Dhilan Lahoti
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-  
-    <div class="abstract">
-      <p>
-        <b>Abstract:</b> tbd
-      </p>
-    </div>
-  </li>
-
-
-
- <!-- next talk gets inserted here -->
-
-
+{% endfor %}
 </ul>
+
+
 </div>
 </body>
 </html>
-<!-- single talk html template: date, title, speaker, abstract, notes -->
-<!--
-  <li class="talk">
-    <ul class="meta">
-      <li class="date">
-        <b> Mon ## </b>2024
-      </li>
-    </ul>
-    <input id="##_##_####" type="checkbox" checked="">
-
-    <ul class="talk_float">
-      <h4 class="title">
-        <label for="##_##_####">
-          Title TBA
-        </label>
-      </h4>
-      <div style="clear: both;"></div>
-
-      <h3 class="speaker">
-        <a href="speaker link">
-          Talk speaker
-        </a>
-      </h3>
-      <div style="clear: both;"></div>
-    </ul>
-
-    <div class="abstract">
-      <p>
-        Abstract to appear
-      </p>
-    </div>
-
-    <div class="notes">
-      <h3>
-        References:
-      </h3>
-      <ul>
-        <li>
-          <a href="notes link 1">Notes title 1</a> by notes author 1.
-        </li>
-        <li>
-          <a href="notes link 2">Notes title 2</a> by notes author 2.
-        </li>
-      </ul>
-    </div>
-  </li>
--->
