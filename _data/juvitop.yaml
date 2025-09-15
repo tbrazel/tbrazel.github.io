@@ -11,66 +11,89 @@ talks:
     title: "Milnor $K$-theory and étale cohomology"
     speaker: "Rosie Shen"
     speaker_url: "https://sites.google.com/view/wanchun-shen"
-    abstract: "tbd"
+    abstract: "tbd - define étale cohomology and Milnor $K$-theory. Give examples. Discuss residue homomorphisms on Milnor $K$-theory, and define norm residue maps"
     references:
-      - text: "tbd"
+      - text: "Algebraic $K$-theory and quadratic forms, Milnor, 1970"
+      - text: "Introduction to algebraic $K$-theory (Section 15), Milnor"
+      - text: "Étale cohomology, Milne"
 
   - date: 2025-09-25
     title: "The transfer argument"
     speaker: "Logan Hyslop"
     speaker_url: "https://loganhyslop.github.io/"
-    abstract: "tbd"
+    abstract: "tbd - explain the primary reductions we have"
     references:
       - text: "[HW19], Chapter 1"
 
   - date: 2025-10-02
     title: "Motivic complexes"
     speaker: "Tyler Lane"
-    abstract: "tbd"
+    speaker_url: ""
+    abstract: "tbd - explain sheaves with transfers, and what properties their cohomology enjoys. Give examples. Explain chain complexes of sheaves, and hypercohomology. Define (if possible) the motivic complexes $\\mathbb{Z}(q)$ and $\\mathbb{Z}/\\ell(q)$"
+    references:
+      - text: "Lectures 2-5 of Mazza-Voevovsky-Weibel"
 
   - date: 2025-10-09
     title: "Hilbert 90$(n)$ and Bloch-Lichtenbaum"
     speaker: "Thomas Brazelton"
     speaker_url: "https://tbrazel.github.io/"
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapters 2-3"
 
   - date: 2025-10-16
     title: "Norm varieties, Rost varieties, and Rost motives"
     speaker: "Matt Broe"
     speaker_url: "https://sites.google.com/view/mattbroe/home"
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapter 4"
 
   - date: 2025-10-23
     title: "Equivariant motivic cohomology"
     speaker: "tbd"
+    speaker_url: ""
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapters 8 and 14"
 
   - date: 2025-10-30
     title: "Motivic cohomology operations"
     speaker: "Jonathan Buchanan"
+    speaker_url: ""
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapter 13"
 
   - date: 2025-11-06
     title: "Rost varieties exist"
     speaker: "Isabel Longbottom"
     speaker_url: "https://isabel-prime.github.io/"
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapters 10-11"
 
   - date: 2025-11-13
     title: "Rost motives exist"
     speaker: "Jeremy Hahn"
     speaker_url: "https://web.mit.edu/~jhahn01/www/"
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapters 5-7"
 
   - date: 2025-11-20
     title: "Tying up the proof"
     speaker: "tbd"
+    speaker_url: ""
     abstract: "tbd"
+    references:
+      - text: "[HW19], Chapters 1 and 15"
 
   - date: 2025-11-27
     special: true
     title: "🦃 Thanksgiving 🦃"
     speaker: "(no talk)"
+    
 
   - date: 2025-12-04
     title: "Application: Quillen-Lichtenbaum"
