@@ -51,8 +51,8 @@ talks:
 
   - date: 2025-10-23
     title: "Equivariant motivic cohomology"
-    speaker: "tbd"
-    speaker_url: ""
+    speaker: "Logan Hyslop"
+    speaker_url: "https://loganhyslop.github.io/"
     abstract: "tbd"
     references:
       - text: "[HW19], Chapters 8 and 14"
