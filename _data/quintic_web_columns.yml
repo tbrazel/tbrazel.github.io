@@ -1,0 +1,40 @@
+# declare columns, their labels, and a type so Liquid knows how to render each
+
+- key: name
+  label: Curve name
+  type: text
+- key: curve_pic
+  label: Picture of a representative
+  type: image          # expects { src, alt }
+
+- key: tableau
+  label: Tableau
+  type: markdown
+
+- key: web
+  label: Web
+  type: image          # expects { src, alt }
+
+- key: promotion_order
+  label: Promotion order
+  type: int
+
+- key: orbits
+  label: Dihedral orbits
+  type: markdown
+
+
+
+
+
+
+
+
+# a few extra examples you can use any time:
+# - key: link
+#   label: Link
+#   type: link           # expects { href, text }
+
+# - key: details_md
+#   label: Details
+#   type: markdown       # render small markdown safely
