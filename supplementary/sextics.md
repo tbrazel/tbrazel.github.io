@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sextics and 3x4 webs
+title: Maximally inflected sextics and webs for 3x5 tableaux
 ---
 
 {% include render_table.html

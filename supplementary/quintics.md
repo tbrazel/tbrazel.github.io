@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Maximally inflected curves and webs
+title: Maximally inflected quintics and webs for 3x3 tableaux
 ---
 
 {% include render_table.html
