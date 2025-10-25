@@ -1,0 +1,86 @@
+- id: type01
+  gap_id: [ 648, 704 ]
+  normalizer_id: [ 1296, 3490 ]
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id: [ 2, 1 ]
+  normalizer_mod_grp_solvable: 'true'
+
+
+- id: type02
+  gap_id: [ 120, 34 ]
+  normalizer_id: [ 240, 189 ]
+  normalizer_solvable: 'false'
+  normalizer_mod_grp_id: [ 2, 1 ]
+  normalizer_mod_grp_solvable: true
+
+
+- id: type03
+  gap_id: [ 108, 15 ]
+  normalizer_id: [ 432, 520 ]
+  normalizer_solvable : 'true'
+  normalizer_mod_grp_id: [ 4, 2 ]
+  normalizer_mod_grp_solvable: 'true'
+
+
+- id: type04
+  gap_id: [ 54, 8 ]
+  normalizer_id: [ 1296, 2891 ]
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id: [ 24, 12 ]
+  normalizer_mod_grp_solvable : 'true'
+
+
+- id: type05
+  gap_id: [ 24, 12 ]
+  normalizer_id: [ 96, 226 ]
+  normalizer_solvable: true
+  normalizer_mod_grp_id: [ 4, 2 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type06
+  gap_id: [ 12, 4 ]
+  normalizer_id: [ 72, 46 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 6, 1 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type07
+  gap_id: [ 8, 1 ]
+  normalizer_id: [ 32, 43 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 4, 2 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type08
+  gap_id: [ 6, 1 ]
+  normalizer_id: [ 216, 162 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 36, 10 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type09
+  gap_id: [ 4, 1 ]
+  normalizer_id: [ 192, 988 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 48, 48 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type10
+  gap_id: [ 4, 2 ]
+  normalizer_id: [ 192, 1472 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 48, 48 ]
+  normalizer_mod_grp_solvable : true
+
+
+- id: type11
+  gap_id: [ 2, 1 ]
+  normalizer_id: [ 1152, 157478 ]
+  normalizer_solvable : true
+  normalizer_mod_grp_id: [ 576, 8654 ]
+  normalizer_mod_grp_solvable : true

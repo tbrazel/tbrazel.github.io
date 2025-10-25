@@ -1,0 +1,41 @@
+# declare columns, their labels, and a type so Liquid knows how to render each
+
+- key: type
+  label: Type
+  type: markdown
+
+- key: grp_name
+  label: Group name
+  type: markdown
+
+- key: gap_id
+  label: GAP id
+  type: markdown
+
+- key: normalizer_id
+  label: Normalizer id
+  type: markdown
+
+- key: normalizer_solvable
+  label: Normalizer solvable?
+  type: markdown
+
+- key: normalizer_mod_grp_id
+  label: Normalizer mod group (id)
+  type: markdown
+
+- key: normalizer_mod_grp_solvable
+  label: Normalizer mod group solvable?
+  type: markdown
+
+
+
+
+# a few extra examples you can use any time:
+# - key: link
+#   label: Link
+#   type: link           # expects { href, text }
+
+# - key: details_md
+#   label: Details
+#   type: markdown       # render small markdown safely
