@@ -4,6 +4,7 @@
   gap_id: '[ 168, 42 ]'
   normalizer_id: '[ 168, 42 ]'
   type: 1
+  grp_name: \\(\\mathrm{PSL}_2(7)\\)
 - id: type02
   gap_id: '[ 96, 64 ]'
   normalizer_id: '[ 96, 64 ]'
@@ -11,6 +12,7 @@
     src: /assets/img/symmetric_quartics_and_bitangents/02.png
     alt: no real points
   type: 2
+  grp_name: \\(C_4^{\\times 2}\\rtimes S_3\\)
 - id: type03
   gap_id: '[ 48, 33 ]'
   normalizer_id: '[ 48, 33 ]'
@@ -18,57 +20,67 @@
     src: /assets/img/symmetric_quartics_and_bitangents/03.png
     alt: no real points
   type: 3
+  grp_name: \\(C_4\\circledcirc A_4\\)
 - id: type04
   gap_id: '[ 24, 12 ]'
   normalizer_id: '[ 24, 12 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/04.png
   type: 4
+  grp_name: \\(S_4\\)
 - id: type05
   gap_id: '[ 16, 13 ]'
   normalizer_id: '[ 16, 13 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/05.png
   type: 5
+  grp_name: \\(P\\)
 - id: type06
   gap_id: '[ 9, 1 ]'
   normalizer_id: '[ 9, 1 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/06.png
   type: 6
+  grp_name: \\(C_9\\)
 - id: type07
   gap_id: '[ 8, 3 ]'
   normalizer_id: '[ 8, 3 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/07.png
   type: 7
+  grp_name: \\(D_8\\)
 - id: type08
   gap_id: '[ 6, 2 ]'
   normalizer_id: '[ 6, 2 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/08.png
   type: 8
+  grp_name: \\(C_6\\)
 - id: type09
   gap_id: '[ 6, 1 ]'
   normalizer_id: '[ 6, 1 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/09.png
   type: 9
+  grp_name: \\(S_3\\)
 - id: type10
   gap_id: '[ 4, 2 ]'
   normalizer_id: '[ 4, 2 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/10.png
   type: 10
+  grp_name: \\(K_4\\)
 - id: type11
   gap_id: '[ 3, 1 ]'
   normalizer_id: '[ 3, 1 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/11.png
   type: 11
+  grp_name: \\(C_3\\)
 - id: type12
   gap_id: '[ 2, 1 ]'
   normalizer_id: '[ 2, 1 ]'
   visualization:
     src: /assets/img/symmetric_quartics_and_bitangents/12.png
   type: 12
+  grp_name: \\(C_2\\)
