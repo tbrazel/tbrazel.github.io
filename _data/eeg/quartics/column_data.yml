@@ -4,6 +4,10 @@
   label: Type
   type: markdown
 
+- key: visualization
+  label: Picture
+  type: image          # expects { src, alt }
+
 - key: grp_name
   label: Group name
   type: markdown
