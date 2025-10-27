@@ -20,6 +20,14 @@
   label: Normalizer id
   type: markdown
 
+- key: centralizer_id
+  label: Centralizer id
+  type: markdown
+
+- key: centralizer_solvable
+  label: Centralizer solvable?
+  type: markdown
+
 - key: normalizer_solvable
   label: Normalizer solvable?
   type: markdown
