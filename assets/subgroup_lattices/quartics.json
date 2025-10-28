@@ -1,0 +1,34 @@
+{
+  "nodes": [
+  {"id":"Type 1","tier":"top"},
+  {"id":"Type 2","tier":"top"},
+  {"id":"Type 3","tier":"top"},
+  {"id":"Type 4"},
+  {"id":"Type 5"},
+  {"id":"Type 6","tier":"top"},
+  {"id":"Type 7"},
+  {"id":"Type 8"},
+  {"id":"Type 9"},
+  {"id":"Type 10"},
+  {"id":"Type 11"},
+  {"id":"Type 12"},
+  {"id":"e","tier":"bottom"}
+  ],
+  "links": [
+    {"source":"Type 4","target":"Type 1","weight":1}, 
+    {"source":"Type 4","target":"Type 2","weight":1}, 
+    {"source":"Type 5","target":"Type 2","weight":1},
+    {"source":"Type 5","target":"Type 3","weight":1},
+    {"source":"Type 8","target":"Type 3","weight":1},
+    {"source":"Type 11","target":"Type 8","weight":1},
+    {"source":"Type 11","target":"Type 6","weight":1},
+    {"source":"Type 7","target":"Type 5","weight":1},
+    {"source":"Type 7","target":"Type 4","weight":1},
+    {"source":"Type 9","target":"Type 4","weight":1},
+    {"source":"Type 10","target":"Type 7","weight":1}, 
+    {"source":"Type 12","target":"Type 10","weight":1},
+    {"source":"Type 12","target":"Type 9","weight":1}, 
+    {"source":"e","target":"Type 12","weight":1},
+    {"source":"e","target":"Type 11","weight":1}
+  ]
+}

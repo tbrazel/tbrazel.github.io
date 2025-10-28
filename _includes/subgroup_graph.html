@@ -1,0 +1,7 @@
+<div
+  id="{{ include.id | default: 'graph-' | append: include.unique | default: '' }}"
+  class="d3-graph"
+  data-json="{{ include.json | relative_url }}"
+  {% if include.height %} data-height="{{ include.height }}" {% endif %}
+  style="width: {{ include.width | default: '80%' }}; margin: 0 auto; border: 1px solid #000;"
+></div>
