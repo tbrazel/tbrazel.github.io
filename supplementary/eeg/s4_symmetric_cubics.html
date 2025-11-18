@@ -21,6 +21,21 @@
       /* Link styling */
       a { color: #58a6ff; text-decoration: none; }
     </style>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$","$"], ["\\(","\\)"]],
+          displayMath: [["$$","$$"], ["\\[","\\]"]],
+          processEscapes: true
+        },
+        options: {
+          skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <div id="viewport"></div>
@@ -28,10 +43,14 @@
     <div id="hint">Drag = orbit • Right-drag = pan • Wheel = zoom • Double-click = recenter</div>
 
     <!-- TODO set default panel values via JS -->
-    <div id="panel">
-      <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.1" value="-0.7"> <span id="aVal" class="val">-3.6</span></label>
-      <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.1" value="2.1"> <span id="bVal" class="val">6.1</span></label>
-      <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.1" value="1.0"> <span id="cVal" class="val">5.9</span></label>
+    <div id="panel" style="max-width: 400px;width:30%;min-width: 200px;">
+      <h3>Lines on $S_4$-symmetric cubic surfaces</h3>
+      <p>A general symmetric cubic surface is defined by <br>$a\sum x_i^3 + b\sum x_i^2 x_j + c\sum x_i x_j x_k$.<br>
+      While there is no formula in radicals for lines on a general cubic surface, <a href="https://tbrazel.github.io/papers/bitangents.pdf">joint work with S. Raman</a> proves the existence of such formulas for $S_4$-symmetric cubic surfaces. This allows us to easily graph the lines by using their exact symbolic formulas!
+      </p>
+      <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.1" value="-0.7" style="width: 100%;"> <span id="aVal" class="val">-3.6</span></label>
+      <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.1" value="2.1" style="width: 100%;"> <span id="bVal" class="val">6.1</span></label>
+      <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.1" value="1.0" style="width: 100%;"> <span id="cVal" class="val">5.9</span></label>
     </div>
 
     <!-- Import map lets us use bare module specifiers for three.js and its examples -->
@@ -206,8 +225,8 @@
       const inBox = (x,y,z,min=BOUNDS_MIN,max=BOUNDS_MAX) => (x>=min && x<=max && y>=min && y<=max && z>=min && z<=max);
 
       // Range of t values for plotting lines
-      const t_min = -30;
-      const t_max = 30;
+      const t_min = -40;
+      const t_max = 40;
 
       // D8 tritangent //////////////////////////
       const tritan_1_geometry = new THREE.BufferGeometry();
@@ -226,7 +245,7 @@
         ));
       tritan_2_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_2_pos,3));
       tritan_3_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_3_pos,3));
-      const tritangent_material = new THREE.LineBasicMaterial({ color: 0xBF0000, transparent: true, opacity: 0.95 });
+      const tritangent_material = new THREE.LineBasicMaterial({ color: 0xBF0000, transparent: true, opacity: 0.95,linewidth: 3 });
 
       const tritan_1 = new THREE.Line(tritan_1_geometry, tritangent_material); // Now define the tritangent lines
       const tritan_2 = new THREE.Line(tritan_2_geometry, tritangent_material);
@@ -291,7 +310,7 @@
       // are two of each, so we get 12a and 12b
 
       // odd line material
-      const odd_mat = new THREE.LineBasicMaterial({ color: 0x0314D1, transparent: true, opacity: 0.95 });
+      const odd_mat = new THREE.LineBasicMaterial({ color: 0x0314D1, transparent: true, opacity: 0.95,linewidth: 3 });
       odd_mat.clippingPlanes = null;
 
       // (1 2) line a
@@ -444,7 +463,7 @@
       //      Even lines      //
       //////////////////////////
 
-      const even_mat = new THREE.LineBasicMaterial({ color: 0x03A61E, transparent: true, opacity: 0.95,linewidth: 30 });
+      const even_mat = new THREE.LineBasicMaterial({ color: 0x03A61E, transparent: true, opacity: 0.95,linewidth: 3 });
       even_mat.clippingPlanes = null;
 
       // (1 2)(3 4) line a
