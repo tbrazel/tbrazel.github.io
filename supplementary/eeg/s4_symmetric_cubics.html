@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lines on symmetric cubic surfaces</title>
+    <style>
+      /* Page baseline (colors & full-viewport canvas) */
+      html, body { height: 100%; margin: 0; background: #0b0c10; color: #eaecef; }
+      /* Canvas container: fixed to fill window */
+      #viewport { position: fixed; inset: 0; }
+      /* Make the WebGL canvas match the container size exactly */
+      #viewport canvas { width: 100%; height: 100%; display: block; }
+      /* Small usage hint badge */
+      #hint { position: fixed; left: 10px; bottom: 10px; font: 12px/1.3 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; opacity: .75; background: rgba(14,17,22,.65); border: 1px solid #30363d; padding: 6px 8px; border-radius: 8px; }
+      /* Slider panel for parameters a,b,c */
+      #panel { position: fixed; top: 10px; left: 10px; background: rgba(14,17,22,.85); border: 1px solid #30363d; padding: 8px 10px; border-radius: 8px; font: 12px/1.3 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; }
+      #panel label { display: grid; grid-template-columns: 20px 1fr 44px; align-items: center; gap: 8px; margin: 6px 0; }
+      #panel input[type="range"] { width: 160px; }
+      #panel .val { text-align: right; opacity: .85; font-variant-numeric: tabular-nums; }
+      /* Link styling */
+      a { color: #58a6ff; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div id="viewport"></div>
+
+    <div id="hint">Drag = orbit • Right-drag = pan • Wheel = zoom • Double-click = recenter</div>
+
+    <!-- TODO set default panel values via JS -->
+    <div id="panel">
+      <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.1" value="-0.7"> <span id="aVal" class="val">-3.6</span></label>
+      <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.1" value="2.1"> <span id="bVal" class="val">6.1</span></label>
+      <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.1" value="1.0"> <span id="cVal" class="val">5.9</span></label>
+    </div>
+
+    <!-- Import map lets us use bare module specifiers for three.js and its examples -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+      }
+    }
+    </script>
+
+    <script type="module">
+
+
+      // Use modern JS modules: import three.js core, OrbitControls, and MarchingCubes
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
+
+      // Set default values for a,b,c
+      const default_a = 0;
+      const default_b = 0;
+      const default_c = 0;
+
+      // ----------------------- CONFIG / MATH -----------------------
+      // Implicit function F(x,y,z; a,b,c).
+      // NOTE: Avoid non-integer exponent like x**y (NaN for x<0 and non-integer y).
+      // This version is a cubic polynomial in x,y,z.
+      const F = (x, y, z, a, b, c) => {
+        const x2 = x*x, y2 = y*y, z2 = z*z;
+        const x3 = x2*x, y3 = y2*y, z3 = z2*z;
+        return (
+          a * (x3 + y3 + z3 + 1) +
+          b * (
+            x2*y + x2*z + x2 +
+            y2*x + y2*z + y2 +
+            z2*x + z2*y + z2 +
+            x + y + z
+          ) +
+          c * (x*y*z + x*y + x*z + y*z)
+        );
+      };
+      // ISO: which iso-value to extract (0 means F==0).
+      // RESOLUTION: grid samples per axis (higher = smoother, slower).
+      // BOUNDS: we sample only inside [-5,5]^3; outside is ignored.
+      const ISO = 0.0;           // Extract F = ISO
+      const RESOLUTION = 61;     // Higher res since the domain is larger
+      const BOUNDS_MIN = -5.0;   // Sample volume is the cube [-5,5]^3
+      const BOUNDS_MAX =  5.0;
+
+      // Parametric line p(t) used for the red polyline demo (independent of the green line below).
+      const t0 = 0.0, t1 = 1.0, SAMPLES = 400;
+      const px = (t) => 0.5 * Math.cos(6*t);
+      const py = (t) => 0.5 * Math.sin(6*t);
+      const pz = (t) => -0.8 + 1.6 * t; // linear z from -0.8 to 0.8
+
+      // ----------------------- THREE BASICS -----------------------
+      const container = document.getElementById('viewport');
+      // WebGL renderer; attach to #viewport
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      // cap devicePixelRatio to avoid overdraw on HiDPI
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+      renderer.localClippingEnabled = true;
+
+      const scene = new THREE.Scene();
+      
+      // dark background to match UI
+      scene.background = new THREE.Color(0x0b0c10);
+
+      // Clipping planes to confine lines to the domain box [BOUNDS_MIN, BOUNDS_MAX]^3
+      const clipPlanes = [
+        new THREE.Plane(new THREE.Vector3( 1, 0, 0), -BOUNDS_MAX), // x ≤ max
+        new THREE.Plane(new THREE.Vector3(-1, 0, 0),  BOUNDS_MIN), // x ≥ min
+        new THREE.Plane(new THREE.Vector3( 0, 1, 0), -BOUNDS_MAX), // y ≤ max
+        new THREE.Plane(new THREE.Vector3( 0,-1, 0),  BOUNDS_MIN), // y ≥ min
+        new THREE.Plane(new THREE.Vector3( 0, 0, 1), -BOUNDS_MAX), // z ≤ max
+        new THREE.Plane(new THREE.Vector3( 0, 0,-1),  BOUNDS_MIN)  // z ≥ min
+      ];
+
+      // Perspective camera; we keep framing locked in frameAll()
+      const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 200);
+      camera.position.set(8, 6, 10); // start zoomed way out
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      // enableDamping smooths camera motion
+      // minDistance/maxDistance limit zoom range
+      // target is the point camera looks at and orbits around
+      controls.enableDamping = true;
+      controls.minDistance = 0.5;   // how close you can zoom
+      controls.maxDistance = 50;    // how far you can zoom
+      controls.zoomSpeed = 2.0;     // feel free to adjust
+      controls.target.set(0, 0, 0);
+      controls.update(); // apply the new target before first render
+
+      camera.lookAt(0, 0, 0);
+
+      // Lights: soft hemisphere + directional key light
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x223344, 0.6);
+      scene.add(hemi);
+      const dir = new THREE.DirectionalLight(0xffffff, 0.85);
+      dir.position.set(2, 3, 1);
+      scene.add(dir);
+
+      // Grid and axes at the origin for orientation
+      const grid = new THREE.GridHelper(10, 50, 0x334155, 0x1f2937); // 10 units across => [-5,5]
+      grid.position.set(0, 0, 0); // place grid on XZ-plane through the origin (y=0)
+      // scene.add(grid);
+      // scene.add(new THREE.AxesHelper(3)); // show RGB axes at the origin
+
+      // --- Axis Labels (X, Y, Z) using canvas-based Sprites ---
+      function makeAxisLabel(text, color) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 256; canvas.height = 128;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = 'rgba(0,0,0,0)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.font = 'bold 42px system-ui, -apple-system, Segoe UI, Roboto';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = color;
+        ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+        ctx.lineWidth = 8;
+        ctx.strokeText(text, canvas.width/2, canvas.height/2);
+        ctx.fillText(text, canvas.width/2, canvas.height/2);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+        const sprite = new THREE.Sprite(material);
+        sprite.scale.set(0.8, 0.4, 1); // world units (w,h)
+        sprite.renderOrder = 999; // draw on top
+        return sprite;
+      }
+
+      const xLabel = makeAxisLabel('X', '#ff5555');
+      const yLabel = makeAxisLabel('Y', '#55ff55');
+      const zLabel = makeAxisLabel('Z', '#5599ff');
+      // Place labels just beyond the domain box so they are easy to read
+      xLabel.position.set(5.8, 0.0, 0.0);
+      yLabel.position.set(0.0, 5.8, 0.0);
+      zLabel.position.set(0.0, 0.0, 5.8);
+      scene.add(xLabel, yLabel, zLabel);
+
+
+      // Domain wireframe: visual confirmation of the sampling cube [-5,5]^3
+      const domainEdges = new THREE.EdgesGeometry(new THREE.BoxGeometry(10, 10, 10));
+      const domainMat = new THREE.LineBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.2 });
+      const domainBox = new THREE.LineSegments(domainEdges, domainMat);
+      // BoxGeometry is centered at origin, so this outlines [-5,5]^3 directly
+      // scene.add(domainBox);
+
+      // Red dot marks the exact origin (0,0,0)
+      // const dotGeometry = new THREE.SphereGeometry(0.05, 32, 32); // radius 0.05
+      // const dotMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+      // const originDot = new THREE.Mesh(dotGeometry, dotMaterial);
+      // originDot.position.set(0, 0, 0);
+      // scene.add(originDot);
+
+      // ---------------- PARAMETER-DRIVEN LINES (depend on a,b,c) ----------------
+      // We draw smooth lines that stay inside [-5,5]^3 and update on slider input
+      const LINE_SAMPLES = 1000; // higher = smoother
+      
+
+      ////////////////////////
+      //      Lines         //
+      ////////////////////////
+
+      // Boolean to check if we're in the display box for lines
+      const inBox = (x,y,z,min=BOUNDS_MIN,max=BOUNDS_MAX) => (x>=min && x<=max && y>=min && y<=max && z>=min && z<=max);
+
+      // Range of t values for plotting lines
+      const t_min = -30;
+      const t_max = 30;
+
+      // D8 tritangent //////////////////////////
+      const tritan_1_geometry = new THREE.BufferGeometry();
+      const tritan_2_geometry = new THREE.BufferGeometry();
+      const tritan_3_geometry = new THREE.BufferGeometry();
+
+      const tritan_1_pos = new Float32Array(LINE_SAMPLES*3);
+      const tritan_2_pos = new Float32Array(LINE_SAMPLES*3);
+      const tritan_3_pos = new Float32Array(LINE_SAMPLES*3);
+
+      tritan_1_geometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(
+          tritan_1_pos,       // Float32Array
+          3                   // itemSize of the array (how many numbers per vertex)
+        ));
+      tritan_2_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_2_pos,3));
+      tritan_3_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_3_pos,3));
+      const tritangent_material = new THREE.LineBasicMaterial({ color: 0xBF0000, transparent: true, opacity: 0.95 });
+
+      const tritan_1 = new THREE.Line(tritan_1_geometry, tritangent_material); // Now define the tritangent lines
+      const tritan_2 = new THREE.Line(tritan_2_geometry, tritangent_material);
+      const tritan_3 = new THREE.Line(tritan_3_geometry, tritangent_material);
+
+      // Make tritans draw on top: no depth test/write and high renderOrder
+      tritan_1.material = tritangent_material.clone();
+      tritan_1.material.depthTest = false;
+      tritan_1.material.depthWrite = false;
+      tritan_1.renderOrder = 1000;
+
+      tritan_2.material = tritangent_material.clone();
+      tritan_2.material.depthTest = false;
+      tritan_2.material.depthWrite = false;
+      tritan_2.renderOrder = 1000;
+
+      tritan_3.material = tritangent_material.clone();
+      tritan_3.material.depthTest = false;
+      tritan_3.material.depthWrite = false;
+      tritan_3.renderOrder = 1000;
+      
+      // PLOT TRITANGENTS
+      for (let s = 0; s < LINE_SAMPLES; s++) {
+        const t = THREE.MathUtils.lerp(t_min,t_max, s/(LINE_SAMPLES-1));
+        const x1 = t;
+        const y1 = -t;
+        const z1 = -1;
+        const i = s * 3;
+        if (inBox(x1,y1,z1)) {
+          tritan_1_pos[i] = x1; tritan_1_pos[i + 1] = y1; tritan_1_pos[i + 2] = z1;
+        } else {
+          tritan_1_pos[i] = NaN; tritan_1_pos[i + 1] = NaN; tritan_1_pos[i + 2] = NaN;
+        }
+        const x2 = t;
+        const y2 = -1;
+        const z2 = -t;
+        if (inBox(x2,y2,z2)) {
+          tritan_2_pos[i] = x2; tritan_2_pos[i + 1] = y2; tritan_2_pos[i + 2] = z2;
+        } else {
+          tritan_2_pos[i] = NaN; tritan_2_pos[i + 1] = NaN; tritan_2_pos[i + 2] = NaN;
+        }
+
+        const x3 = -1;
+        const y3 = t;
+        const z3 = -t;
+        if (inBox(x3,y3,z3)) {
+          tritan_3_pos[i] = x3; tritan_3_pos[i + 1] = y3; tritan_3_pos[i + 2] = z3;
+        } else {
+          tritan_3_pos[i] = NaN; tritan_3_pos[i + 1] = NaN; tritan_3_pos[i + 2] = NaN;
+        }
+
+
+      };
+
+      
+      scene.add(tritan_1)
+      scene.add(tritan_2)
+      scene.add(tritan_3)
+
+      // ODD LINES
+      // Numbering them by isotropy -- odd_12 is a line with isotropy (1 2) and there
+      // are two of each, so we get 12a and 12b
+
+      // odd line material
+      const odd_mat = new THREE.LineBasicMaterial({ color: 0x0314D1, transparent: true, opacity: 0.95 });
+      odd_mat.clippingPlanes = null;
+
+      // (1 2) line a
+      const odd_12a_geometry = new THREE.BufferGeometry();
+      const odd_12a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_12a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_12a_pos, 3));
+      const odd_12a = new THREE.Line(odd_12a_geometry, odd_mat);
+      odd_12a.material = odd_mat.clone();
+      odd_12a.material.depthTest = false;
+      odd_12a.material.depthWrite = false;
+      odd_12a.renderOrder = 1000;
+      // odd_12a.frustumCulled = false;
+      
+      // (1 2) line b
+      const odd_12b_geometry = new THREE.BufferGeometry();
+      const odd_12b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_12b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_12b_pos, 3));
+      const odd_12b = new THREE.Line(odd_12b_geometry, odd_mat);
+      // Render on top of surface
+      odd_12b.material = odd_mat.clone();
+      odd_12b.material.depthTest = false;
+      odd_12b.material.depthWrite = false;
+      odd_12b.renderOrder = 1000;
+      
+      // (1 3) line a
+      const odd_13a_geometry = new THREE.BufferGeometry();
+      const odd_13a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_13a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_13a_pos, 3));
+      const odd_13a = new THREE.Line(odd_13a_geometry, odd_mat);
+      // Render on top of surface
+      odd_13a.material = odd_mat.clone();
+      odd_13a.material.depthTest = false;
+      odd_13a.material.depthWrite = false;
+      odd_13a.renderOrder = 1000;
+      
+      // (1 3) line b
+      const odd_13b_geometry = new THREE.BufferGeometry();
+      const odd_13b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_13b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_13b_pos, 3));
+      const odd_13b = new THREE.Line(odd_13b_geometry, odd_mat);
+      // Render on top of surface
+      odd_13b.material = odd_mat.clone();
+      odd_13b.material.depthTest = false;
+      odd_13b.material.depthWrite = false;
+      odd_13b.renderOrder = 1000;
+      
+      // (1 4) line a
+      const odd_14a_geometry = new THREE.BufferGeometry();
+      const odd_14a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_14a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_14a_pos, 3));
+      const odd_14a = new THREE.Line(odd_14a_geometry, odd_mat);
+      // Render on top of surface
+      odd_14a.material = odd_mat.clone();
+      odd_14a.material.depthTest = false;
+      odd_14a.material.depthWrite = false;
+      odd_14a.renderOrder = 1000;
+      
+      // (1 4) line b
+      const odd_14b_geometry = new THREE.BufferGeometry();
+      const odd_14b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_14b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_14b_pos, 3));
+      const odd_14b = new THREE.Line(odd_14b_geometry, odd_mat);
+      // Render on top of surface
+      odd_14b.material = odd_mat.clone();
+      odd_14b.material.depthTest = false;
+      odd_14b.material.depthWrite = false;
+      odd_14b.renderOrder = 1000;
+      
+      // (2 3) line a
+      const odd_23a_geometry = new THREE.BufferGeometry();
+      const odd_23a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_23a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_23a_pos, 3));
+      const odd_23a = new THREE.Line(odd_23a_geometry, odd_mat);
+      // Render on top of surface
+      odd_23a.material = odd_mat.clone();
+      odd_23a.material.depthTest = false;
+      odd_23a.material.depthWrite = false;
+      odd_23a.renderOrder = 1000;
+      
+      // (2 3) line b
+      const odd_23b_geometry = new THREE.BufferGeometry();
+      const odd_23b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_23b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_23b_pos, 3));
+      const odd_23b = new THREE.Line(odd_23b_geometry, odd_mat);
+      // Render on top of surface
+      odd_23b.material = odd_mat.clone();
+      odd_23b.material.depthTest = false;
+      odd_23b.material.depthWrite = false;
+      odd_23b.renderOrder = 1000;
+
+      // (2 4) line a
+      const odd_24a_geometry = new THREE.BufferGeometry();
+      const odd_24a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_24a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_24a_pos, 3));
+      const odd_24a = new THREE.Line(odd_24a_geometry, odd_mat);
+      // Render on top of surface
+      odd_24a.material = odd_mat.clone();
+      odd_24a.material.depthTest = false;
+      odd_24a.material.depthWrite = false;
+      odd_24a.renderOrder = 1000;
+
+      // (2 4) line b
+      const odd_24b_geometry = new THREE.BufferGeometry();
+      const odd_24b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_24b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_24b_pos, 3));
+      const odd_24b = new THREE.Line(odd_24b_geometry, odd_mat);
+      // Render on top of surface
+      odd_24b.material = odd_mat.clone();
+      odd_24b.material.depthTest = false;
+      odd_24b.material.depthWrite = false;
+      odd_24b.renderOrder = 1000;
+      
+      // (3 4) line a
+      const odd_34a_geometry = new THREE.BufferGeometry();
+      const odd_34a_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_34a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_34a_pos, 3));
+      const odd_34a = new THREE.Line(odd_34a_geometry, odd_mat);
+      // Render on top of surface
+      odd_34a.material = odd_mat.clone();
+      odd_34a.material.depthTest = false;
+      odd_34a.material.depthWrite = false;
+      odd_34a.renderOrder = 1000;
+      
+      // (3 4) line b
+      const odd_34b_geometry = new THREE.BufferGeometry();
+      const odd_34b_pos = new Float32Array(LINE_SAMPLES * 3);
+      odd_34b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_34b_pos, 3));
+      const odd_34b = new THREE.Line(odd_34b_geometry, odd_mat);
+      // Render on top of surface
+      odd_34b.material = odd_mat.clone();
+      odd_34b.material.depthTest = false;
+      odd_34b.material.depthWrite = false;
+      odd_34b.renderOrder = 1000;
+
+      // Add odd lines
+      scene.add(odd_12a);
+      scene.add(odd_12b);
+      scene.add(odd_13a);
+      scene.add(odd_13b);
+      scene.add(odd_14a);
+      scene.add(odd_14b);
+      scene.add(odd_23a);
+      scene.add(odd_23b);
+      scene.add(odd_24a);
+      scene.add(odd_24b);
+      scene.add(odd_34a);
+      scene.add(odd_34b);
+      
+      //////////////////////////
+      //      Even lines      //
+      //////////////////////////
+
+      const even_mat = new THREE.LineBasicMaterial({ color: 0x03A61E, transparent: true, opacity: 0.95,linewidth: 30 });
+      even_mat.clippingPlanes = null;
+
+      // (1 2)(3 4) line a
+      const even_1234a_geometry = new THREE.BufferGeometry();
+      const even_1234a_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1234a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234a_pos, 3));
+      const even_1234a = new THREE.Line(even_1234a_geometry, even_mat);
+      even_1234a.material = even_mat.clone();
+      even_1234a.material.depthTest = false;
+      even_1234a.material.depthWrite = false;
+      even_1234a.renderOrder = 1000;
+
+      // (1 2)(3 4) line b
+      const even_1234b_geometry = new THREE.BufferGeometry();
+      const even_1234b_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1234b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234b_pos, 3));
+      const even_1234b = new THREE.Line(even_1234b_geometry, even_mat);
+      even_1234b.material = even_mat.clone();
+      even_1234b.material.depthTest = false;
+      even_1234b.material.depthWrite = false;
+      even_1234b.renderOrder = 1000;
+
+      // (1 2)(3 4) line c
+      const even_1234c_geometry = new THREE.BufferGeometry();
+      const even_1234c_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1234c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234c_pos, 3));
+      const even_1234c = new THREE.Line(even_1234c_geometry, even_mat);
+      even_1234c.material = even_mat.clone();
+      even_1234c.material.depthTest = false;
+      even_1234c.material.depthWrite = false;
+      even_1234c.renderOrder = 1000;
+
+      // (1 2)(3 4) line d
+      const even_1234d_geometry = new THREE.BufferGeometry();
+      const even_1234d_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1234d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234d_pos, 3));
+      const even_1234d = new THREE.Line(even_1234d_geometry, even_mat);
+      even_1234d.material = even_mat.clone();
+      even_1234d.material.depthTest = false;
+      even_1234d.material.depthWrite = false;
+      even_1234d.renderOrder = 1000;
+
+      // (1 3)(2 4) line a
+      const even_1324a_geometry = new THREE.BufferGeometry();
+      const even_1324a_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1324a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324a_pos, 3));
+      const even_1324a = new THREE.Line(even_1324a_geometry, even_mat);
+      even_1324a.material = even_mat.clone();
+      even_1324a.material.depthTest = false;
+      even_1324a.material.depthWrite = false;
+      even_1324a.renderOrder = 1000;
+
+      // (1 3)(2 4) line b
+      const even_1324b_geometry = new THREE.BufferGeometry();
+      const even_1324b_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1324b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324b_pos, 3));
+      const even_1324b = new THREE.Line(even_1324b_geometry, even_mat);
+      even_1324b.material = even_mat.clone();
+      even_1324b.material.depthTest = false;
+      even_1324b.material.depthWrite = false;
+      even_1324b.renderOrder = 1000;
+
+      // (1 3)(2 4) line c
+      const even_1324c_geometry = new THREE.BufferGeometry();
+      const even_1324c_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1324c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324c_pos, 3));
+      const even_1324c = new THREE.Line(even_1324c_geometry, even_mat);
+      even_1324c.material = even_mat.clone();
+      even_1324c.material.depthTest = false;
+      even_1324c.material.depthWrite = false;
+      even_1324c.renderOrder = 1000;
+
+      // (1 3)(2 4) line d
+      const even_1324d_geometry = new THREE.BufferGeometry();
+      const even_1324d_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1324d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324d_pos, 3));
+      const even_1324d = new THREE.Line(even_1324d_geometry, even_mat);
+      even_1324d.material = even_mat.clone();
+      even_1324d.material.depthTest = false;
+      even_1324d.material.depthWrite = false;
+      even_1324d.renderOrder = 1000;
+
+      // (1 4)(2 3) line a
+      const even_1423a_geometry = new THREE.BufferGeometry();
+      const even_1423a_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1423a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423a_pos, 3));
+      const even_1423a = new THREE.Line(even_1423a_geometry, even_mat);
+      even_1423a.material = even_mat.clone();
+      even_1423a.material.depthTest = false;
+      even_1423a.material.depthWrite = false;
+      even_1423a.renderOrder = 1000;
+
+      // (1 4)(2 3) line b
+      const even_1423b_geometry = new THREE.BufferGeometry();
+      const even_1423b_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1423b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423b_pos, 3));
+      const even_1423b = new THREE.Line(even_1423b_geometry, even_mat);
+      even_1423b.material = even_mat.clone();
+      even_1423b.material.depthTest = false;
+      even_1423b.material.depthWrite = false;
+      even_1423b.renderOrder = 1000;
+
+      // (1 4)(2 3) line c
+      const even_1423c_geometry = new THREE.BufferGeometry();
+      const even_1423c_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1423c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423c_pos, 3));
+      const even_1423c = new THREE.Line(even_1423c_geometry, even_mat);
+      even_1423c.material = even_mat.clone();
+      even_1423c.material.depthTest = false;
+      even_1423c.material.depthWrite = false;
+      even_1423c.renderOrder = 1000;
+
+      // (1 4)(2 3) line d
+      const even_1423d_geometry = new THREE.BufferGeometry();
+      const even_1423d_pos = new Float32Array(LINE_SAMPLES * 3);
+      even_1423d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423d_pos, 3));
+      const even_1423d = new THREE.Line(even_1423d_geometry, even_mat);
+      even_1423d.material = even_mat.clone();
+      even_1423d.material.depthTest = false;
+      even_1423d.material.depthWrite = false;
+      even_1423d.renderOrder = 1000;
+
+      // Add even lines
+      scene.add(even_1234a);
+      scene.add(even_1234b);
+      scene.add(even_1234c);
+      scene.add(even_1234d);
+      scene.add(even_1324a);
+      scene.add(even_1324b);
+      scene.add(even_1324c);
+      scene.add(even_1324d);
+      scene.add(even_1423a);
+      scene.add(even_1423b);
+      scene.add(even_1423c);
+      scene.add(even_1423d);
+
+      // --- Debug logger: recompute diagnostics and print ---
+      function debugLog() {
+        const { a, b, c } = params;
+        const alpha = -(
+          9*a**3 
+          + 9*a**2*b 
+          - 9*a*b**2 
+          + 7*b**3 
+          - 3*a**2*c 
+          - 6*a*b*c 
+          - 3*b**2*c 
+          + 4*a*c**2
+        )*(3*a + b - c);
+        const beta = -(3*a + b - c) * (a + 3*b + c);
+        const Delta_plus_numerator  = -(9*a**2 - b**2 - (3*a - b)*c + Math.sqrt(alpha));
+        const Delta_minus_numerator = -(9*a**2 - b**2 - (3*a - b)*c - Math.sqrt(alpha));
+        const Delta_denominator     = (6*a*b + 2*b**2 - 3*(a+b)*c + c**2);
+        console.groupCollapsed(`[debug] a=${a.toFixed(3)} b=${b.toFixed(3)} c=${c.toFixed(3)} @ ${new Date().toLocaleTimeString()}`);
+        console.log('alpha:', alpha);
+        console.log('beta:', beta);
+        console.log('Delta_plus_numerator:', Delta_plus_numerator);
+        console.log('Delta_minus_numerator:', Delta_minus_numerator);
+        console.log('Delta_denominator:', Delta_denominator);
+        console.groupEnd();
+      }
+
+      // Compute the parametric lines from (a,b,c). Keep within the domain box by scaling to ~4 units.
+      function updateParamLines(){
+        
+        // Define the two constants needed for a K4 extension
+        const alpha = -(
+          9*params.a**3 
+          + 9*params.a**2*params.b 
+          - 9*params.a*params.b**2 
+          + 7*params.b**3 
+          - 3*params.a**2*params.c 
+          - 6*params.a*params.b*params.c 
+          - 3*params.b**2*params.c 
+          + 4*params.a*params.c**2
+        )*(
+          3*params.a 
+          + params.b 
+          - params.c
+        );
+        const beta = -(3*params.a + params.b - params.c) * (params.a + 3*params.b + params.c);
+
+        // Coeffs for odd lines
+        const Delta_plus_numerator = -(9*params.a**2 - params.b**2 - (3*params.a - params.b)*params.c + Math.sqrt(alpha));
+        const Delta_minus_numerator = -(9*params.a**2 - params.b**2 - (3*params.a - params.b)*params.c - Math.sqrt(alpha));
+        const Delta_denominator = (6*params.a*params.b + 2*params.b**2 - 3*(params.a+params.b)*params.c + params.c**2);
+
+        // Visibility of odd lines
+        const odd_lines_are_visible = (alpha > 0) && (Number.isFinite(Delta_plus_numerator)) && (Number.isFinite(Delta_plus_numerator)) && (Delta_plus_numerator!=0) && (Delta_minus_numerator!=0) && (Delta_denominator!=0);
+        
+        odd_12a.visible = odd_lines_are_visible;
+        odd_12b.visible = odd_lines_are_visible;
+        odd_13a.visible = odd_lines_are_visible;
+        odd_13b.visible = odd_lines_are_visible;
+        odd_14a.visible = odd_lines_are_visible;
+        odd_14b.visible = odd_lines_are_visible;
+        odd_23a.visible = odd_lines_are_visible;
+        odd_23b.visible = odd_lines_are_visible;
+        odd_24a.visible = odd_lines_are_visible;
+        odd_24b.visible = odd_lines_are_visible;
+        odd_24a.visible = odd_lines_are_visible;
+        odd_24b.visible = odd_lines_are_visible;
+        odd_34a.visible = odd_lines_are_visible;
+        odd_34b.visible = odd_lines_are_visible;
+
+        // Graph odd lines if they are visible
+        if (odd_lines_are_visible) {
+          for (let s = 0; s < LINE_SAMPLES; s++) {
+            const i = s * 3;
+            const t = THREE.MathUtils.lerp(t_min,t_max, s/(LINE_SAMPLES-1));
+            
+            // (1 2) line a
+            const x_12a = (t+1)*Delta_denominator/Delta_minus_numerator;
+            const y_12a = (-t+1)*Delta_denominator/Delta_minus_numerator;
+            const z_12a = Delta_plus_numerator/Delta_minus_numerator;
+            if (inBox(x_12a,y_12a,z_12a)) {
+              odd_12a_pos[i] = x_12a; odd_12a_pos[i + 1] = y_12a; odd_12a_pos[i + 2] = z_12a;
+            } else {
+              odd_12a_pos[i] = NaN; odd_12a_pos[i + 1] = NaN; odd_12a_pos[i + 2] = NaN;
+            }
+
+            // (1 2) line b
+            const x_12b = (t+1)*Delta_denominator/Delta_plus_numerator;
+            const y_12b = (-t+1)*Delta_denominator/Delta_plus_numerator;
+            const z_12b = Delta_minus_numerator/Delta_plus_numerator;
+            if (inBox(x_12b,y_12b,z_12b)) {
+              odd_12b_pos[i] = x_12b; odd_12b_pos[i + 1] = y_12b; odd_12b_pos[i + 2] = z_12b;
+            } else {
+              odd_12b_pos[i] = NaN; odd_12b_pos[i + 1] = NaN; odd_12b_pos[i + 2] = NaN;
+            }
+            
+            // (2 3) line a
+            const x_23a = Delta_minus_numerator/Delta_plus_numerator;
+            const y_23a = (-t+1)*Delta_denominator/Delta_plus_numerator;
+            const z_23a = (t+1)*Delta_denominator/Delta_plus_numerator;
+            if (inBox(x_23a,y_23a,z_23a)) {
+              odd_23a_pos[i] = x_23a; 
+              odd_23a_pos[i + 1] = y_23a; 
+              odd_23a_pos[i + 2] = z_23a;
+            } else {
+              odd_23a_pos[i] = NaN; odd_23a_pos[i + 1] = NaN; odd_23a_pos[i + 2] = NaN;
+            }
+
+            // (2 3) line b
+            const x_23b = Delta_plus_numerator/Delta_minus_numerator;
+            const y_23b = (-t+1)*Delta_denominator/Delta_minus_numerator;
+            const z_23b = (t+1)*Delta_denominator/Delta_minus_numerator;
+            if (inBox(x_23b,y_23b,z_23b)) {
+              odd_23b_pos[i] = x_23b; 
+              odd_23b_pos[i + 1] = y_23b; 
+              odd_23b_pos[i + 2] = z_23b;
+            } else {
+              odd_23b_pos[i] = NaN; odd_23b_pos[i + 1] = NaN; odd_23b_pos[i + 2] = NaN;
+            }
+
+            // (1 3) line a
+            const x_13a = (-t+1)*Delta_denominator/Delta_plus_numerator;
+            const y_13a = Delta_minus_numerator/Delta_plus_numerator;
+            const z_13a = (t+1)*Delta_denominator/Delta_plus_numerator;
+            if (inBox(x_13a,y_13a,z_13a)) {
+              odd_13a_pos[i] = x_13a; 
+              odd_13a_pos[i + 1] = y_13a; 
+              odd_13a_pos[i + 2] = z_13a;
+            } else {
+              odd_13a_pos[i] = NaN; odd_13a_pos[i + 1] = NaN; odd_13a_pos[i + 2] = NaN;
+            }
+
+            // (1 3) line b
+            const x_13b = (-t+1)*Delta_denominator/Delta_minus_numerator;
+            const y_13b = Delta_plus_numerator/Delta_minus_numerator;
+            const z_13b = (t+1)*Delta_denominator/Delta_minus_numerator;
+            if (inBox(x_13b,y_13b,z_13b)) {
+              odd_13b_pos[i] = x_13b; 
+              odd_13b_pos[i + 1] = y_13b; 
+              odd_13b_pos[i + 2] = z_13b;
+            } else {
+              odd_13b_pos[i] = NaN; odd_13b_pos[i + 1] = NaN; odd_13b_pos[i + 2] = NaN;
+            }
+            
+            // (1 4) line a
+            const x_14a = (-t+1)/(t+1);
+            const y_14a = Delta_plus_numerator/((t+1)*Delta_denominator);
+            const z_14a = Delta_minus_numerator/((t+1)*Delta_denominator);
+            if (inBox(x_14a,y_14a,z_14a)) {
+              odd_14a_pos[i] = x_14a; 
+              odd_14a_pos[i + 1] = y_14a; 
+              odd_14a_pos[i + 2] = z_14a;
+            } else {
+              odd_14a_pos[i] = NaN; odd_14a_pos[i + 1] = NaN; odd_14a_pos[i + 2] = NaN;
+            }
+
+            // (1 4) line b
+            const x_14b = (-t+1)/(t+1);
+            const y_14b = Delta_minus_numerator/((t+1)*Delta_denominator);
+            const z_14b = Delta_plus_numerator/((t+1)*Delta_denominator);
+            if (inBox(x_14b,y_14b,z_14b)) {
+              odd_14b_pos[i] = x_14b; 
+              odd_14b_pos[i + 1] = y_14b; 
+              odd_14b_pos[i + 2] = z_14b;
+            } else {
+              odd_14b_pos[i] = NaN; odd_14b_pos[i + 1] = NaN; odd_14b_pos[i + 2] = NaN;
+            }
+
+            // (2 4) line a
+            const x_24a = Delta_plus_numerator/((t+1)*Delta_denominator);
+            const y_24a = (-t+1)/(t+1);
+            const z_24a = Delta_minus_numerator/((t+1)*Delta_denominator);
+            if (inBox(x_24a,y_24a,z_24a)) {
+              odd_24a_pos[i] = x_24a; 
+              odd_24a_pos[i + 1] = y_24a; 
+              odd_24a_pos[i + 2] = z_24a;
+            } else {
+              odd_24a_pos[i] = NaN; odd_24a_pos[i + 1] = NaN; odd_24a_pos[i + 2] = NaN;
+            }
+
+            // (2 4) line b
+            const x_24b = Delta_minus_numerator/((t+1)*Delta_denominator);
+            const y_24b = (-t+1)/(t+1);
+            const z_24b = Delta_plus_numerator/((t+1)*Delta_denominator);
+            if (inBox(x_24b,y_24b,z_24b)) {
+              odd_24b_pos[i] = x_24b; 
+              odd_24b_pos[i + 1] = y_24b; 
+              odd_24b_pos[i + 2] = z_24b;
+            } else {
+              odd_24b_pos[i] = NaN; odd_24b_pos[i + 1] = NaN; odd_24b_pos[i + 2] = NaN;
+            }
+
+            // (3 4) line a
+            const x_34a = Delta_plus_numerator/((t+1)*Delta_denominator);
+            const y_34a = Delta_minus_numerator/((t+1)*Delta_denominator);
+            const z_34a = (-t+1)/(t+1);
+            if (inBox(x_34a,y_34a,z_34a)) {
+              odd_34a_pos[i] = x_34a; 
+              odd_34a_pos[i + 1] = y_34a; 
+              odd_34a_pos[i + 2] = z_34a;
+            } else {
+              odd_34a_pos[i] = NaN; odd_34a_pos[i + 1] = NaN; odd_34a_pos[i + 2] = NaN;
+            }
+
+            // (3 4) line b
+            const x_34b = Delta_minus_numerator/((t+1)*Delta_denominator);
+            const y_34b = Delta_plus_numerator/((t+1)*Delta_denominator);
+            const z_34b = (-t+1)/(t+1);
+            if (inBox(x_34b,y_34b,z_34b)) {
+              odd_34b_pos[i] = x_34b; 
+              odd_34b_pos[i + 1] = y_34b; 
+              odd_34b_pos[i + 2] = z_34b;
+            } else {
+              odd_34b_pos[i] = NaN; odd_34b_pos[i + 1] = NaN; odd_34b_pos[i + 2] = NaN;
+            }
+
+          }
+          odd_12a_geometry.attributes.position.needsUpdate = true;
+          odd_12b_geometry.attributes.position.needsUpdate = true;
+          odd_13a_geometry.attributes.position.needsUpdate = true;
+          odd_13b_geometry.attributes.position.needsUpdate = true;
+          odd_14a_geometry.attributes.position.needsUpdate = true;
+          odd_14b_geometry.attributes.position.needsUpdate = true;
+          odd_23a_geometry.attributes.position.needsUpdate = true;
+          odd_23b_geometry.attributes.position.needsUpdate = true;
+          odd_24a_geometry.attributes.position.needsUpdate = true;
+          odd_24b_geometry.attributes.position.needsUpdate = true;
+          odd_34a_geometry.attributes.position.needsUpdate = true;
+          odd_34b_geometry.attributes.position.needsUpdate = true;
+        };
+
+        // Coeffs for even lines
+        const beta_numerator = params.a - params.b - params.c + Math.sqrt(beta);
+        const beta_const_term = 2*(params.a + params.b);
+
+        const X = 9*params.a**2 + 6*params.a*params.b + params.b**2 - 2*(3*params.a + params.b)*params.c + params.c**2;
+        const Y = 3*params.a - 3*params.b + params.c;
+        
+        const Delta_plus = (1/2)*(params.a - params.b - params.c + Math.sqrt(beta))/(params.a + params.b);
+        const Delta_minus = (1/2)*(params.a - params.b - params.c - Math.sqrt(beta))/(params.a + params.b);
+
+        const lambda_plus = (X+Y*Math.sqrt(beta))/(2*Math.sqrt(alpha));
+        const lambda_minus = (X-Y*Math.sqrt(beta))/(2*Math.sqrt(alpha));
+
+        // Even line visibility
+        const even_lines_are_visible = (alpha > 0) && (beta>0);
+
+        even_1234a.visible = even_lines_are_visible;
+        even_1234b.visible = even_lines_are_visible;
+        even_1234c.visible = even_lines_are_visible;
+        even_1234d.visible = even_lines_are_visible;
+        even_1324a.visible = even_lines_are_visible;
+        even_1324b.visible = even_lines_are_visible;
+        even_1324c.visible = even_lines_are_visible;
+        even_1324d.visible = even_lines_are_visible;
+        even_1423a.visible = even_lines_are_visible;
+        even_1423b.visible = even_lines_are_visible;
+        even_1423c.visible = even_lines_are_visible;
+        even_1423d.visible = even_lines_are_visible;
+
+        if (even_lines_are_visible){
+
+          for (let s = 0; s < LINE_SAMPLES; s++) {
+            const i = s * 3;
+            const t = THREE.MathUtils.lerp(t_min,t_max, s/(LINE_SAMPLES-1));
+
+            // constants for even terms
+            const even_term_1_plus = (Delta_plus*t+1);
+            const even_term_2_plus = (Delta_plus*t - 1);
+            const even_term_3_plus = t+lambda_plus;
+            const even_term_4_plus = t-lambda_plus;
+
+            const even_term_1_minus = (Delta_minus*t+1);
+            const even_term_2_minus = (Delta_minus*t - 1);
+            const even_term_3_minus = t+lambda_minus;
+            const even_term_4_minus = t-lambda_minus;
+
+            // (1 2)(3 4) line a
+            const x_1234a = even_term_1_plus/even_term_4_plus;
+            const y_1234a = even_term_2_plus/even_term_4_plus;
+            const z_1234a = even_term_3_plus/even_term_4_plus;
+            if (inBox(x_1234a,y_1234a,z_1234a)) {
+              even_1234a_pos[i] = x_1234a;
+              even_1234a_pos[i + 1] = y_1234a;
+              even_1234a_pos[i + 2] = z_1234a;
+            } else {
+              even_1234a_pos[i] = NaN; 
+              even_1234a_pos[i + 1] = NaN;
+              even_1234a_pos[i + 2] = NaN;
+            }
+
+            // (1 2)(3 4) line b
+            const x_1234b = even_term_2_plus/even_term_4_plus;
+            const y_1234b = even_term_1_plus/even_term_4_plus;
+            const z_1234b = even_term_3_plus/even_term_4_plus;
+            if (inBox(x_1234b,y_1234b,z_1234b)) {
+              even_1234b_pos[i] = x_1234b;
+              even_1234b_pos[i + 1] = y_1234b;
+              even_1234b_pos[i + 2] = z_1234b;
+            } else {
+              even_1234b_pos[i] = NaN; 
+              even_1234b_pos[i + 1] = NaN;
+              even_1234b_pos[i + 2] = NaN;
+            }
+
+            // (1 2)(3 4) line c
+            const x_1234c = even_term_1_minus/even_term_4_minus;
+            const y_1234c = even_term_2_minus/even_term_4_minus;
+            const z_1234c = even_term_3_minus/even_term_4_minus;
+            if (inBox(x_1234c,y_1234c,z_1234c)) {
+              even_1234c_pos[i] = x_1234c;
+              even_1234c_pos[i + 1] = y_1234c;
+              even_1234c_pos[i + 2] = z_1234c;
+            } else {
+              even_1234c_pos[i] = NaN; 
+              even_1234c_pos[i + 1] = NaN;
+              even_1234c_pos[i + 2] = NaN;
+            }
+
+            // (1 2)(3 4) line d
+            const x_1234d = even_term_2_minus/even_term_4_minus;
+            const y_1234d = even_term_1_minus/even_term_4_minus;
+            const z_1234d = even_term_3_minus/even_term_4_minus;
+            if (inBox(x_1234d,y_1234d,z_1234d)) {
+              even_1234d_pos[i] = x_1234d;
+              even_1234d_pos[i + 1] = y_1234d;
+              even_1234d_pos[i + 2] = z_1234d;
+            } else {
+              even_1234d_pos[i] = NaN; 
+              even_1234d_pos[i + 1] = NaN;
+              even_1234d_pos[i + 2] = NaN;
+            }
+
+            // (1 3)(2 4) line a
+            const x_1324a = even_term_1_plus/even_term_4_plus;
+            const y_1324a = even_term_3_plus/even_term_4_plus;
+            const z_1324a = even_term_2_plus/even_term_4_plus;
+            if (inBox(x_1324a,y_1324a,z_1324a)) {
+              even_1324a_pos[i] = x_1324a;
+              even_1324a_pos[i + 1] = y_1324a;
+              even_1324a_pos[i + 2] = z_1324a;
+            } else {
+              even_1324a_pos[i] = NaN; 
+              even_1324a_pos[i + 1] = NaN;
+              even_1324a_pos[i + 2] = NaN;
+            }
+
+            // (1 3)(2 4) line b
+            const x_1324b = even_term_3_plus/even_term_4_plus;
+            const y_1324b = even_term_1_plus/even_term_4_plus;
+            const z_1324b = even_term_2_plus/even_term_4_plus;
+            
+            if (inBox(x_1324b,y_1324b,z_1324b)) {
+              even_1324b_pos[i] = x_1324b;
+              even_1324b_pos[i + 1] = y_1324b;
+              even_1324b_pos[i + 2] = z_1324b;
+            } else {
+              even_1324b_pos[i] = NaN; 
+              even_1324b_pos[i + 1] = NaN;
+              even_1324b_pos[i + 2] = NaN;
+            }
+
+            // (1 3)(2 4) line c
+            const x_1324c = even_term_1_minus/even_term_4_minus;
+            const y_1324c = even_term_3_minus/even_term_4_minus;
+            const z_1324c = even_term_2_minus/even_term_4_minus;
+            if (inBox(x_1324c,y_1324c,z_1324c)) {
+              even_1324c_pos[i] = x_1324c;
+              even_1324c_pos[i + 1] = y_1324c;
+              even_1324c_pos[i + 2] = z_1324c;
+            } else {
+              even_1324c_pos[i] = NaN; 
+              even_1324c_pos[i + 1] = NaN;
+              even_1324c_pos[i + 2] = NaN;
+            }
+
+            // (1 3)(2 4) line d
+            const x_1324d = even_term_3_minus/even_term_4_minus;
+            const y_1324d = even_term_1_minus/even_term_4_minus;
+            const z_1324d = even_term_2_minus/even_term_4_minus;
+            if (inBox(x_1324d,y_1324d,z_1324d)) {
+              even_1324d_pos[i] = x_1324d;
+              even_1324d_pos[i + 1] = y_1324d;
+              even_1324d_pos[i + 2] = z_1324d;
+            } else {
+              even_1324d_pos[i] = NaN; 
+              even_1324d_pos[i + 1] = NaN;
+              even_1324d_pos[i + 2] = NaN;
+            }
+
+            // (1 4)(2 3) line a
+            const x_1423a = even_term_1_plus/even_term_2_plus;
+            const y_1423a = even_term_3_plus/even_term_2_plus;
+            const z_1423a = even_term_4_plus/even_term_2_plus;
+            if (inBox(x_1423a,y_1423a,z_1423a)) {
+              even_1423a_pos[i] = x_1423a;
+              even_1423a_pos[i + 1] = y_1423a;
+              even_1423a_pos[i + 2] = z_1423a;
+            } else {
+              even_1423a_pos[i] = NaN; 
+              even_1423a_pos[i + 1] = NaN;
+              even_1423a_pos[i + 2] = NaN;
+            }
+
+            // (1 4)(2 3) line b
+            const x_1423b = even_term_1_plus/even_term_2_plus;
+            const y_1423b = even_term_4_plus/even_term_2_plus;
+            const z_1423b = even_term_3_plus/even_term_2_plus;
+            if (inBox(x_1423b,y_1423b,z_1423b)) {
+              even_1423b_pos[i] = x_1423b;
+              even_1423b_pos[i + 1] = y_1423b;
+              even_1423b_pos[i + 2] = z_1423b;
+            } else {
+              even_1423b_pos[i] = NaN; 
+              even_1423b_pos[i + 1] = NaN;
+              even_1423b_pos[i + 2] = NaN;
+            }
+
+            // (1 4)(2 3) line c
+            const x_1423c = even_term_1_minus/even_term_2_minus;
+            const y_1423c = even_term_3_minus/even_term_2_minus;
+            const z_1423c = even_term_4_minus/even_term_2_minus;
+            if (inBox(x_1423c,y_1423c,z_1423c)) {
+              even_1423c_pos[i] = x_1423c;
+              even_1423c_pos[i + 1] = y_1423c;
+              even_1423c_pos[i + 2] = z_1423c;
+            } else {
+              even_1423c_pos[i] = NaN; 
+              even_1423c_pos[i + 1] = NaN;
+              even_1423c_pos[i + 2] = NaN;
+            }
+
+            // (1 4)(2 3) line c
+            const x_1423d = even_term_1_minus/even_term_2_minus;
+            const y_1423d = even_term_4_minus/even_term_2_minus;
+            const z_1423d = even_term_3_minus/even_term_2_minus;
+            if (inBox(x_1423d,y_1423d,z_1423d)) {
+              even_1423d_pos[i] = x_1423d;
+              even_1423d_pos[i + 1] = y_1423d;
+              even_1423d_pos[i + 2] = z_1423d;
+            } else {
+              even_1423d_pos[i] = NaN; 
+              even_1423d_pos[i + 1] = NaN;
+              even_1423d_pos[i + 2] = NaN;
+            }
+
+          };
+
+          even_1234a_geometry.attributes.position.needsUpdate = true;
+          even_1234b_geometry.attributes.position.needsUpdate = true;
+          even_1234c_geometry.attributes.position.needsUpdate = true;
+          even_1234d_geometry.attributes.position.needsUpdate = true;
+          even_1324a_geometry.attributes.position.needsUpdate = true;
+          even_1324b_geometry.attributes.position.needsUpdate = true;
+          even_1324c_geometry.attributes.position.needsUpdate = true;
+          even_1324d_geometry.attributes.position.needsUpdate = true;
+          even_1423a_geometry.attributes.position.needsUpdate = true;
+          even_1423b_geometry.attributes.position.needsUpdate = true;
+          even_1423c_geometry.attributes.position.needsUpdate = true;
+          even_1423d_geometry.attributes.position.needsUpdate = true;
+
+        };
+
+      };
+      // ------------------- IMPLICIT SURFACE (MC) -------------------
+      // Shaded material for the extracted iso-surface
+      const surfaceMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        metalness: 0.4,
+        roughness: 0.1,
+        side: THREE.DoubleSide
+      });
+            // Slightly bias the surface backwards in the depth buffer so lines remain visible
+      surfaceMat.polygonOffset = true;
+      surfaceMat.polygonOffsetFactor = 1;   // positive pushes back
+      surfaceMat.polygonOffsetUnits = 1;
+
+      // MarchingCubes holds the sampled scalar field and generates triangles
+      const mc = new MarchingCubes(
+        RESOLUTION,
+        surfaceMat, 
+        true, 
+        true,
+        1_000_000       // triangle buffer (max number of triangles)
+      );
+      // Use object-space transform to map MC local coords ([-0.5,0.5]) → world cube [-5,5]
+      mc.scale.set((BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2);
+  
+      mc.position.set(0, 0, 0);
+      mc.matrixAutoUpdate = true;
+      scene.add(mc);
+
+      // ---------------------- UI: sliders ----------------------
+      // Keep a,b,c in sync with text labels and schedule field recompute.
+      const params = { a: -0.7, b: 2.1, c:  1.0 };
+      const aSlider = document.getElementById('a');
+      const bSlider = document.getElementById('b');
+      const cSlider = document.getElementById('c');
+      const aVal = document.getElementById('aVal');
+      const bVal = document.getElementById('bVal');
+      const cVal = document.getElementById('cVal');
+
+      function setVal(el, v){ el.textContent = Number(v).toFixed(2); }
+      setVal(aVal, params.a); setVal(bVal, params.b); setVal(cVal, params.c);
+
+      // Debounce recomputation to animation frames to avoid stutter while dragging
+      let updateScheduled = false;
+      function requestFieldUpdate(){
+        if (updateScheduled) return;
+        updateScheduled = true;
+        requestAnimationFrame(() => { updateCubicSurface(); updateParamLines(); debugLog(); updateScheduled = false; });
+      }
+
+      aSlider.addEventListener('input', () => { params.a = parseFloat(aSlider.value); setVal(aVal, params.a); requestFieldUpdate(); debugLog(); });
+      bSlider.addEventListener('input', () => { params.b = parseFloat(bSlider.value); setVal(bVal, params.b); requestFieldUpdate(); debugLog(); });
+      cSlider.addEventListener('input', () => { params.c = parseFloat(cSlider.value); setVal(cVal, params.c); requestFieldUpdate(); debugLog(); });
+
+      aSlider.addEventListener('change', () => { debugLog(); });
+      bSlider.addEventListener('change', () => { debugLog(); });
+      cSlider.addEventListener('change', () => { debugLog(); });
+
+            // Map the MC local geometry bbox to the world domain [-5,5]^3 without distortion
+      function fitMCToDomain() {
+        if (!mc.geometry || !mc.geometry.boundingBox) return;
+        const box = mc.geometry.boundingBox; // LOCAL space bbox
+        const localMin = box.min.clone();
+        const localMax = box.max.clone();
+        const localCenter = localMin.clone().add(localMax).multiplyScalar(0.5);
+        const localSize = localMax.clone().sub(localMin);
+
+        // Target world box
+        const worldCenter = new THREE.Vector3(
+          (BOUNDS_MIN + BOUNDS_MAX) * 0.5,
+          (BOUNDS_MIN + BOUNDS_MAX) * 0.5,
+          (BOUNDS_MIN + BOUNDS_MAX) * 0.5
+        );
+        const worldSize = BOUNDS_MAX - BOUNDS_MIN; // 10 for [-5,5]
+
+        // Use a uniform scale so the surface isn't stretched
+        const s = worldSize / Math.max(localSize.x, localSize.y, localSize.z || 1e-6);
+        mc.scale.set(s, s, s);
+        // world = s * local + position → choose position so localCenter maps to worldCenter
+        const offset = localCenter.multiplyScalar(s);
+        mc.position.copy(worldCenter.clone().sub(offset));
+        mc.updateMatrix();
+      }
+
+
+      /*
+        Sample F on a regular 3D grid over [-5,5]^3 and update MarchingCubes.
+        MC outputs vertices in local [-0.5,0.5]; object scale maps to world units
+      */
+      function updateCubicSurface(){
+        
+        let ptr = 0;
+        for (let k = 0; k < RESOLUTION; k++) {
+          
+          // Map grid index → world coordinate in [-5,5]
+          const z = THREE.MathUtils.lerp(BOUNDS_MIN, BOUNDS_MAX, (k / (RESOLUTION - 1)));
+          for (let j = 0; j < RESOLUTION; j++) {
+            
+            // Map grid index → world coordinate in [-5,5]
+            const y = THREE.MathUtils.lerp(BOUNDS_MIN, BOUNDS_MAX, (j / (RESOLUTION - 1)));
+            for (let i = 0; i < RESOLUTION; i++) {
+              
+              // Map grid index → world coordinate in [-5,5]
+              const x = THREE.MathUtils.lerp(BOUNDS_MIN, BOUNDS_MAX, (i / (RESOLUTION - 1)));
+              
+              let v = F(x, y, z, params.a, params.b, params.c);
+
+              // if (!Number.isFinite(v)) v = 1e9; // if we get something infinite just make v really large
+
+              // Write scalar value into mc.field (flat array)
+              // mc.field is a Float32Array of length size^3
+              mc.field[ptr] = v;
+              ptr++;
+            }
+          }
+        }
+        mc.isolation = ISO; //graph where F=0
+        mc.update();
+        mc.geometry.computeBoundingBox();
+        fitMCToDomain();
+      }
+      
+
+      // ---- build once at startup ----
+      updateCubicSurface();
+      updateParamLines();
+      debugLog();
+      // After mc.update()
+      mc.geometry.computeBoundingBox();
+      const box = mc.geometry.boundingBox;   // in mc's LOCAL space (before mc.scale/position)
+      console.log('MC local bbox:', box.min, box.max);
+
+      
+      
+
+      // -------------------- FRAMING (LOCKED TO CUBE) --------------------
+      // Fit a sphere that encloses [-5,5]^3; compute the camera distance needed
+      // for both vertical and horizontal FOVs; keep camera pointing at origin.
+      function frameAll() {
+        // Bounding sphere radius of the cube [-5,5]^3
+        const radius = Math.sqrt(3) * 5; // half-diagonal length
+        const target = new THREE.Vector3(0, 0, 0);
+
+        // Required camera distance to fit vertically and horizontally
+        const vFOV = THREE.MathUtils.degToRad(camera.fov);
+        const hFOV = 2 * Math.atan(Math.tan(vFOV / 2) * camera.aspect);
+        const distV = radius / Math.tan(vFOV / 2);
+        const distH = radius / Math.tan(hFOV / 2);
+        const distance = Math.max(distV, distH);
+
+        // Keep current viewing direction but move to the right distance from the origin
+        const dir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+        if (!Number.isFinite(dir.length()) || dir.length() === 0) dir.set(0, 0, 1);
+        camera.position.copy(target).add(dir.multiplyScalar(distance));
+
+        // Adjust clipping planes
+        camera.near = Math.max(0.01, distance / 100);
+        camera.far = Math.max(200, distance * 4);
+        camera.updateProjectionMatrix();
+
+        // Center controls on origin
+        controls.target.copy(target);
+        camera.lookAt(target);
+        controls.maxDistance = distance * 10;
+        controls.update();
+      }
+
+      // Double-click to refit and center on the origin
+      renderer.domElement.addEventListener('dblclick', () => frameAll());
+
+      // === RENDER LOOP + RESIZE ===
+      function resize(){
+        // Resize renderer and recompute projection; then reframe to cube
+        const w = container.clientWidth, h = container.clientHeight;
+        renderer.setSize(w, h, true);
+        camera.aspect = w / h || 1;
+        camera.updateProjectionMatrix();
+        // Keep origin centered and fit the fixed cube after resize
+        frameAll();
+      }
+      new ResizeObserver(resize).observe(container);
+      resize();
+      // After first layout, do one more frameAll() to ensure perfect centering
+      requestAnimationFrame(() => frameAll());
+
+      // Main loop: let OrbitControls apply damping, then render the scene
+      renderer.setAnimationLoop(() => {
+        controls.update();
+        renderer.render(scene, camera);
+      });
+    </script>
+  </body>
+</html>
