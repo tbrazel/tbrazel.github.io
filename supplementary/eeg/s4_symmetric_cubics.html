@@ -12,10 +12,30 @@
       /* Make the WebGL canvas match the container size exactly */
       #viewport canvas { width: 100%; height: 100%; display: block; }
       /* Small usage hint badge */
-      #hint { position: fixed; left: 10px; bottom: 10px; font: 12px/1.3 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; opacity: .75; background: rgba(14,17,22,.65); border: 1px solid #30363d; padding: 6px 8px; border-radius: 8px; }
+      #hint { position: fixed; left: 10px; bottom: 10px; font: 10px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; opacity: .75; background: rgba(14,17,22,.65); border: 1px solid #30363d; padding: 6px 8px; border-radius: 8px; }
+      /* Small notes box in bottom-right corner */
+      #noteBox {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        background: rgba(14,17,22,.85);
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 6px 8px;
+        box-sizing: border-box;
+        color: #eaecef;
+        font: 12px/1.3 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
+        z-index: 1000;
+        width: auto;
+        height: auto;
+        max-width: 300px;
+      }
+      @media (max-width: 768px) {
+        #noteBox { display: none; }
+      }
       /* Slider panel for parameters a,b,c */
       #panel { position: fixed; top: 10px; left: 10px; background: rgba(14,17,22,.85); border: 1px solid #30363d; padding: 8px 10px; border-radius: 8px; font: 12px/1.3 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; }
-      #panel label { display: grid; grid-template-columns: 20px 1fr 44px; align-items: center; gap: 8px; margin: 6px 0; }
+      #panel label { display: grid; grid-template-columns: 20px 1fr 44px; align-items: center; gap: 8px; margin: 6px 0; max-width: 300px; }
       #panel input[type="range"] { width: 160px; }
       #panel .val { text-align: right; opacity: .85; font-variant-numeric: tabular-nums; }
       /* Link styling */
@@ -41,16 +61,20 @@
     <div id="viewport"></div>
 
     <div id="hint">Drag = orbit • Right-drag = pan • Wheel = zoom • Double-click = recenter</div>
+    <p id="noteBox">Resolution (note: may affect performance)
+      <input type="range" id="q" min="10" max="200" step="10" value="80" style="width: 100%;"> <span id="qVal" class="val">80</span>; default 80</p>
 
     <!-- TODO set default panel values via JS -->
     <div id="panel" style="max-width: 400px;width:30%;min-width: 200px;">
       <h3>Lines on $S_4$-symmetric cubic surfaces</h3>
+      
       <p>A general symmetric cubic surface is defined by <br>$a\sum x_i^3 + b\sum x_i^2 x_j + c\sum x_i x_j x_k$.<br>
-      While there is no formula in radicals for lines on a general cubic surface, <a href="https://tbrazel.github.io/papers/bitangents.pdf">joint work with S. Raman</a> proves the existence of such formulas for $S_4$-symmetric cubic surfaces. This allows us to easily graph the lines by using their exact symbolic formulas!
+      While there is no formula in radicals for lines on a general cubic surface, <a href="https://tbrazel.github.io/papers/K4.pdf" target="_blank">joint work with S. Raman</a> proves the existence of such formulas for $S_4$-symmetric cubic surfaces. This allows us to easily graph the lines by using their exact symbolic formulas!
       </p>
       <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.1" value="-0.7" style="width: 100%;"> <span id="aVal" class="val">-3.6</span></label>
       <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.1" value="2.1" style="width: 100%;"> <span id="bVal" class="val">6.1</span></label>
       <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.1" value="1.0" style="width: 100%;"> <span id="cVal" class="val">5.9</span></label>
+      
     </div>
 
     <!-- Import map lets us use bare module specifiers for three.js and its examples -->
@@ -98,7 +122,7 @@
       // RESOLUTION: grid samples per axis (higher = smoother, slower).
       // BOUNDS: we sample only inside [-5,5]^3; outside is ignored.
       const ISO = 0.0;           // Extract F = ISO
-      const RESOLUTION = 80;     // Higher res since the domain is larger
+      let RESOLUTION = 80;     // Higher res = smoother (but slower). Controlled by the Quality slider.
       const BOUNDS_MIN = -5.0;   // Sample volume is the cube [-5,5]^3
       const BOUNDS_MAX =  5.0;
 
@@ -243,8 +267,11 @@
           tritan_1_pos,       // Float32Array
           3                   // itemSize of the array (how many numbers per vertex)
         ));
+      tritan_1_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       tritan_2_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_2_pos,3));
+      tritan_2_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       tritan_3_geometry.setAttribute('position',new THREE.BufferAttribute(tritan_3_pos,3));
+      tritan_3_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const tritangent_material = new THREE.LineBasicMaterial({ color: 0xBF0000, transparent: true, opacity: 0.95,linewidth: 3 });
 
       const tritan_1 = new THREE.Line(tritan_1_geometry, tritangent_material); // Now define the tritangent lines
@@ -256,16 +283,19 @@
       tritan_1.material.depthTest = false;
       tritan_1.material.depthWrite = false;
       tritan_1.renderOrder = 1000;
+      tritan_1.frustumCulled = false;
 
       tritan_2.material = tritangent_material.clone();
       tritan_2.material.depthTest = false;
       tritan_2.material.depthWrite = false;
       tritan_2.renderOrder = 1000;
+      tritan_2.frustumCulled = false;
 
       tritan_3.material = tritangent_material.clone();
       tritan_3.material.depthTest = false;
       tritan_3.material.depthWrite = false;
       tritan_3.renderOrder = 1000;
+      tritan_3.frustumCulled = false;
       
       // PLOT TRITANGENTS
       for (let s = 0; s < LINE_SAMPLES; s++) {
@@ -317,133 +347,156 @@
       const odd_12a_geometry = new THREE.BufferGeometry();
       const odd_12a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_12a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_12a_pos, 3));
+      odd_12a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_12a = new THREE.Line(odd_12a_geometry, odd_mat);
       odd_12a.material = odd_mat.clone();
       odd_12a.material.depthTest = false;
       odd_12a.material.depthWrite = false;
       odd_12a.renderOrder = 1000;
-      // odd_12a.frustumCulled = false;
+      odd_12a.frustumCulled = false;
       
       // (1 2) line b
       const odd_12b_geometry = new THREE.BufferGeometry();
       const odd_12b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_12b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_12b_pos, 3));
+      odd_12b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_12b = new THREE.Line(odd_12b_geometry, odd_mat);
       // Render on top of surface
       odd_12b.material = odd_mat.clone();
       odd_12b.material.depthTest = false;
       odd_12b.material.depthWrite = false;
       odd_12b.renderOrder = 1000;
+      odd_12b.frustumCulled = false;
       
       // (1 3) line a
       const odd_13a_geometry = new THREE.BufferGeometry();
       const odd_13a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_13a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_13a_pos, 3));
+      odd_13a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_13a = new THREE.Line(odd_13a_geometry, odd_mat);
       // Render on top of surface
       odd_13a.material = odd_mat.clone();
       odd_13a.material.depthTest = false;
       odd_13a.material.depthWrite = false;
       odd_13a.renderOrder = 1000;
+      odd_13a.frustumCulled = false;
       
       // (1 3) line b
       const odd_13b_geometry = new THREE.BufferGeometry();
       const odd_13b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_13b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_13b_pos, 3));
+      odd_13b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_13b = new THREE.Line(odd_13b_geometry, odd_mat);
       // Render on top of surface
       odd_13b.material = odd_mat.clone();
       odd_13b.material.depthTest = false;
       odd_13b.material.depthWrite = false;
       odd_13b.renderOrder = 1000;
+      odd_13b.frustumCulled = false;
       
       // (1 4) line a
       const odd_14a_geometry = new THREE.BufferGeometry();
       const odd_14a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_14a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_14a_pos, 3));
+      odd_14a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_14a = new THREE.Line(odd_14a_geometry, odd_mat);
       // Render on top of surface
       odd_14a.material = odd_mat.clone();
       odd_14a.material.depthTest = false;
       odd_14a.material.depthWrite = false;
       odd_14a.renderOrder = 1000;
+      odd_14a.frustumCulled = false;
       
       // (1 4) line b
       const odd_14b_geometry = new THREE.BufferGeometry();
       const odd_14b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_14b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_14b_pos, 3));
+      odd_14b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_14b = new THREE.Line(odd_14b_geometry, odd_mat);
       // Render on top of surface
       odd_14b.material = odd_mat.clone();
       odd_14b.material.depthTest = false;
       odd_14b.material.depthWrite = false;
       odd_14b.renderOrder = 1000;
+      odd_14b.frustumCulled = false;
       
       // (2 3) line a
       const odd_23a_geometry = new THREE.BufferGeometry();
       const odd_23a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_23a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_23a_pos, 3));
+      odd_23a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_23a = new THREE.Line(odd_23a_geometry, odd_mat);
       // Render on top of surface
       odd_23a.material = odd_mat.clone();
       odd_23a.material.depthTest = false;
       odd_23a.material.depthWrite = false;
       odd_23a.renderOrder = 1000;
+      odd_23a.frustumCulled = false;
       
       // (2 3) line b
       const odd_23b_geometry = new THREE.BufferGeometry();
       const odd_23b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_23b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_23b_pos, 3));
+      odd_23b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_23b = new THREE.Line(odd_23b_geometry, odd_mat);
       // Render on top of surface
       odd_23b.material = odd_mat.clone();
       odd_23b.material.depthTest = false;
       odd_23b.material.depthWrite = false;
       odd_23b.renderOrder = 1000;
+      odd_23b.frustumCulled = false;
 
       // (2 4) line a
       const odd_24a_geometry = new THREE.BufferGeometry();
       const odd_24a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_24a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_24a_pos, 3));
+      odd_24a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_24a = new THREE.Line(odd_24a_geometry, odd_mat);
       // Render on top of surface
       odd_24a.material = odd_mat.clone();
       odd_24a.material.depthTest = false;
       odd_24a.material.depthWrite = false;
       odd_24a.renderOrder = 1000;
+      odd_24a.frustumCulled = false;
 
       // (2 4) line b
       const odd_24b_geometry = new THREE.BufferGeometry();
       const odd_24b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_24b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_24b_pos, 3));
+      odd_24b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_24b = new THREE.Line(odd_24b_geometry, odd_mat);
       // Render on top of surface
       odd_24b.material = odd_mat.clone();
       odd_24b.material.depthTest = false;
       odd_24b.material.depthWrite = false;
       odd_24b.renderOrder = 1000;
+      odd_24b.frustumCulled = false;
       
       // (3 4) line a
       const odd_34a_geometry = new THREE.BufferGeometry();
       const odd_34a_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_34a_geometry.setAttribute('position', new THREE.BufferAttribute(odd_34a_pos, 3));
+      odd_34a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_34a = new THREE.Line(odd_34a_geometry, odd_mat);
       // Render on top of surface
       odd_34a.material = odd_mat.clone();
       odd_34a.material.depthTest = false;
       odd_34a.material.depthWrite = false;
       odd_34a.renderOrder = 1000;
+      odd_34a.frustumCulled = false;
       
       // (3 4) line b
       const odd_34b_geometry = new THREE.BufferGeometry();
       const odd_34b_pos = new Float32Array(LINE_SAMPLES * 3);
       odd_34b_geometry.setAttribute('position', new THREE.BufferAttribute(odd_34b_pos, 3));
+      odd_34b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const odd_34b = new THREE.Line(odd_34b_geometry, odd_mat);
       // Render on top of surface
       odd_34b.material = odd_mat.clone();
       odd_34b.material.depthTest = false;
       odd_34b.material.depthWrite = false;
       odd_34b.renderOrder = 1000;
+      odd_34b.frustumCulled = false;
 
       // Add odd lines
       scene.add(odd_12a);
@@ -470,121 +523,145 @@
       const even_1234a_geometry = new THREE.BufferGeometry();
       const even_1234a_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1234a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234a_pos, 3));
+      even_1234a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1234a = new THREE.Line(even_1234a_geometry, even_mat);
       even_1234a.material = even_mat.clone();
       even_1234a.material.depthTest = false;
       even_1234a.material.depthWrite = false;
       even_1234a.renderOrder = 1000;
+      even_1234a.frustumCulled = false;
 
       // (1 2)(3 4) line b
       const even_1234b_geometry = new THREE.BufferGeometry();
       const even_1234b_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1234b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234b_pos, 3));
+      even_1234b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1234b = new THREE.Line(even_1234b_geometry, even_mat);
       even_1234b.material = even_mat.clone();
       even_1234b.material.depthTest = false;
       even_1234b.material.depthWrite = false;
       even_1234b.renderOrder = 1000;
+      even_1234b.frustumCulled = false;
 
       // (1 2)(3 4) line c
       const even_1234c_geometry = new THREE.BufferGeometry();
       const even_1234c_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1234c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234c_pos, 3));
+      even_1234c_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1234c = new THREE.Line(even_1234c_geometry, even_mat);
       even_1234c.material = even_mat.clone();
       even_1234c.material.depthTest = false;
       even_1234c.material.depthWrite = false;
       even_1234c.renderOrder = 1000;
+      even_1234c.frustumCulled = false;
 
       // (1 2)(3 4) line d
       const even_1234d_geometry = new THREE.BufferGeometry();
       const even_1234d_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1234d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1234d_pos, 3));
+      even_1234d_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1234d = new THREE.Line(even_1234d_geometry, even_mat);
       even_1234d.material = even_mat.clone();
       even_1234d.material.depthTest = false;
       even_1234d.material.depthWrite = false;
       even_1234d.renderOrder = 1000;
+      even_1234d.frustumCulled = false;
 
       // (1 3)(2 4) line a
       const even_1324a_geometry = new THREE.BufferGeometry();
       const even_1324a_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1324a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324a_pos, 3));
+      even_1324a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1324a = new THREE.Line(even_1324a_geometry, even_mat);
       even_1324a.material = even_mat.clone();
       even_1324a.material.depthTest = false;
       even_1324a.material.depthWrite = false;
       even_1324a.renderOrder = 1000;
+      even_1324a.frustumCulled = false;
 
       // (1 3)(2 4) line b
       const even_1324b_geometry = new THREE.BufferGeometry();
       const even_1324b_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1324b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324b_pos, 3));
+      even_1324b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1324b = new THREE.Line(even_1324b_geometry, even_mat);
       even_1324b.material = even_mat.clone();
       even_1324b.material.depthTest = false;
       even_1324b.material.depthWrite = false;
       even_1324b.renderOrder = 1000;
+      even_1324b.frustumCulled = false;
 
       // (1 3)(2 4) line c
       const even_1324c_geometry = new THREE.BufferGeometry();
       const even_1324c_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1324c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324c_pos, 3));
+      even_1324c_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1324c = new THREE.Line(even_1324c_geometry, even_mat);
       even_1324c.material = even_mat.clone();
       even_1324c.material.depthTest = false;
       even_1324c.material.depthWrite = false;
       even_1324c.renderOrder = 1000;
+      even_1324c.frustumCulled = false;
 
       // (1 3)(2 4) line d
       const even_1324d_geometry = new THREE.BufferGeometry();
       const even_1324d_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1324d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1324d_pos, 3));
+      even_1324d_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1324d = new THREE.Line(even_1324d_geometry, even_mat);
       even_1324d.material = even_mat.clone();
       even_1324d.material.depthTest = false;
       even_1324d.material.depthWrite = false;
       even_1324d.renderOrder = 1000;
+      even_1324d.frustumCulled = false;
 
       // (1 4)(2 3) line a
       const even_1423a_geometry = new THREE.BufferGeometry();
       const even_1423a_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1423a_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423a_pos, 3));
+      even_1423a_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1423a = new THREE.Line(even_1423a_geometry, even_mat);
       even_1423a.material = even_mat.clone();
       even_1423a.material.depthTest = false;
       even_1423a.material.depthWrite = false;
       even_1423a.renderOrder = 1000;
+      even_1423a.frustumCulled = false;
 
       // (1 4)(2 3) line b
       const even_1423b_geometry = new THREE.BufferGeometry();
       const even_1423b_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1423b_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423b_pos, 3));
+      even_1423b_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1423b = new THREE.Line(even_1423b_geometry, even_mat);
       even_1423b.material = even_mat.clone();
       even_1423b.material.depthTest = false;
       even_1423b.material.depthWrite = false;
       even_1423b.renderOrder = 1000;
+      even_1423b.frustumCulled = false;
 
       // (1 4)(2 3) line c
       const even_1423c_geometry = new THREE.BufferGeometry();
       const even_1423c_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1423c_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423c_pos, 3));
+      even_1423c_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1423c = new THREE.Line(even_1423c_geometry, even_mat);
       even_1423c.material = even_mat.clone();
       even_1423c.material.depthTest = false;
       even_1423c.material.depthWrite = false;
       even_1423c.renderOrder = 1000;
+      even_1423c.frustumCulled = false;
 
       // (1 4)(2 3) line d
       const even_1423d_geometry = new THREE.BufferGeometry();
       const even_1423d_pos = new Float32Array(LINE_SAMPLES * 3);
       even_1423d_geometry.setAttribute('position', new THREE.BufferAttribute(even_1423d_pos, 3));
+      even_1423d_geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), Math.sqrt(3)*5 + 0.5);
       const even_1423d = new THREE.Line(even_1423d_geometry, even_mat);
       even_1423d.material = even_mat.clone();
       even_1423d.material.depthTest = false;
       even_1423d.material.depthWrite = false;
       even_1423d.renderOrder = 1000;
+      even_1423d.frustumCulled = false;
 
       // Add even lines
       scene.add(even_1234a);
@@ -1062,6 +1139,43 @@
 
         };
 
+        // Ensure stable bounds despite NaN sentinels in position arrays
+        const domainRadius = Math.sqrt(3) * (BOUNDS_MAX - BOUNDS_MIN) * 0.5; // ~√3 * 5
+        const fixedSphere = new THREE.Sphere(new THREE.Vector3(0,0,0), domainRadius + 0.5);
+
+        // Tritangent lines
+        tritan_1_geometry.boundingSphere = fixedSphere.clone();
+        tritan_2_geometry.boundingSphere = fixedSphere.clone();
+        tritan_3_geometry.boundingSphere = fixedSphere.clone();
+
+        // Odd lines
+        odd_12a_geometry.boundingSphere = fixedSphere.clone();
+        odd_12b_geometry.boundingSphere = fixedSphere.clone();
+        odd_13a_geometry.boundingSphere = fixedSphere.clone();
+        odd_13b_geometry.boundingSphere = fixedSphere.clone();
+        odd_14a_geometry.boundingSphere = fixedSphere.clone();
+        odd_14b_geometry.boundingSphere = fixedSphere.clone();
+        odd_23a_geometry.boundingSphere = fixedSphere.clone();
+        odd_23b_geometry.boundingSphere = fixedSphere.clone();
+        odd_24a_geometry.boundingSphere = fixedSphere.clone();
+        odd_24b_geometry.boundingSphere = fixedSphere.clone();
+        odd_34a_geometry.boundingSphere = fixedSphere.clone();
+        odd_34b_geometry.boundingSphere = fixedSphere.clone();
+
+        // Even lines
+        even_1234a_geometry.boundingSphere = fixedSphere.clone();
+        even_1234b_geometry.boundingSphere = fixedSphere.clone();
+        even_1234c_geometry.boundingSphere = fixedSphere.clone();
+        even_1234d_geometry.boundingSphere = fixedSphere.clone();
+        even_1324a_geometry.boundingSphere = fixedSphere.clone();
+        even_1324b_geometry.boundingSphere = fixedSphere.clone();
+        even_1324c_geometry.boundingSphere = fixedSphere.clone();
+        even_1324d_geometry.boundingSphere = fixedSphere.clone();
+        even_1423a_geometry.boundingSphere = fixedSphere.clone();
+        even_1423b_geometry.boundingSphere = fixedSphere.clone();
+        even_1423c_geometry.boundingSphere = fixedSphere.clone();
+        even_1423d_geometry.boundingSphere = fixedSphere.clone();
+
       };
       // ------------------- IMPLICIT SURFACE (MC) -------------------
       // Shaded material for the extracted iso-surface
@@ -1071,25 +1185,37 @@
         roughness: 0.1,
         side: THREE.DoubleSide
       });
-            // Slightly bias the surface backwards in the depth buffer so lines remain visible
+      // Slightly bias the surface backwards in the depth buffer so lines remain visible
       surfaceMat.polygonOffset = true;
       surfaceMat.polygonOffsetFactor = 1;   // positive pushes back
       surfaceMat.polygonOffsetUnits = 1;
+      surfaceMat.flatShading = false; // default is smooth shading; be explicit
+      surfaceMat.needsUpdate = true;
 
-      // MarchingCubes holds the sampled scalar field and generates triangles
-      const mc = new MarchingCubes(
-        RESOLUTION,
-        surfaceMat, 
-        true, 
-        true,
-        1_000_000       // triangle buffer (max number of triangles)
-      );
-      // Use object-space transform to map MC local coords ([-0.5,0.5]) → world cube [-5,5]
-      mc.scale.set((BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2);
-  
-      mc.position.set(0, 0, 0);
-      mc.matrixAutoUpdate = true;
-      scene.add(mc);
+      // MarchingCubes holder (we rebuild when quality changes)
+      let mc = null;
+      function createMC(res){
+        if (mc){
+          // clean up old instance
+          scene.remove(mc);
+          mc.geometry?.dispose?.();
+        }
+        mc = new MarchingCubes(
+          res,
+          surfaceMat,
+          true,
+          true,
+          1_000_000
+        );
+        // Map MC local coords ([-0.5,0.5]) → world cube [-5,5]
+        mc.scale.set((BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2,(BOUNDS_MAX - BOUNDS_MIN)/2);
+        mc.position.set(0, 0, 0);
+        mc.matrixAutoUpdate = true;
+        scene.add(mc);
+      }
+      
+      // build initial MC
+      createMC(RESOLUTION);
 
       // ---------------------- UI: sliders ----------------------
       // Keep a,b,c in sync with text labels and schedule field recompute.
@@ -1100,9 +1226,12 @@
       const aVal = document.getElementById('aVal');
       const bVal = document.getElementById('bVal');
       const cVal = document.getElementById('cVal');
+      const qSlider = document.getElementById('q');
+      const qVal = document.getElementById('qVal');
 
-      function setVal(el, v){ el.textContent = Number(v).toFixed(2); }
+      function setVal(el, v){ el.textContent = Number(v).toFixed(1); }
       setVal(aVal, params.a); setVal(bVal, params.b); setVal(cVal, params.c);
+      setVal(qVal, RESOLUTION);
 
       // Debounce recomputation to animation frames to avoid stutter while dragging
       let updateScheduled = false;
@@ -1116,12 +1245,22 @@
       bSlider.addEventListener('input', () => { params.b = parseFloat(bSlider.value); setVal(bVal, params.b); requestFieldUpdate(); debugLog(); });
       cSlider.addEventListener('input', () => { params.c = parseFloat(cSlider.value); setVal(cVal, params.c); requestFieldUpdate(); debugLog(); });
 
+      // Quality slider: show live value while dragging, rebuild mesh on release
+      qSlider.addEventListener('input', () => { setVal(qVal, qSlider.value); });
+      qSlider.addEventListener('change', () => {
+        RESOLUTION = parseInt(qSlider.value, 10);
+        createMC(RESOLUTION);
+        updateCubicSurface();
+        // no need to touch lines—they are independent of resolution
+      });
+
       aSlider.addEventListener('change', () => { debugLog(); });
       bSlider.addEventListener('change', () => { debugLog(); });
       cSlider.addEventListener('change', () => { debugLog(); });
 
             // Map the MC local geometry bbox to the world domain [-5,5]^3 without distortion
       function fitMCToDomain() {
+        if (!mc) return;
         if (!mc.geometry || !mc.geometry.boundingBox) return;
         const box = mc.geometry.boundingBox; // LOCAL space bbox
         const localMin = box.min.clone();
@@ -1190,9 +1329,9 @@
       updateParamLines();
       debugLog();
       // After mc.update()
-      mc.geometry.computeBoundingBox();
-      const box = mc.geometry.boundingBox;   // in mc's LOCAL space (before mc.scale/position)
-      console.log('MC local bbox:', box.min, box.max);
+      if (mc && mc.geometry) {
+        mc.geometry.computeBoundingBox();
+      }
 
       
       
