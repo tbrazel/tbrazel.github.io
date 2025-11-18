@@ -71,9 +71,9 @@
       <p>A general symmetric cubic surface is defined by <br>$a\sum x_i^3 + b\sum x_i^2 x_j + c\sum x_i x_j x_k$.<br>
       While there is no formula in radicals for lines on a general cubic surface, <a href="https://tbrazel.github.io/papers/K4.pdf" target="_blank">joint work with S. Raman</a> proves the existence of such formulas for $S_4$-symmetric cubic surfaces. This allows us to easily graph the lines by using their exact symbolic formulas!
       </p>
-      <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.1" value="-0.7" style="width: 100%;"> <span id="aVal" class="val">-3.6</span></label>
-      <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.1" value="2.1" style="width: 100%;"> <span id="bVal" class="val">6.1</span></label>
-      <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.1" value="1.0" style="width: 100%;"> <span id="cVal" class="val">5.9</span></label>
+      <label>a <input type="range" id="a" min="-10.0" max="10.0" step="0.05" value="-0.7" style="width: 100%;"> <span id="aVal" class="val">-3.6</span></label>
+      <label>b <input type="range" id="b" min="-10.0" max="10.0" step="0.05" value="2.1" style="width: 100%;"> <span id="bVal" class="val">6.1</span></label>
+      <label>c <input type="range" id="c" min="-10.0" max="10.0" step="0.05" value="1.0" style="width: 100%;"> <span id="cVal" class="val">5.9</span></label>
       
     </div>
 
@@ -82,7 +82,9 @@
     {
       "imports": {
         "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/",
+        "three/addons/postprocessing/": "https://unpkg.com/three@0.165.0/examples/jsm/postprocessing/",
+        "three/addons/shaders/": "https://unpkg.com/three@0.165.0/examples/jsm/shaders/"
       }
     }
     </script>
@@ -94,6 +96,10 @@
       import * as THREE from 'three';
       import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
       import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
+      import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+      import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+      import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+      import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
 
       // Set default values for a,b,c
       const default_a = 0;
@@ -136,6 +142,10 @@
       const container = document.getElementById('viewport');
       // WebGL renderer; attach to #viewport
       const renderer = new THREE.WebGLRenderer({ antialias: true });
+      // Improve gradient smoothness and reduce banding
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.6;
       // cap devicePixelRatio to avoid overdraw on HiDPI
       renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
@@ -174,9 +184,9 @@
       camera.lookAt(0, 0, 0);
 
       // Lights: soft hemisphere + directional key light
-      const hemi = new THREE.HemisphereLight(0xffffff, 0x223344, 0.6);
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x223344, 2.0);
       scene.add(hemi);
-      const dir = new THREE.DirectionalLight(0xffffff, 0.85);
+      const dir = new THREE.DirectionalLight(0xffffff, 2.5);
       dir.position.set(2, 3, 1);
       scene.add(dir);
 
@@ -1190,6 +1200,7 @@
       surfaceMat.polygonOffsetFactor = 1;   // positive pushes back
       surfaceMat.polygonOffsetUnits = 1;
       surfaceMat.flatShading = false; // default is smooth shading; be explicit
+      surfaceMat.dithering = true; // helps reduce banding on smooth gradients
       surfaceMat.needsUpdate = true;
 
       // MarchingCubes holder (we rebuild when quality changes)
@@ -1228,8 +1239,10 @@
       const cVal = document.getElementById('cVal');
       const qSlider = document.getElementById('q');
       const qVal = document.getElementById('qVal');
+      // Ensure slider reflects current internal value on load
+      qSlider.value = String(RESOLUTION);
 
-      function setVal(el, v){ el.textContent = Number(v).toFixed(1); }
+      function setVal(el, v){ el.textContent = Number(v).toFixed(2); }
       setVal(aVal, params.a); setVal(bVal, params.b); setVal(cVal, params.c);
       setVal(qVal, RESOLUTION);
 
@@ -1238,20 +1251,35 @@
       function requestFieldUpdate(){
         if (updateScheduled) return;
         updateScheduled = true;
-        requestAnimationFrame(() => { updateCubicSurface(); updateParamLines(); debugLog(); updateScheduled = false; });
+        requestAnimationFrame(() => {
+           updateCubicSurface();
+           updateParamLines();
+          //  debugLog();
+           updateScheduled = false; 
+          });
       }
 
       aSlider.addEventListener('input', () => { params.a = parseFloat(aSlider.value); setVal(aVal, params.a); requestFieldUpdate(); debugLog(); });
       bSlider.addEventListener('input', () => { params.b = parseFloat(bSlider.value); setVal(bVal, params.b); requestFieldUpdate(); debugLog(); });
       cSlider.addEventListener('input', () => { params.c = parseFloat(cSlider.value); setVal(cVal, params.c); requestFieldUpdate(); debugLog(); });
 
-      // Quality slider: show live value while dragging, rebuild mesh on release
-      qSlider.addEventListener('input', () => { setVal(qVal, qSlider.value); });
+      // Quality slider: rebuild live while dragging so resolution always matches the slider
+      qSlider.addEventListener('input', () => {
+        const newRes = parseInt(qSlider.value, 10);
+        setVal(qVal, newRes);
+        if (newRes !== RESOLUTION) {
+          RESOLUTION = newRes;
+          createMC(RESOLUTION);
+          updateCubicSurface();
+        }
+      });
       qSlider.addEventListener('change', () => {
-        RESOLUTION = parseInt(qSlider.value, 10);
-        createMC(RESOLUTION);
-        updateCubicSurface();
-        // no need to touch lines—they are independent of resolution
+        const newRes = parseInt(qSlider.value, 10);
+        if (newRes !== RESOLUTION) {
+          RESOLUTION = newRes;
+          createMC(RESOLUTION);
+          updateCubicSurface();
+        }
       });
 
       aSlider.addEventListener('change', () => { debugLog(); });
@@ -1291,7 +1319,8 @@
         MC outputs vertices in local [-0.5,0.5]; object scale maps to world units
       */
       function updateCubicSurface(){
-        
+        // Clear any previous mesh/field state before writing new scalar values
+        if (mc && typeof mc.reset === 'function') mc.reset();
         let ptr = 0;
         for (let k = 0; k < RESOLUTION; k++) {
           
@@ -1319,6 +1348,10 @@
         }
         mc.isolation = ISO; //graph where F=0
         mc.update();
+        // Use MarchingCubes' built-in smooth normals; just mark them dirty
+        if (mc.geometry && mc.geometry.attributes && mc.geometry.attributes.normal) {
+          mc.geometry.attributes.normal.needsUpdate = true;
+        }
         mc.geometry.computeBoundingBox();
         fitMCToDomain();
       }
@@ -1327,7 +1360,7 @@
       // ---- build once at startup ----
       updateCubicSurface();
       updateParamLines();
-      debugLog();
+      // debugLog();
       // After mc.update()
       if (mc && mc.geometry) {
         mc.geometry.computeBoundingBox();
@@ -1372,10 +1405,22 @@
       renderer.domElement.addEventListener('dblclick', () => frameAll());
 
       // === RENDER LOOP + RESIZE ===
+      // Postprocessing: FXAA to smooth jagged light/dark edges without changing lighting
+      const composer = new EffectComposer(renderer);
+      const renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+      const fxaaPass = new ShaderPass(FXAAShader);
+      // will set resolution uniform in resize()
+      composer.addPass(fxaaPass);
+
       function resize(){
         // Resize renderer and recompute projection; then reframe to cube
         const w = container.clientWidth, h = container.clientHeight;
         renderer.setSize(w, h, true);
+        if (fxaaPass && fxaaPass.material && fxaaPass.material.uniforms && fxaaPass.material.uniforms[ 'resolution' ]) {
+          fxaaPass.material.uniforms[ 'resolution' ].value.set(1 / Math.max(1, w), 1 / Math.max(1, h));
+        }
+        composer.setSize(w, h);
         camera.aspect = w / h || 1;
         camera.updateProjectionMatrix();
         // Keep origin centered and fit the fixed cube after resize
@@ -1389,7 +1434,7 @@
       // Main loop: let OrbitControls apply damping, then render the scene
       renderer.setAnimationLoop(() => {
         controls.update();
-        renderer.render(scene, camera);
+        composer.render();
       });
     </script>
   </body>
