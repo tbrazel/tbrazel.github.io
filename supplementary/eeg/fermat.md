@@ -18,12 +18,12 @@ matrix:
 - [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]
 - [1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1]
 - [0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0]
-- [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0]
-- [1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]
-- [0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1]
-- [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1]
-- [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1]
-- [0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1]
+- [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0]
+- [1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1]
+- [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1]
+- [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0]
+- [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0]
+- [0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0]
 - [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0]
 - [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0]
 - [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1]
@@ -47,11 +47,8 @@ The lines on the Fermat admit very easy formulas. Although the automorphism grou
 %}
 
 ## Adjacency
-In the marking above, the Weyl group $$W(E_6)$$ can be presented as a subgroup of $$S_{27}$$ via the following generating reflections:
 
-
-
-The (complement of the) adjacency matrix is [available here]({% link raw_datafiles/fermat_adjacency_matx.txt %}). We can present the Weyl group of $$E_6$$ as a subgroup of $$S_{27}$$ in a few ways, either via monodromy computations or just by extracting the automorphism group of the Schläfli graph described by the adjacency matrix above using [nauty](https://pallini.di.uniroma1.it/) or any similar tool. The generators for $$W(E_6)$$ as a symmetric subgroup are the following:
+The (complement of the) adjacency matrix of the lines above is [available here]({% link raw_datafiles/fermat_adjacency_matx.txt %}). We can present the Weyl group of $$E_6$$ as a subgroup of $$S_{27}$$ in a few ways, either via monodromy computations or just by extracting the automorphism group of the Schläfli graph described by the adjacency matrix above using [nauty](https://pallini.di.uniroma1.it/) or any similar tool. The generators for $$W(E_6)$$ as a symmetric subgroup are the following:
 
 {% include render_table.html
    columns=site.data.eeg.cubic_surfaces.WE6_fermat_cols
