@@ -1,0 +1,25 @@
+# declare columns, their labels, and a type so Liquid knows how to render each
+
+- key: number
+  label: Number
+  type: int
+
+
+- key: formula
+  label: Formula
+  type: markdown
+
+- key: isotropy
+  label: Isotropy in S_4
+  type: markdown
+
+
+
+# a few extra examples you can use any time:
+# - key: link
+#   label: Link
+#   type: link           # expects { href, text }
+
+# - key: details_md
+#   label: Details
+#   type: markdown       # render small markdown safely

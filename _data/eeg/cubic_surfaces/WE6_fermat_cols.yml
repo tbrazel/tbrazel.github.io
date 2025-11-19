@@ -1,0 +1,13 @@
+# declare columns, their labels, and a type so Liquid knows how to render each
+
+- key: number
+  label: Number
+  type: int
+
+- key: generator
+  label: Generator
+  type: code
+
+# - key: carter_class
+#   label: Class (Carter)
+#   type: markdown

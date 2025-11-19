@@ -1,0 +1,109 @@
+- number: 1
+  formula: \\([s\\colon -s\\colon t \\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 2) \\rangle \\)
+
+- number: 2
+  formula: \\([s\\colon-s\\colon t\\colon\zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 2) \\rangle \\)
+  
+- number: 3
+  formula: \\([s\\colon\zeta s\\colon t\\colon- t]\\)
+  isotropy: \\( \\langle ((3\ 4) \\rangle \\)
+
+- number: 4
+  formula: \\([s\\colon\zeta^{-1} s\\colon t \\colon - t]\\)
+  isotropy: \\( \\langle ((3\ 4) \\rangle \\)
+
+- number: 5
+  formula: \\([s\\colon t \\colon \zeta s\\colon -t]\\)
+  isotropy: \\( \\langle ((2\ 4) \\rangle \\)
+
+- number: 6
+  formula: \\([s \\colon t \\colon \zeta^{-1} s \\colon -t]\\)
+  isotropy: \\( \\langle ((2\ 4) \\rangle \\)
+
+- number: 7
+  formula: \\([s \\colon t \\colon -s \\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 3) \\rangle \\)
+
+- number: 8
+  formula: \\([s \\colon t \\colon -s \\colon \zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 3) \\rangle \\)
+
+- number: 9
+  formula: \\([s \\colon t \\colon -t \\colon \zeta s]\\)
+  isotropy: \\( \\langle ((2\ 4) \\rangle \\)
+
+- number: 10
+  formula: \\([s \\colon t \\colon -t \\colon \zeta^{-1} s]\\)
+  isotropy: \\( \\langle ((2\ 4) \\rangle \\)
+
+- number: 11
+  formula: \\([s \\colon t \\colon \zeta t \\colon -s]\\)
+  isotropy: \\( \\langle ((1\ 4) \\rangle \\)
+
+- number: 12
+  formula: \\([s \\colon t \\colon \zeta^{-1} t \\colon -s]\\)
+  isotropy: \\( \\langle ((1\ 4) \\rangle \\)
+
+# Now even lines
+
+- number: 13
+  formula: \\([s\\colon \zeta s\\colon t\\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 3)(2\ 4) \\rangle \\)
+
+- number: 14
+  formula: \\([s\\colon \zeta s\\colon t\\colon \zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 4)(2\ 3) \\rangle \\)
+
+- number: 15
+  formula: \\([s\\colon \zeta^{-1} s\\colon t\\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 4)(2\ 3) \\rangle \\)
+
+- number: 16
+  formula: \\([s\\colon \zeta^{-1} s\\colon t\\colon \zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 3)(2\ 4) \\rangle \\)
+
+- number: 17
+  formula: \\([s\\colon t\\colon \zeta s\\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 2)(3\ 4) \\rangle \\)
+
+- number: 18
+  formula: \\([s\\colon t\\colon \zeta s\\colon \zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 4)(2\ 3) \\rangle \\)
+
+- number: 19
+  formula: \\([s\\colon t\\colon \zeta^{-1} s\\colon \zeta t]\\)
+  isotropy: \\( \\langle ((1\ 4)(2\ 3) \\rangle \\)
+
+- number: 20
+  formula: \\([s\\colon t\\colon \zeta^{-1} s\\colon \zeta^{-1} t]\\)
+  isotropy: \\( \\langle ((1\ 2)(3\ 4) \\rangle \\)
+
+- number: 21
+  formula: \\([s\\colon t\\colon \zeta t\\colon \zeta s]\\)
+  isotropy: \\( \\langle ((1\ 2)(3\ 4) \\rangle \\)
+
+- number: 22
+  formula: \\([s\\colon t\\colon \zeta^{-1} t\\colon \zeta s]\\)
+  isotropy: \\( \\langle ((1\ 3)(2\ 4) \\rangle \\)
+
+- number: 23
+  formula: \\([s\\colon t\\colon \zeta t\\colon \zeta^{-1} s]\\)
+  isotropy: \\( \\langle ((1\ 3)(2\ 4) \\rangle \\)
+
+- number: 24
+  formula: \\([s\\colon t\\colon \zeta^{-1} t\\colon \zeta^{-1} s]\\)
+  isotropy: \\( \\langle ((1\ 2)(3\ 4) \\rangle \\)
+
+- number: 25
+  formula: \\([s\\colon -s\\colon t\\colon -t]\\)
+  isotropy: \\( \\langle(1\ 3)(2\ 4), (1\ 2), (3\ 4)\\rangle \\)
+
+- number: 26
+  formula: \\([s\\colon t\\colon -s\\colon -t]\\)
+  isotropy: \\( \\langle(1\ 3)(2\ 4), (1\ 2), (3\ 4)\\rangle \\)
+
+- number: 27
+  formula: \\([s\\colon t\\colon -t\\colon -s]\\)
+  isotropy: \\( \\langle(1\ 3)(2\ 4), (1\ 2), (3\ 4)\\rangle \\)

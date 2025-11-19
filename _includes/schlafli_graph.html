@@ -1,0 +1,213 @@
+<div class="cgraph" data-title="{{ include.title | default: 'Circular Graph (27 nodes)' }}"></div>
+
+<script>
+{
+  // --- Load data from include params ---
+  {% assign __matrix_obj = include.matrix | default: page.matrix %}
+  {% if __matrix_obj %}
+  const matrix = {{ __matrix_obj | jsonify }};
+  {% else %}
+  console.error('schlafli_graph include: No matrix passed. Provide include.matrix or page.matrix.');
+  const matrix = [];
+  {% endif %}
+  {% assign __groups_obj = include.groups | default: page.groups %}
+  {% if __groups_obj %}
+  const groups = {{ __groups_obj | jsonify }};
+  {% else %}
+  const groups = [{"count":12,"color":"#1e90ff"},{"count":12,"color":"#16a34a"},{"count":3,"color":"#ef4444"}];
+  {% endif %}
+  const options = {
+    edgeOpacity: 0.35,
+    edgeWidth: 1,
+    nodeRadius: 10,
+    labelOffset: 18,
+    fontSize: 12,
+  };
+
+  (function renderCircularGraph(containerEl, adj, groups, opts) {
+    const container = containerEl || (document.currentScript && document.currentScript.previousElementSibling);
+    if (!container) return;
+
+    // Validate 27×27
+    const n = adj?.length || 0;
+    if (n !== 27 || adj.some(r => !Array.isArray(r) || r.length !== 27)) {
+      container.textContent = 'Expected a 27×27 adjacency matrix.';
+      return;
+    }
+
+    // Build colors array
+    const colors = [];
+    let idx = 0;
+    groups.forEach(g => {
+      for (let k = 0; k < g.count && idx < n; k++, idx++) colors.push(g.color || '#999');
+    });
+    while (colors.length < n) colors.push('#999'); // pad if needed
+
+    // SVG setup
+    const W = 800, H = 800, R = 300, cx = W/2, cy = H/2;
+    const svgNS = 'http://www.w3.org/2000/svg';
+    container.innerHTML = '';
+
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.style.display = 'block';
+    svg.style.maxWidth = '900px';
+    svg.style.margin = '1rem auto';
+
+    const defs = document.createElementNS(svgNS, 'defs');
+    svg.appendChild(defs);
+
+    const title = document.createElementNS(svgNS, 'text');
+    title.setAttribute('x', String(cx));
+    title.setAttribute('y', '32');
+    title.setAttribute('text-anchor', 'middle');
+    title.setAttribute('font-size', '16');
+    title.setAttribute('font-weight', '600');
+    title.textContent = container.dataset.title || 'Circular Graph';
+    svg.appendChild(title);
+
+    // Node positions (start at top)
+    const angles = Array.from({length: n}, (_, k) => 2*Math.PI*k/n - Math.PI/2);
+    const pos = angles.map(a => [cx + R*Math.cos(a), cy + R*Math.sin(a)]);
+
+    // Layers
+    const edgesG = document.createElementNS(svgNS, 'g');
+    const nodesG = document.createElementNS(svgNS, 'g');
+    const labelsG = document.createElementNS(svgNS, 'g');
+    edgesG.setAttribute('stroke', '#444');
+    edgesG.setAttribute('stroke-opacity', String(opts.edgeOpacity ?? 0.35));
+    edgesG.setAttribute('stroke-width', String(opts.edgeWidth ?? 1));
+    edgesG.setAttribute('fill', 'none');
+
+    // Draw edges (undirected)
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        if (adj[i][j]) {
+          const [x1, y1] = pos[i], [x2, y2] = pos[j];
+          const colorA = colors[i];
+          const colorB = colors[j];
+
+          const line = document.createElementNS(svgNS, 'line');
+          line.setAttribute('x1', x1);
+          line.setAttribute('y1', y1);
+          line.setAttribute('x2', x2);
+          line.setAttribute('y2', y2);
+          line.setAttribute('data-i', String(i));
+          line.setAttribute('data-j', String(j));
+
+          // Set stroke opacity/width on each line to work with gradients
+          line.setAttribute('stroke-opacity', String(opts.edgeOpacity ?? 0.35));
+          line.setAttribute('stroke-width', String(opts.edgeWidth ?? 1));
+
+          if (colorA && colorB && colorA !== colorB) {
+            // Create a unique linearGradient for this edge aligned to the edge coordinates
+            const gid = `edge-grad-${i}-${j}`;
+            const grad = document.createElementNS(svgNS, 'linearGradient');
+            grad.setAttribute('id', gid);
+            grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+            grad.setAttribute('x1', x1);
+            grad.setAttribute('y1', y1);
+            grad.setAttribute('x2', x2);
+            grad.setAttribute('y2', y2);
+
+            const stop1 = document.createElementNS(svgNS, 'stop');
+            stop1.setAttribute('offset', '0%');
+            stop1.setAttribute('stop-color', colorA);
+
+            const stop2 = document.createElementNS(svgNS, 'stop');
+            stop2.setAttribute('offset', '100%');
+            stop2.setAttribute('stop-color', colorB);
+
+            grad.appendChild(stop1);
+            grad.appendChild(stop2);
+            defs.appendChild(grad);
+
+            line.setAttribute('stroke', `url(#${gid})`);
+          } else {
+            // Same color on both ends (or missing color): solid stroke
+            line.setAttribute('stroke', colorA || colorB || '#444');
+          }
+
+          edgesG.appendChild(line);
+        }
+      }
+    }
+
+    // Draw nodes
+    for (let i = 0; i < n; i++) {
+      const [x, y] = pos[i];
+      const c = document.createElementNS(svgNS, 'circle');
+      c.setAttribute('cx', x);
+      c.setAttribute('cy', y);
+      c.setAttribute('r', String(opts.nodeRadius ?? 10));
+      c.setAttribute('fill', colors[i]);
+      c.setAttribute('stroke', '#111');
+      c.setAttribute('stroke-width', '1');
+      c.setAttribute('data-node', String(i + 1));
+      nodesG.appendChild(c);
+    }
+
+    // Labels 1–27
+    for (let i = 0; i < n; i++) {
+      const a = angles[i];
+      const [x, y] = pos[i];
+      const L = opts.labelOffset ?? 18;
+      const lx = x + L * Math.cos(a);
+      const ly = y + L * Math.sin(a);
+      const t = document.createElementNS(svgNS, 'text');
+      t.setAttribute('x', lx);
+      t.setAttribute('y', ly);
+      t.setAttribute('font-size', String(opts.fontSize ?? 12));
+      t.setAttribute('text-anchor',
+        Math.cos(a) > 0.05 ? 'start' : Math.cos(a) < -0.05 ? 'end' : 'middle'
+      );
+      t.setAttribute('dominant-baseline',
+        Math.sin(a) > 0.05 ? 'hanging' : Math.sin(a) < -0.05 ? 'ideographic' : 'middle'
+      );
+      t.textContent = String(i + 1);
+      t.setAttribute('data-node', String(i + 1));
+      labelsG.appendChild(t);
+    }
+
+    svg.appendChild(edgesG);
+    svg.appendChild(nodesG);
+    svg.appendChild(labelsG);
+    container.appendChild(svg);
+
+    // Optional hover highlight
+    nodesG.addEventListener('mouseover', (e) => {
+      if (e.target.tagName !== 'circle') return;
+      const node = parseInt(e.target.getAttribute('data-node'), 10) - 1;
+      // Dim all non-incident edges; keep incident ones undimmed
+      edgesG.querySelectorAll('line').forEach(l => {
+        const ii = parseInt(l.getAttribute('data-i'), 10);
+        const jj = parseInt(l.getAttribute('data-j'), 10);
+        if (ii === node || jj === node) {
+          l.classList.remove('edge-dim');
+        } else {
+          l.classList.add('edge-dim');
+        }
+      });
+      // Dim all nodes and labels, then highlight hovered node
+      nodesG.querySelectorAll('circle').forEach(c => c.setAttribute('opacity', '0.35'));
+      labelsG.querySelectorAll('text').forEach(t => t.setAttribute('opacity', '0.35'));
+      const hoveredLabel = labelsG.querySelector(`text[data-node="${node + 1}"]`);
+      if (hoveredLabel) hoveredLabel.removeAttribute('opacity');
+      e.target.setAttribute('opacity', '1');
+    });
+    nodesG.addEventListener('mouseout', () => {
+      // Clear any dimming class and restore opacities
+      edgesG.querySelectorAll('line').forEach(l => l.classList.remove('edge-dim'));
+      nodesG.querySelectorAll('circle').forEach(c => c.removeAttribute('opacity'));
+      labelsG.querySelectorAll('text').forEach(t => t.removeAttribute('opacity'));
+    });
+  })(document.currentScript && document.currentScript.previousElementSibling, matrix, groups, options);
+}
+</script>
+
+<style>
+.cgraph { width: 100%; max-width: 920px; aspect-ratio: 1 / 1; margin: 1rem auto; }
+.cgraph svg line.edge-dim { stroke-opacity: 0.06 !important; }
+</style>

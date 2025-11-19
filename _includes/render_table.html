@@ -67,6 +67,16 @@ Usage example:
                   {{ val | markdownify }}
                 {%- endif -%}
 
+              {%- when "code" -%}
+                {%- if val -%}
+                  <code>{{ val | escape }}</code>
+                {%- endif -%}
+
+              {%- when "codeblock" -%}
+                {%- if val -%}
+                  <pre><code>{{ val | escape }}</code></pre>
+                {%- endif -%}
+
               {%- else -%}
                 {{ val }}
             {%- endcase -%}
