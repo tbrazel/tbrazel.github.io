@@ -14,6 +14,7 @@ In this directory are additional visuals, data, and explanations for certain pro
 ## Around the Wronski map
 - [maximally inflected quintics]({% link supplementary/quintics.md%})
 - [maximally inflected sextics]({% link supplementary/sextics.md%})
+- [maximally inflected septics]({% link supplementary/septics.md%})
 
 
 
