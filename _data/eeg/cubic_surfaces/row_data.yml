@@ -59,7 +59,7 @@
   - 24
   - 12
   normalizer_mod_grp_solvable: 'true'
-  grp_name: \\(H)3(3)\\rtimes C_2\\)
+  grp_name: \\(H_3(3)\\rtimes C_2\\)
   centralizer_id: '[ 3, 1 ]'
   centralizer_solvable: 'true'
 - id: type05
