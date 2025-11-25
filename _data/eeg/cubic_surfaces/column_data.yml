@@ -36,6 +36,14 @@
   label: Normalizer mod group solvable?
   type: markdown
 
+- key: conj_classes_atlas
+  label: Conjugacy classes (Atlas)
+  type: markdown
+
+- key: conj_classes_carter
+  label: Conjugacy classes (Carter)
+  type: markdown
+
 
 
 

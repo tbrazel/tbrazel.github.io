@@ -55,6 +55,9 @@ The (complement of the) adjacency matrix of the lines above is [available here](
    rows=site.data.eeg.cubic_surfaces.WE6_fermat_rows
    sort_by="number"
 %}
+
+Note that every automorphism of $$W(E_6)$$ is inner, so we can extract conjugacy classes of the permutations above by picking an arbitrary isomorphism with a matrix group presentation.
+
 <!-- todo: add matrix reps, conj class in Carter and Atlas notation -->
 
 In any case we can graph the adjacency matrix and get the (complement of the) Schläfli graph. The colors correspond to the symmetries of the lines under the $$S_4$$ action.

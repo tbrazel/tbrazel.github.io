@@ -94,7 +94,7 @@ layout: null
 </p>
 
 <ul class="talks" id="upcoming">
-{% assign talks = site.data.juvitop.talks | default: site.data.juvitop | sort: "date" %}
+{% assign talks = site.data.seminars['25c_juvitop'].talks | default: site.data.seminars['25c_juvitop'] | sort: "date" %}
 {% for t in talks %}
   <li class="talk">
     <ul class="meta">

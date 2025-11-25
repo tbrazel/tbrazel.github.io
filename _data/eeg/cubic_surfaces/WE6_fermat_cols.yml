@@ -8,6 +8,18 @@
   label: Generator
   type: code
 
-# - key: carter_class
-#   label: Class (Carter)
-#   type: markdown
+- key: matrix
+  label: Matrix rep
+  type: markdown
+
+- key: order_trace
+  label: Order, trace
+  type: code
+
+- key: atlas
+  label: Atlas notation
+  type: markdown
+
+- key: carter
+  label: Carter notation
+  type: markdown
