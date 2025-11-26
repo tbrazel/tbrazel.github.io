@@ -2,7 +2,6 @@
 layout: default_custom
 title: Symmetric cubic surfaces
 ---
-[back to all EEG data]({% link supplementary/eeg/index.md %}).
 
 {% include render_table.html
    columns=site.data.eeg.cubic_surfaces.column_data

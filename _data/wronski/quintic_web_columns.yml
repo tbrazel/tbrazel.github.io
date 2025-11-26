@@ -3,6 +3,7 @@
 - key: name
   label: Curve name
   type: text
+
 - key: curve_pic
   label: Picture of a representative
   type: image          # expects { src, alt }
@@ -14,6 +15,10 @@
 - key: web
   label: Web
   type: image          # expects { src, alt }
+
+- key: solitary_points
+  label: Num solitary points
+  type: int
 
 - key: promotion_order
   label: Promotion order

@@ -8,7 +8,7 @@ redirect_from:
 
 
 {% include render_table.html
-   columns=site.data.sextic_web_columns
-   rows=site.data.sextic_web_rows
+   columns=site.data.wronski.sextic_web_columns
+   rows=site.data.wronski.sextic_web_rows
    sort_by="id"
 %}

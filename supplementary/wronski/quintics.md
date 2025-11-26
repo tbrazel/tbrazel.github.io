@@ -5,8 +5,10 @@ redirect_from:
    - /supplementary/quintics
 ---
 
+See also [Frank's page](https://franksottile.github.io/research/pages/inflected/Quintics/9flexes.html)
+
 {% include render_table.html
-   columns=site.data.quintic_web_columns
-   rows=site.data.quintic_web_rows
+   columns=site.data.wronski.quintic_web_columns
+   rows=site.data.wronski.quintic_web_rows
    sort_by="id"
 %}

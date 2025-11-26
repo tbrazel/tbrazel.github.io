@@ -1,4 +1,7 @@
-
+html{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #FFFCF9;
+}
 
 div#sidebar{
     height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -7,7 +10,6 @@ div#sidebar{
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #ffffff; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
   padding-left:10px;
