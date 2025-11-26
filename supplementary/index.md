@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default_custom
 title: Supplementary data
 ---
 
@@ -10,14 +10,6 @@ In this directory are additional visuals, data, and explanations for certain pro
 - <a href="eeg/s4_symmetric_cubics.html">lines on S4-symmetric cubic surfaces</a>
 - [bitangents to quartics]({% link supplementary/eeg/bitangents.md %}).
 - [lines on the Fermat]({% link supplementary/eeg/fermat.md %})
-
-## Around the Wronski map
-- [maximally inflected quintics]({% link supplementary/quintics.md%})
-- [maximally inflected sextics]({% link supplementary/sextics.md%})
-- [maximally inflected septics]({% link supplementary/septics.md%})
-
-
-
 
 
 

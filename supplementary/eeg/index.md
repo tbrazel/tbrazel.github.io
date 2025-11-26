@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default_custom
 title: Equivariant enumerative geometry data
 ---
 

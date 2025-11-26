@@ -1,9 +1,11 @@
 ---
-layout: default
+layout: default_custom
 title: Maximally inflected sextics and webs for 3x5 tableaux
+redirect_from:
+   - /supplementary/sextics
 ---
 
-[back to all Wronski data]({% link supplementary/wronski.md%})
+
 
 {% include render_table.html
    columns=site.data.sextic_web_columns

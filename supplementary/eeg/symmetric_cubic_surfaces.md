@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default_custom
 title: Symmetric cubic surfaces
 ---
 [back to all EEG data]({% link supplementary/eeg/index.md %}).

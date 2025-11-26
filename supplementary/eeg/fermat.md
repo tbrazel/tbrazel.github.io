@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default_custom
 title: The Fermat cubic surface and its lines
 matrix:
 - [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0]

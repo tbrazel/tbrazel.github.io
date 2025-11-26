@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default_custom
 title: Symmetric quartics and their bitangents
 ---
 
