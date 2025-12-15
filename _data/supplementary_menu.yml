@@ -1,0 +1,18 @@
+- title: wronski
+  url: /supplementary/wronski/
+  children:
+    - title: quintics
+      url: /supplementary/wronski/quintics
+    - title: sextics
+      url: /supplementary/wronski/sextics
+    - title: septics
+      url: /supplementary/wronski/septics
+- title: eeg
+  url: /supplementary/eeg/
+  children:
+    - title: bitangents
+      url: /supplementary/eeg/bitangents
+    - title: cubic surfaces
+      url: /supplementary/eeg/symmetric_cubic_surfaces
+    - title: fermat
+      url: /supplementary/eeg/fermat

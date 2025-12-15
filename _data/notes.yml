@@ -1,0 +1,95 @@
+- title: "Unstable motivic homotopy theory"
+  github: https://github.com/tbrazel/math266-motivic/
+  course_number: "MATH266"
+  type: "course notes"
+  pdf: "motivic"
+  year: 2024
+  info: "topics class on motivic homotopy theory"
+
+- title: "An introduction to the norm residue isomorphism theorem"
+  info: "talk notes from Juvitop"
+  year: "Fall 2025"
+  pdf: "intro_bloch_kato"
+
+- title: "Galois groups in enumerative geometry"
+  github: https://github.com/tbrazel/galois-notes
+  pdf: ""
+  year: 2025
+
+- title: "Homotopical Galois theory"
+  info: "talk from Babytop seminar on chromatic homotopy theory"
+  year: "Spring 2025"
+  pdf: "homotopical-galois"
+
+- title: "Hermitian $K$-theory"
+  info: "AMTRaK seminar talk notes"
+  year: "Spring 2025"
+  pdf: "KO"
+
+- title: "Sets, groups, geometry"
+  type: "course notes"
+  course_number: "MATH101"
+  info: "course notes from MATH101"
+  pdf: "math101"
+  year: "Spring 2024"
+
+- title: "A motivic crash course"
+  info: "Thursday seminar talk notes"
+  year: "Fall 2024"
+  pdf: "spt"
+
+- title: "Diagonalizing symmetric bilinear forms"
+  info: "tips and tricks for diagonalizing forms from their Gram matrices"
+  year: 2023
+  pdf: "diagonalizing-forms"
+
+- title: "Algebraic vector bundles"
+  info: "Penn graduate geometry/topology seminar talk"
+  year: "Spring 2022"
+  pdf: "algebraic-vb"
+
+- title: "Ambidexterity"
+  info: "Talbot talk"
+  year: "Winter 2021"
+  pdf: "ambidexterity"
+
+- title: "Euler characteristics of real algebraic manifolds"
+  info: "Penn graduate geometry/topology seminar talk"
+  year: "Fall 2021"
+  pdf: "euler-char"
+
+- title: "Hopf algebroids"
+  info: "Penn chromatic homotopy theory seminar"
+  year: "Spring 2021"
+  pdf: "hopf-algebroids"
+
+- title: "Complex orientations"
+  info: "Penn chromatic homotopy theory seminar"
+  year: "Spring 2021"
+  pdf: "complex-orientations"
+
+- title: "Dwyer-Kan localization"
+  info: "Penn infinity-categories seminar"
+  year: "Fall 2020"
+  pdf: "dk"
+
+- title: "$K$-theory of infinity categories"
+  info: "Penn algebraic $K$-theory seminar"
+  year: "Spring 2020"
+  pdf: "K-theory-infty-cats"
+
+- title: "Homotopy coherent nerve"
+  info: "Penn topology proseminar"
+  year: "Spring 2020"
+  pdf: "homotopy-coherent-nerve"
+
+- title: "Bundles"
+  info: "quals prep"
+  year: "Summer 2019"
+  pdf: "bundles"
+
+- title: "The generalized Poincaré conjecture via $s$-cobordism"
+  info: "Penn pizza seminar"
+  year: "Fall 2018"
+  pdf: "generalized-poincare"
+

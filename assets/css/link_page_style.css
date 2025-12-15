@@ -1,0 +1,3 @@
+div.post-meta, div.post-tail-wrapper, div#tail-wrapper > nav.post-navigation{
+    display: none!important;
+}

@@ -1,0 +1,193 @@
+.pub-abstract-cell {
+  white-space: normal;      /* allow wrapping */
+  word-wrap: break-word;    /* wrap long words */
+  overflow-wrap: anywhere;  /* modern, handles long URLs */
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #333;
+  background: #fafafa;
+}
+
+.pub-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;      /* prevent columns from growing past container */
+}
+
+.pub-table th,
+.pub-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+  /* vertical-align: top; */
+  white-space: normal;        /* allow wrapping */
+  word-wrap: break-word;      /* wrap long words/URLs */
+  overflow-wrap: anywhere;    /* modern wrapping for stubborn content */
+}
+
+
+.pub-links {
+  width: 1%;              /* force the column to be minimal */
+  max-width: 1%;          /* prevent it from expanding */
+  white-space: nowrap;    /* keep icons on one line */
+}
+
+/* prevent link icons from forcing column to expand */
+.pub-links a, 
+.pub-links button {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.pub-links a {
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.pub-links a:hover {
+  text-decoration: underline;
+}
+
+.pub-abstract details summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #0066cc;
+}
+
+.pub-abstract details p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.no-abstract {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+/* Publication info */
+
+.content .pub-title a, .content .pub-title a:hover{
+  border-bottom:none;
+}
+
+
+/* SIZING */
+table.pub-table{
+  line-height: 1.5;
+  font-size: 92%;
+}
+
+.table-wrapper .pub-table td{
+  padding-top:3px;
+  padding-bottom: 3px;
+}
+
+
+/* Icons */
+
+.code-icon i {
+  font-size: 1.1rem;
+}
+
+.code-icon {
+  text-decoration: none;
+  margin-left: 0.2rem;
+}
+
+.code-icon:hover i {
+  color: #000;
+}
+
+p.arxiv {
+  width: 10px !important;
+  display: inline-block;
+  margin-left: 9px;
+  margin-right: 9px;
+}
+
+img.arxiv-icon {
+  filter: invert(88%);
+}
+
+.content div.links a{
+  border-bottom: none;
+}
+
+/* ICON colors */
+
+div.links a, button.pub-abstract-toggle{
+  color: #444
+}
+
+.content div.links a:hover, button.pub-abstract-toggle:hover{
+  color: black!important;
+  border:none;
+}
+
+
+/* Abstract */
+
+.pub-abstract-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  /* key change: make it inline */
+  display: inline-flex;
+
+  align-items: center;
+  gap: 0.25rem;
+  color: #444;
+  padding: 0.2rem 0.3rem;
+
+  /* match spacing of links */
+  text-decoration: none;
+}
+
+.pub-abstract-toggle i {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.pub-abstract-toggle:hover {
+  color: #000;
+}
+
+/* optional: rotate icon when open instead of swapping */
+.pub-abstract-toggle.open i {
+  transform: rotate(180deg);
+}
+
+/* Override theme horizontal scroll on tables so publications table never scrolls sideways */
+div.table-wrapper {
+  overflow-x: visible !important;
+  max-width: 100%;
+}
+
+
+.table-wrapper > table tbody tr td{
+  white-space: inherit;
+}
+
+div.links{
+  max-width: 150px;
+}
+
+col.col-links{
+  width: 20%;
+}
+
+col.col-info{
+  width: 80%;
+}
+
+
+
+/* dark mode */
+
+/* abstract cells in dark mode */
+html[data-mode="dark"] td.pub-abstract-cell{
+  color: white;
+  background-color: #717070;
+}

@@ -1,0 +1,96 @@
+<table class="pub-table">
+  <colgroup>
+    <col class="col-links">
+    <col class="col-info">
+  </colgroup>
+  	<tbody>
+	{% for pub in include.pubs %}
+	{% assign row_id = pub.id | default: 'pub-' | append: forloop.index %}
+
+
+	
+	<!-- Main row -->
+	<tr id="{{ row_id }}" class="pub-row">
+		
+		<!-- LINKS -->
+	  	<td class="pub-links">
+			<div class="links">
+			{% if pub.abstract %}
+		  <button
+			type="button"
+			class="pub-abstract-toggle"
+			data-target="{{ row_id }}-abstract"
+			>
+			<i class="fa-solid fa-caret-down"></i>
+			</button>
+		{% else %}
+		  <span class="no-abstract"></span>
+		{% endif %}
+		{% if pub.pdf %}
+		  {% if pub.external_url %}{% endif %}
+		  <a href="/assets/papers/{{ pub.pdf }}.pdf" target="_blank" class="pdf-icon">
+		  	<i class="fa-solid fa-file"></i>
+		  </a>
+		{% endif %}
+		<!-- arXiV -->
+			{% if pub.arXiV_id %}
+  			{% capture arxiv_icon %}
+[![arXiv]({{ '/assets/images/icons/arxiv.png' | relative_url }}){: .arxiv-icon }](https://arxiv.org/abs/{{ pub.arXiV_id }})
+{: .arxiv .w-25 }
+  {% endcapture %}
+  {{ arxiv_icon | markdownify  }}
+{% endif %}
+		{% if pub.code_url %}
+		  {% if pub.external_url or pub.pdf %}{% endif %}
+		  <a href="{{ pub.code_url }}" target="_blank" rel="noopener" class="code-icon"><i class="fa-solid fa-code"></i></a>
+		{% endif %}
+
+		
+		</div>
+	  </td>
+
+		<!-- Publication info -->
+		<td class="pub-main">
+			<div class="pub-title">
+				{% if pub.external_url %}<a href="{{ pub.external_url }}" target="_blank" rel="noopener"><i>{{ pub.title }}</i></a>
+				{% else %}
+					<i>{{ pub.title }}</i>
+				{% endif %}
+
+				<!-- Title + coauthors -->
+				{% if pub.coauthors %}with {{ pub.coauthors }}.
+				{% else %}.
+				{% endif %}
+
+				<!-- Publication info -->
+				{% if pub.status == "published" %}
+					<b>{{ pub.journal }}</b>, {{ pub.year }}.
+				{% elsif pub.status == "to appear" %}
+					To appear in <b>{{ pub.journal }}</b>, {{ pub.year }}.
+				{% elsif pub.status == "submitted" %}
+					Submitted, {{ pub.year }}.
+				{% elsif pub.status == "preprint" %}
+					Preprint, {{ pub.year }}.
+				{% elsif pub.status == "in preparation" %}
+					In preparation.
+				{% else %}
+				{% endif %}
+				
+			
+		  
+			</div>
+	  	</td>
+	</tr>
+
+	<!-- Abstract row (only if abstract exists) -->
+	{% if pub.abstract %}
+	<tr id="{{ row_id }}-abstract" class="pub-abstract-row" style="display: none;">
+	  <td colspan="2" class="pub-abstract-cell">
+		{{ pub.abstract }}
+	  </td>
+	</tr>
+	{% endif %}
+
+	{% endfor %}
+  </tbody>
+</table>

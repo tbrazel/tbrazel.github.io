@@ -1,0 +1,35 @@
+/* page structure */
+@media (min-width: 850px) {
+  #main-wrapper {
+    margin-left: 0px;
+  }
+}
+
+#main-wrapper > .container{
+  margin: 0;
+  max-width: 100%;
+}
+
+
+@media (min-width: 1200px) {
+  .col-xl-9 {
+    flex: 0 0 auto;
+    width: 80%;
+  }
+}
+
+@media (max-width: calc(849px)) {
+  #sidebar-trigger, #search-trigger {
+    display: none;
+  }
+}
+
+div#main-wrapper aside#panel-wrapper{
+  width: 15%
+}
+
+
+/* tables */
+table.data-table img{
+  max-width: 100%!important;
+}

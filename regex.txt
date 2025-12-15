@@ -1,7 +1,0 @@
-# Regular expressions for commands you might want to expand *after*
-
-# In math mode
-([\s\d\"\^,._=\-:&\$\/\(\)\|\{\}\[\]\\]|^)
-
-# In prose
-([\s\-+=\,\.`\$\(\)\[\]\{\}\-]|^)

@@ -1,5 +1,5 @@
 ---
-layout: default_custom
+layout: supplementary
 title: The Fermat cubic surface and its lines
 matrix:
 - [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0]
@@ -33,7 +33,10 @@ groups:
   - { count: 12, color: "#004891ff" }  # blue
   - { count: 12, color: "#2fc968ff" }  # green
   - { count: 3,  color: "#C00000" }  # red
+math: true
 ---
+
+## The Fermat cubic surface
 
 An infamous cubic surface is the *Fermat*, defined by the equation $$X_0^3 + X_1^3 + X_2^3 + X_3^3 = 0$$. Its automorphism group is $$C_3^{\times 3}\rtimes S_4$$, of order $$648$$. It is the *most symmetric* cubic surface.
 
@@ -41,18 +44,18 @@ An infamous cubic surface is the *Fermat*, defined by the equation $$X_0^3 + X_1
 The lines on the Fermat admit very easy formulas. Although the automorphism group is much larger, we graph them together with their isotropy as a subgroup of $$S_4$$ -- this is to mirror the computations found in [B25] and [BR25]. In the following, let $$\zeta$$ denote a primitive 6th root of unity. We describe the lines in terms of parametric coordinates $$[s:t]\in \mathbb{P}^1$$.
 
 {% include render_table.html
-   columns=site.data.eeg.cubic_surfaces.fermat_cols
-   rows=site.data.eeg.cubic_surfaces.fermat_rows
+   columns=site.data.supplementary.eeg.cubic_surfaces.fermat_cols
+   rows=site.data.supplementary.eeg.cubic_surfaces.fermat_rows
    sort_by="number"
 %}
 
 ## Adjacency
 
-The (complement of the) adjacency matrix of the lines above is [available here]({% link raw_datafiles/fermat_adjacency_matx.txt %}). We can present the Weyl group of $$E_6$$ as a subgroup of $$S_{27}$$ in a few ways, either via monodromy computations or just by extracting the automorphism group of the Schläfli graph described by the adjacency matrix above using [nauty](https://pallini.di.uniroma1.it/) or any similar tool. The generators for $$W(E_6)$$ as a symmetric subgroup are the following:
+The (complement of the) adjacency matrix of the lines above is [available here]({% link assets/raw_data/fermat_adjacency_matx.txt %}). We can present the Weyl group of $$E_6$$ as a subgroup of $$S_{27}$$ in a few ways, either via monodromy computations or just by extracting the automorphism group of the Schläfli graph described by the adjacency matrix above using [nauty](https://pallini.di.uniroma1.it/) or any similar tool. The generators for $$W(E_6)$$ as a symmetric subgroup are the following:
 
 {% include render_table.html
-   columns=site.data.eeg.cubic_surfaces.WE6_fermat_cols
-   rows=site.data.eeg.cubic_surfaces.WE6_fermat_rows
+   columns=site.data.supplementary.eeg.cubic_surfaces.WE6_fermat_cols
+   rows=site.data.supplementary.eeg.cubic_surfaces.WE6_fermat_rows
    sort_by="number"
 %}
 

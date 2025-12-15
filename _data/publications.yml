@@ -1,0 +1,233 @@
+- id: evolution
+  status: "submitted"
+  title: "The evolution of enumerative geometry: a narrative from classical problems to enriched invariants"
+  coauthors: "C. Bethea"
+  # journal: "Journal of Interesting Things"
+  year: 2025
+  arXiV_id: "2510.04275"
+  # external_url: "https://doi.org/10.1234/jit.2024.12345"
+  pdf: "PCMI_Conference_Proceedings"
+  # code_url: "https://github.com/username/awesome-result-code"
+  abstract: >
+    Enumerative geometry, the art and science of counting geometric objects satisfying geometric conditions, has seen a resurgence of activity in recent years due to an influx of new techniques that allow for <i>enriched</i> computations. This paper offers a historical survey of enumerative geometry, starting with its classical origins and real counterparts, to new advances in quadratic enrichment. We include a brief survey of the paradigm shift initiated by Gromov-Witten theory, whose impact can be seen in recent results in quadratically enriched enumerative geometry. Finally, we conclude with a brief overview of emerging directions including random and equivariant enumerative geometry. 
+
+- id: cpm2
+  status: "submitted"
+  title: "$C_p$-Mackey functors in Macaulay2"
+  coauthors: "D. Chan, B. Mudrak, B. Spitz, C. Vogeli, C. Wang, M. Zeng, and S. Zotine"
+  # journal: "Conference on More Things"
+  year: 2025
+  arXiV_id: "2509.05456"
+  code_url: "https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/CpMackeyFunctors/html/index.html"
+  # external_url: "https://example.com/another-paper"
+  pdf: "cpm2"
+  abstract: >
+    We introduce the <code>CpMackeyFunctors</code> package for Macaulay2, which allows for computations with Mackey functors over a cyclic group of prime order.
+
+- id: fourfolds
+  status: "submitted"
+  title: "On algebraic vector bundles of rank 2 over smooth affine fourfolds"
+  coauthors: "M. Opie and T. Syed"
+  year: 2025
+  arXiV_id: "2507.21029"
+  pdf: "fourfolds"
+  abstract: >
+    The classification of algebraic vector bundles of rank 2 over smooth affine fourfolds is a notoriously difficult problem. Isomorphism classes of such vector bundles are not uniquely determined by their Chern classes, in contrast to the situation in lower dimensions. Given a smooth affine fourfold over an algebraically closed field of characteristic not equal to $2$ or $3$, we study cohomological criteria for finiteness of the fibers of the Chern class map for rank $2$ bundles. As a consequence, we give a cohomological classification of such bundles in a number of cases. For example, if $d\leq 4$, there are precisely $d^2$ non-isomorphic algebraic vector bundles over the complement of a smooth hypersurface of degree $d$ in $\mathbb{P}^4_{\mathbb C}$.
+
+- id: BSLnc
+  status: "submitted"
+  title: "The Chow-Witt rings of the classifying spaces of quadratically oriented bundles"
+  coauthors: "M. Wendt"
+  year: 2025
+  arXiV_id: "2501.06302"
+  pdf: "BSLnc"
+  abstract: >
+    In this paper we compute the Chow--Witt rings of the classifying space ${\rm BSL}_n^c$ of quadratically oriented vector bundles of rank $n$. We also discuss the corresponding quadratically-oriented cobordism spectrum ${\rm MSL}^c$ which is equivalent to $\rm{MSL}$ after inverting $\eta$.
+
+- id: K4
+  status: "submitted"
+  title: "Monodromy in the space of symmetric cubic surfaces with a line"
+  coauthors: "S. Raman"
+  year: 2024
+  arXiV_id: "2410.09270"
+  pdf: "K4"
+  abstract: >
+    We explore the enumerative problem of finding lines on cubic surfaces defined by symmetric polynomials. We prove that the moduli space of symmetric cubic surfaces is an arithmetic quotient of the complex hyperbolic line, and determine constraints on the monodromy group of lines on symmetric cubic surfaces arising from Hodge theory and geometry of the associated cover. This interestingly fails to pin down the entire Galois group. Leveraging computations in equivariant line geometry and homotopy continuation, we prove that the Galois group is the Klein 4-group. This means that, despite a general cubic surface admitting no formula in radicals for its lines, an $S_4$-symmetric cubic does; we work out these formulas explicitly. This is the first computation in what promises to be an interesting direction of research: studying monodromy in classical enumerative problems restricted by a finite group of symmetries.
+
+- id: bitangents
+  status: "to appear"
+  title: "Bitangents to symmetric quartics"
+  coauthors: "C. Bethea"
+  journal: "J. Algebra"
+  year: 2025
+  arXiV_id: "2410.09242"
+  code_url: "https://github.com/tbrazel/bitangents_code"
+  pdf: "bitangents"
+  abstract: >
+    Recall that a non-singular planar quartic is a canonically embedded non-hyperelliptic curve of genus three. We say such a curve is <i>symmetric</i> if it admits non-trivial automorphisms. The classification of (necessarily finite) groups appearing as automorphism groups of non-singular curves of genus three dates back to the last decade of the 19th century. As these groups act on the quartic via projective linear transformations, they induce symmetries on the 28 bitangents. Given such an automorphism group $G=\mathrm{Aut}(C)$, we prove the $G$-orbits of the bitangents are independent of the choice of $C$, and we compute them for all twelve types of smooth symmetric planar quartic curves.
+
+- id: cazanave
+  status: "published"
+  title: "Concerning monoid structures on naive homotopy classes of endomorphisms of punctured affine space"
+  coauthors: "W. Hornslien"
+  year: 2025
+  arXiV_id: "2410.02668"
+  pdf: "No_Cazanave"
+  journal: "J. Homotopy Relat. Struc."
+  external_url: "https://doi.org/10.1007/s40062-025-00373-w"
+  abstract: >
+    Working over an arbitrary field $k$, Cazanave proved that the set of naive $\mathbb{A}^1$-homotopy classes of endomorphisms of the projective line admits a monoid structure whose group completion is genuine $\mathbb{A}^1$-homotopy classes of endomorphisms of the projective line. In this very short note we show that such a statement is never true for punctured affine space $\mathbb{A}^n\setminus \{0\}$ for $n\ge2$.
+
+- id: wronski
+  status: "published"
+  title: "An enriched degree of the Wronski map"
+  year: 2025
+  arXiV_id: "2206.01143"
+  journal: "New York J. Math."
+  volume: 31
+  page_range: "195-222"
+  external_url: "https://nyjm.albany.edu/j/2025/31-9v.pdf"
+  pdf: "wronski"
+  abstract: >
+    Given $mp$ different $p$-planes in general position in $(m+p)$-dimensional space, a classical problem is to ask how many $p$-planes intersect all of them. For example when $m=p=2$, this is precisely the question of "lines meeting four lines in 3-space" after projectivizing. The Brouwer degree of the Wronski map provides an answer to this general question, first computed by Schubert over the complex numbers and Eremenko and Gabrielov over the reals. We provide an enriched degree of the Wronski for all $m$ and $p$ even, valued in the Grothendieck--Witt ring of a field, using machinery from $\mathbb{A}^1$-homotopy theory. We further demonstrate in all parities that the local contribution of an $m$-plane is a determinantal relationship between certain Pl&uuml;cker coordinates of the $p$-planes it intersects.
+
+- id: EEG
+  status: "published"
+  title: "Equivariant enumerative geometry"
+  arXiV_id: "2210.08622"
+  year: 2025
+  journal: "Adv. Math."
+  volume: 461
+  external_url: "https://doi.org/10.1016/j.aim.2024.110082"
+  pdf: "EEG"
+  abstract: >
+    We formulate an equivariant conservation of number, which proves that a generalized Euler number of a complex equivariant vector bundle can be computed as a sum of local indices of an arbitrary section. This involves an expansion of the Pontryagin--Thom transfer in the equivariant setting. We leverage this result to commence a study of enumerative geometry in the presence of a group action. As an illustration of the power of this machinery, we prove that any smooth complex cubic surface defined by a symmetric polynomial has 27 lines whose orbit types under the $S_4$-action on $\mathbb{C}P^3$ are given by $[S_4/C_2]+[S_4/C_2'] + [S_4/D_8]$, where $C_2$ and $C_2'$ denote two non-conjugate cyclic subgroups of order two. As a consequence we demonstrate that a real symmetric cubic surface can only contain 3 or 27 lines.
+
+- id: a1m2
+  status: "published"
+  title: "$\\mathbb{A}^1$-Brouwer degrees in Macaulay2"
+  coauthors: "N. Borisov, F. Espino, T. Hagedorn, Z. Han, J. Lopez Garcia, J. Louwsma, G. Ong, and A. Tawfeek"
+  year: 2024
+  journal: "J. Softw. Algebra Geom."
+  external_url: "https://doi.org/10.2140/jsag.2024.14.175"
+  pdf: "a1m2"
+  code_url: "https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/A1BrouwerDegrees/html/index.html"
+  abstract: >
+    We describe the Macaulay2 package <code>A1BrouwerDegrees</code> for computing local and global $\mathbb{A}^1$-Brouwer degrees and studying symmetric bilinear forms over a field.
+  
+- id: dickson
+  status: "published"
+  title: "Residue sums of Dickson polynomials over finite fields"
+  coauthors: "J. Harrington, M. Litman and T.H.W. Wong"
+  arXiV_id: "2103.09119"
+  journal: "J. Number Theory"
+  year: 2024
+  volume: 264
+  page_range: "1-26"
+  pdf: "dickson"
+  external_url: "https://doi.org/10.1016/j.jnt.2024.04.016"
+  abstract: >
+    Given a polynomial with integral coefficients, one can inquire about the possible residues it can take in its image modulo a prime $p$. The sum over the distinct residues can sometimes be computed independent of the prime $p$; for example, Gauss showed that the sum over quadratic residues vanishes modulo a prime. In this paper we provide a closed form for the sum over distinct residues in the image of Dickson polynomials of arbitrary degree over finite fields of odd characteristic, and prove a complete characterization of the size of the image set. Our result provides the first non-trivial classification of such a sum for a family of polynomials of unbounded degree.
+
+- id: lifts
+  status: "published"
+  title: "Lifts, transfers, and degrees of univariate maps"
+  coauthors: "S. McKean"
+  year: 2023
+  arXiV_id: "2112.04592"
+  journal: "Math. Scand."
+  volume: 129
+  issue: 1 # check on this
+  external_url: "https://doi.org/10.7146/math.scand.a-134457"
+  pdf: "lifts"
+  abstract: >
+    One can compute the local $\mathbb{A}^1$-degree at points with separable residue field by base changing, working rationally, and post-composing with the field trace. We show that for endomorphisms of the affine line, one can compute the local $\mathbb{A}^1$-degree at points with inseparable residue field by taking a suitable lift of the polynomial and transferring its local degree. We also discuss the general set-up and strategy in terms of the six functor formalism. As an application, we show that trace forms of number fields are local $\mathbb{A}^1$-degrees.
+
+- id: bezoutians
+  status: "published"
+  title: "Bézoutians and the $\\mathbb{A}^1$-degree"
+  coauthors: "S. McKean and S. Pauli"
+  arXiV_id: "2103.16614"
+  journal: "Algebra & Number Theory"
+  volume: 17
+  issue: 11 # check
+  year: 2023
+  external_url: https://doi.org/10.2140/ant.2023.17.1985
+  pdf: "bezoutian"
+  abstract: >
+    We prove that both the local and global $\mathbb{A}^1$-degree of an endomorphism of affine space can be computed in terms of the multivariate B&eacute;zoutian. In particular, we show that the B&eacute;zoutian bilinear form, the Scheja-Storch form, and the $\mathbb{A}^1$-degree for complete intersections are isomorphic. Our global theorem generalizes Cazanave's theorem in the univariate case, and our local theorem generalizes Kass-Wickelgren's theorem on EKL forms and the local degree. This result provides an algebraic formula for local and global degrees in motivic homotopy theory.
+
+- id: kgr
+  status: "published"
+  title: "Homotopy Mackey functors of equivariant algebraic $K$-theory"
+  year: 2022
+  arXiV_id: "2102.06724"
+  journal: "J. Pure Appl. Algebra"
+  volume: 226
+  issue: 8
+  external_url: https://doi.org/10.1016/j.jpaa.2021.106980
+  abstract: >
+    Given a finite group $G$ acting on a ring $R$, Merling constructed an equivariant algebraic $K$-theory $G$-spectrum, and work of Malkiewich and Merling, as well as work of Barwick, provides an interpretation of this construction as a spectral Mackey functor. This construction is powerful, but highly categorical; as a result the Mackey functors comprising the homotopy are not obvious from the construction and have therefore not yet been calculated. In this work, we provide a computation of the homotopy Mackey functors of equivariant algebraic $K$-theory in terms of a purely algebraic construction. In particular, we construct Mackey functors out of the $n$th algebraic $K$-groups of group rings whose multiplication is twisted by the group action. Restrictions and transfers for these functors admit a tractable algebraic description in that they arise from restriction and extension of scalars along module categories of twisted group rings. In the case where the group action is trivial, our construction recovers work of Dress and Kuku from the 1980's which constructs Mackey functors out of the algebraic $K$-theory of group rings. We develop many families of examples of Mackey functors, both new and old, including $K$-theory of endomorphism rings, the $K$-theory of fixed subrings of Galois extensions, and (topological) Hochschild homology of twisted group rings.
+
+- id: introa1
+  status: "published"
+  title: "An introduction to $\\mathbb{A}^1$-enumerative geometry"
+  year: 2021
+  arXiV_id: "2007.09742"
+  journal: "Homotopy Theory and Arithmetic Geometry – Motivic and Diophantine Aspects, Lecture Notes in Math."
+  volume: 2291
+  external_url: https://doi.org/10.1007/978-3-030-78977-0_2
+  abstract: >
+    We provide an expository introduction to <i>$\mathbb{A}^1$-enumerative geometry</i>, which uses the machinery of $\mathbb{A}^1$-homotopy theory to enrich classical enumerative geometry questions over a broader range of fields. Included is a discussion of enriched local degrees of morphisms of smooth schemes, following Morel, $\mathbb{A}^1$-Milnor numbers, as well as various computational tools and recent examples.
+
+- id: semilin
+  status: "published"
+  title: "A note on twisted group rings and semilinearization"
+  arXiV_id: "2102.06723"
+  year: 2021
+  journal: "Comm. Algebra"
+  volume: 49
+  issue: 8
+  page_range: "3380-3386"
+  external_url: https://doi.org/10.1080/00927872.2021.1895999
+  abstract: >
+    In this short note, we construct a right adjoint to the functor which associates to a ring $R$ equipped with a group action its <i>twisted group ring</i>. This right adjoint admits an interpretation as <i>semilinearization</i>, in that it sends an $R$-module to the group of semilinear $R$-module automorphisms of the module. As an immediate corollary, we provide a novel proof of the classical observation that modules over a twisted group ring are modules over the base ring together with a semilinear action.
+
+- id: trace
+  status: "published"
+  title: "The trace of the local $\\mathbb{A}^1$-degree"
+  coauthors: "R. Burklund, S. McKean, M. Montoro and M. Opie"
+  journal: "Homology Homotopy Appl."
+  volume: 23
+  issue: 1
+  page_range: "243-255"
+  year: 2021
+  pdf: "Trace-A1-Degree"
+  external_url: https://dx.doi.org/10.4310/HHA.2021.v23.n1.a13
+  abstract: >
+    We prove that the local $\mathbb{A}^1$-degree of a polynomial function at an isolated zero with finite separable residue field is given by the trace of the local $\mathbb{A}^1$-degree over the residue field. This fact was originally suggested by Morel's work on motivic transfers and by Kass and Wickelgren's work on the Scheja-Storch bilinear form. As a corollary, we generalize a result of Kass and Wickelgren's relating the Scheja-Storch form and the local $\mathbb{A}^1$-degree.
+
+- id: newform
+  status: "published"
+  title: "Zeros of newform Eisenstein series on $\\Gamma_0(N)$"
+  coauthors: "V. Jakicic"
+  journal: "J. Number Theory"
+  volume: 190
+  page_range: "109-130"
+  arXiV_id: 1709.03633
+  year: 2018
+  external_url: https://doi.org/10.1016/j.jnt.2018.02.006
+  abstract: >
+    We examine the zeros of newform Eisenstein series $E_{\chi_1,\chi_2,k}(z)$ of weight $k$ on $\Gamma_0(q_1q_2)$, where $\chi_1$ and $\chi_2$ are primitive characters modulo $q_1$ and $q_2$, respectively. We determine the location and distribution of a significant fraction of the zeros of these Eisenstein series for $k$ sufficiently large.
+
+- id: cyclotomic
+  status: "published"
+  title: "On consecutive $q$th roots of unity modulo $q$"
+  coauthors: "J. Harrington, S. Kannan and M. Litman"
+  year: 2017
+  journal: "J. Number Theory"
+  volume: 174
+  page_range: "494-504"
+  external_url: https://doi.org/10.1016/j.jnt.2016.11.017
+  abstract: >
+    Given $n\in\mathbb{N}$, we study the conditions under which a finite field of prime order $q$ will have adjacent elements of multiplicative order $n$. In particular, we analyze the resultant of the cyclotomic polynomial $\Phi_n(x)$ with $\Phi_n(x+1)$, and exhibit Lucas and Mersenne divisors of this quantity. For each $n \ne 1,2,3,6$, we prove the existence of a prime $q_n$ for which there is an element $\alpha\in \mathbb{Z}/q_n$ where $\alpha$ and $\alpha+1$ both have multiplicative order $n$. Additionally, we use algebraic norms to set analytic upper bounds on the size and quantity of these primes.

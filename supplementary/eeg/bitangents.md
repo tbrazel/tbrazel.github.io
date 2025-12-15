@@ -1,15 +1,18 @@
 ---
-layout: default_custom
+layout: supplementary
 title: Symmetric quartics and their bitangents
+math: true
 ---
+
+# Symmetric quartics and bitangents
 
 It is classical that a smooth plane quartic (in fact a general plane quartic) admits 28 *bitangents*, which are lines meeting the quartic at two points, each of order two. This is a classical question in enumerative algebraic geometry, and we can ask how it interacts with symmetries of quartics. Since a plane quartic is a canonical smooth curve of genus 3, its automorphism group lives in $$\text{PGL}_3(\mathbb{C})$$ and therefore acts on the bitangents. There are 12 possible automorphism groups, and their action on the lines was [worked out by me and Candace](https://arxiv.org/abs/2410.09242).
 
 Listed below are the 12 automorphism groups, a picture of the real bitangents where available, and some info about how the group sits inside the Galois group of the problem, which is $$W(E_7)/\pm1$$, or $$\text{PSL}(6,2)$$ if you prefer.
 
 {% include render_table.html
-   columns=site.data.eeg.quartics.column_data
-   rows=site.data.eeg.quartics.row_data
+   columns=site.data.supplementary.eeg.quartics.column_data
+   rows=site.data.supplementary.eeg.quartics.row_data
    sort_by="id"
 %}
 

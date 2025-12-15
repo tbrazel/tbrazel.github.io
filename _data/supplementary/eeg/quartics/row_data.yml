@@ -1,0 +1,212 @@
+- id: type01
+  type: 1
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/01.png
+  gap_id:
+  - 168
+  - 42
+  grp_name: \\(\\mathrm{PSL}_2(7)\\)
+  normalizer_id:
+  - 336
+  - 208
+  normalizer_solvable: 'false'
+  normalizer_mod_grp_id:
+  - 2
+  - 1
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 168, 42 ]'
+  centralizer_solvable: 'true'
+- id: type02
+  type: 2
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/02.png
+    alt: no real points
+  gap_id:
+  - 96
+  - 64
+  grp_name: \\(C_4^{\\times 2}\\rtimes S_3\\)
+  normalizer_id:
+  - 384
+  - 17949
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 4
+  - 2
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 2, 1 ]'
+  centralizer_solvable: 'true'
+- id: type03
+  type: 3
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/03.png
+    alt: no real points
+  gap_id:
+  - 48
+  - 33
+  grp_name: \\(C_4\\circledcirc A_4\\)
+  normalizer_id:
+  - 192
+  - 988
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 4
+  - 2
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 48, 33 ]'
+  centralizer_solvable: 'true'
+- id: type04
+  type: 4
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/04.png
+  gap_id:
+  - 24
+  - 12
+  grp_name: \\(S_4\\)
+  normalizer_id:
+  - 96
+  - 226
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 4
+  - 2
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 24, 12 ]'
+  centralizer_solvable: 'true'
+- id: type05
+  type: 5
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/05.png
+  gap_id:
+  - 16
+  - 13
+  grp_name: \\(P\\)
+  normalizer_id:
+  - 768
+  - 1090081
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 48
+  - 48
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 16, 13 ]'
+  centralizer_solvable: 'true'
+- id: type06
+  type: 6
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/06.png
+  gap_id:
+  - 9
+  - 1
+  grp_name: \\(C_9\\)
+  normalizer_id:
+  - 54
+  - 6
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 6
+  - 2
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 9, 1 ]'
+  centralizer_solvable: 'true'
+- id: type07
+  type: 7
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/07.png
+  gap_id:
+  - 8
+  - 3
+  grp_name: \\(D_8\\)
+  normalizer_id:
+  - 256
+  - 25876
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 32
+  - 27
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 8, 3 ]'
+  centralizer_solvable: 'true'
+- id: type08
+  type: 8
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/08.png
+  gap_id:
+  - 6
+  - 2
+  grp_name: \\(C_6\\)
+  normalizer_id:
+  - 144
+  - 125
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 24
+  - 12
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 6, 2 ]'
+  centralizer_solvable: 'true'
+- id: type09
+  type: 9
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/09.png
+  gap_id:
+  - 6
+  - 1
+  grp_name: \\(S_3\\)
+  normalizer_id:
+  - 216
+  - 162
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 36
+  - 10
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 6, 1 ]'
+  centralizer_solvable: 'true'
+- id: type10
+  type: 10
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/10.png
+  gap_id:
+  - 4
+  - 2
+  grp_name: \\(K_4\\)
+  normalizer_id: n/a (order 1536)
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 384
+  - 20089
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 4, 2 ]'
+  centralizer_solvable: 'true'
+- id: type11
+  type: 11
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/11.png
+  gap_id:
+  - 3
+  - 1
+  grp_name: \\(C_3\\)
+  normalizer_id:
+  - 1296
+  - 2891
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id:
+  - 432
+  - 734
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 3, 1 ]'
+  centralizer_solvable: 'true'
+- id: type12
+  type: 12
+  visualization:
+    src: /assets/images/supplementary/symmetric_quartics_and_bitangents/12.png
+  gap_id:
+  - 2
+  - 1
+  grp_name: \\(C_2\\)
+  normalizer_id: n/a (order 4608)
+  normalizer_solvable: 'true'
+  normalizer_mod_grp_id: n/a (order 2304)
+  normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 2, 1 ]'
+  centralizer_solvable: 'true'

@@ -1,0 +1,30 @@
+<ul id="notes">
+
+{% if include.notes %}
+    {% assign notes = include.notes %}
+  {% else %}
+    {% assign notes = site.data.notes %}
+  {% endif %}
+
+{% for note in notes %}
+<li>
+{% if note.github %}
+    <a href="{{note.github}}" target="_blank">
+        <i class="fa-solid fa-brands fa-github"></i>
+    </a>
+{% endif %}
+
+<!-- Link is different depending on course notes or not -->
+{% if note.course_number %}
+    <a href="/assets/coursenotes/{{ note.pdf }}.pdf" target="_blank">{{ note.title }}</a> -
+{% else %}
+    <a href="/assets/notes/{{ note.pdf }}.pdf">{{ note.title }}</a> -
+{% endif %}
+
+{% if note.info %}
+    {{ note.info }}
+{% endif %}
+- {{ note.year }}.
+</li>
+{% endfor %}
+</ul>

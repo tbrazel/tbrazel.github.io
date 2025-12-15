@@ -1,6 +1,7 @@
 ---
-layout: default_custom
+layout: supplementary
 title: Equivariant enumerative geometry
+math: true
 ---
 
 

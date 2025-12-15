@@ -1,0 +1,21 @@
+{% if include.classes %}
+    {% assign classes = include.classes %}
+  {% else %}
+    {% assign classes = site.data.teaching %}
+  {% endif %}
+
+<ul>
+{% for class in classes %}
+<li>
+<!-- Course number -->
+{% if class.course_number %}{{class.course_number}}: {% endif %}
+<!-- Title linking to page if it exists -->
+{% if class.pagelink %}<i><a href="/teaching/{{ class.pagelink }}">{{ class.title }}</a></i>
+{% else %}
+<i>{{ class.title }}</i>
+{% endif %}
+, {{ class.school}}, {{class.semester}} {{class.year}}.
+</li>
+
+{% endfor %}
+</ul>

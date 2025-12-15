@@ -1,0 +1,30 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+:root {
+  --link-color: #2563eb;
+  --link-hover-color: #1d4ed8;
+}
+
+[data-mode="dark"] {
+  --link-color: #93c5fd;
+  --link-hover-color: #bfdbfe;
+}
+
+
+// hide search functionality
+
+#search-trigger,
+#search,
+#search-cancel {
+  display: none !important;
+}

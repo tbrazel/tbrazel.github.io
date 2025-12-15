@@ -1,0 +1,26 @@
+- year: 2026
+  semester: "Spring"
+  course_number: "math231br"
+  school: "Harvard"
+  title: "Algebraic topology II"
+  pagelink: "26a_math231br"
+
+- year: 2025
+  semester: "Fall"
+  course_number: "math1B"
+  school: "Harvard"
+  title: "Calculus II"
+
+- year: 2025
+  semester: "Spring"
+  course_number: "math101"
+  school: "Harvard"
+  title: "Sets, groups, and geometry"
+  pagelink: "25a_math101"
+
+- year: 2024
+  semester: "Fall"
+  course_number: "math266"
+  school: "Harvard"
+  title: "Unstable motivic homotopy theory"
+  pagelink: "24c_motivic"

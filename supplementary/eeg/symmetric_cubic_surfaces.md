@@ -1,11 +1,14 @@
 ---
-layout: default_custom
+layout: supplementary
 title: Symmetric cubic surfaces
+math: true
 ---
 
+# Symmetric cubic surfaces
+
 {% include render_table.html
-   columns=site.data.eeg.cubic_surfaces.column_data
-   rows=site.data.eeg.cubic_surfaces.row_data
+   columns=site.data.supplementary.eeg.cubic_surfaces.column_data
+   rows=site.data.supplementary.eeg.cubic_surfaces.row_data
    sort_by="id"
 %}
 
