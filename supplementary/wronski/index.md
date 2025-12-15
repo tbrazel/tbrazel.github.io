@@ -1,5 +1,5 @@
 ---
-layout: default_custom
+layout: default
 title: Around the Wronski data
 ---
 
