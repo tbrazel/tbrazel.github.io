@@ -10,7 +10,7 @@
 
 - key: tableau
   label: Tableau
-  type: markdown
+  type: codeblock
 
 - key: web
   label: Web
@@ -26,7 +26,7 @@
 
 - key: orbits
   label: Dihedral orbits
-  type: markdown
+  type: codeblock
 
 
 
