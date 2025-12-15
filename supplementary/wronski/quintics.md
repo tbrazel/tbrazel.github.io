@@ -1,7 +1,6 @@
 ---
 layout: supplementary
 title: Maximally inflected quintics and webs for 3x3 tableaux
-icon: fas fa-chalkboard
 permalink: /supplementary/wronski/quintics/
 math: true
 ---
