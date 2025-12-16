@@ -32,7 +32,9 @@ I use a Vim setup with <a href="https://github.com/SirVer/ultisnips" target="_bl
 The best way to run Macaulay2 is <a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Macaulay2Doc/html/_setting_spup_spthe_sp__Macaulay2_spemacs_spinterface.html" target="_blank">through Emacs</a>. -->
 
 ## Website hosting
-This website is hosted on GitHub - if you're not sure how to start a "username.io" website, there's a <a href="https://pages.github.com/" target="_blank">good reference to get started here</a>. If you want to host your academic website on your department's server, for example, but you'd still like version control (and you don't want to use an app like Fetch or Cyberduck every time you want to update your website), I recommend using a third-party service like <a href="https://www.deployhq.com/" target="_blank">DeployHQ</a>, which links a GitHub repository to your SFTP credentials. This way every time you want to update your webpage, just commit to your repository, and DeployHQ will launch it for you.
+This website is hosted on GitHub - if you're not sure how to start a "username.io" website, there's a <a href="https://pages.github.com/" target="_blank">good reference to get started here</a>. If you want to host your academic website on your department's server, for example, but you'd still like version control (and you don't want to use an app like Fetch or Cyberduck every time you want to update your website), I recommend using a third-party service like <a href="https://www.deployhq.com/" target="_blank">DeployHQ</a>, which links a GitHub repository to your SFTP credentials. This way every time you want to update your webpage, just commit to your repository, and DeployHQ will launch it for you. Some other webdev stuff that might be useful is:
+- [RealFaviconGenerator](https://realfavicongenerator.net/); for cross-platform favicon generation
+- [coolors.co](https://coolors.co/); for generating color palettes
 
 ## Keeping track of math papers
 I use <a href="https://www.zotero.org/" target="_blank">Zotero</a> to organize math papers. If you make sure the automatic importing gets accurate metadata, this makes it really easy to quickly generate BibTex citations for papers you're working with. 
@@ -42,7 +44,6 @@ I use <a href="https://www.zotero.org/" target="_blank">Zotero</a> to organize m
     <li><a href="https://mathscinet.ams.org/msnhtml/serials.pdf">List of math journal abbreviations</a></li>
 </ul>
 
-## References
 
 ## Listservs
 <ul>
