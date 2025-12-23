@@ -18,6 +18,7 @@
     ''6E'', ''2B'', ''6F'', ''4B'']'
   conj_classes_carter: '[''emptyset'', ''3A2'', ''2A2'', ''E6(a2)'', ''4A1'', ''A2'',
     ''E6(a1)'', ''D4'', ''A1+A5'', ''2A1'', ''2A1+A2'', ''A1+A3'']'
+  centralizer_conj_classes: '[''emptyset'']'
 - id: type02
   type: 2
   gap_id:
@@ -37,6 +38,7 @@
   conj_classes_atlas: '[''1A'', ''3D'', ''6E'', ''4B'', ''2B'', ''2A'', ''5A'']'
   conj_classes_carter: '[''emptyset'', ''2A2'', ''A1+A5'', ''A1+A3'', ''2A1'', ''4A1'',
     ''A4'']'
+  centralizer_conj_classes: '[''emptyset'', ''A1'']'
 - id: type03
   type: 3
   gap_id:
@@ -56,6 +58,7 @@
   conj_classes_atlas: '[''1A'', ''4A'', ''6A'', ''2A'', ''3A'', ''3D'', ''12A'']'
   conj_classes_carter: '[''emptyset'', ''D4(a1)'', ''E6(a2)'', ''4A1'', ''3A2'', ''2A2'',
     ''E6'']'
+  centralizer_conj_classes: '[''emptyset'', ''3A2'']'
 - id: type04
   type: 4
   gap_id:
@@ -74,6 +77,7 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''3A'', ''3D'', ''2A'', ''6A'']'
   conj_classes_carter: '[''emptyset'', ''3A2'', ''2A2'', ''4A1'', ''E6(a2)'']'
+  centralizer_conj_classes: '[''emptyset'', ''3A2'']'
 - id: type05
   type: 5
   gap_id:
@@ -92,6 +96,7 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''4B'', ''2A'', ''2B'', ''3D'']'
   conj_classes_carter: '[''emptyset'', ''A1+A3'', ''4A1'', ''2A1'', ''2A2'']'
+  centralizer_conj_classes: '[''emptyset'', ''4A1'', ''3A1'', ''A1'']'
 - id: type06
   type: 6
   gap_id:
@@ -110,6 +115,7 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''6E'', ''2A'', ''3D'', ''2B'']'
   conj_classes_carter: '[''emptyset'', ''A1+A5'', ''4A1'', ''2A2'', ''2A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''A2'', ''4A1'', ''D4'', ''3A1'', ''A1'']'
 - id: type07
   type: 7
   gap_id:
@@ -128,6 +134,7 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''8A'', ''4A'', ''2A'']'
   conj_classes_carter: '[''emptyset'', ''D5'', ''D4(a1)'', ''4A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''4A1'', ''D4(a1)'', ''D5'']'
 - id: type08
   type: 8
   gap_id:
@@ -146,6 +153,8 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''3D'', ''2A'']'
   conj_classes_carter: '[''emptyset'', ''2A2'', ''4A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''2A2'', ''A2'', ''3A2'', ''4A1'', ''D4'',
+    ''A1'', ''A1+A5'', ''3A1'']'
 - id: type09
   type: 9
   gap_id:
@@ -164,6 +173,8 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''4A'', ''2A'']'
   conj_classes_carter: '[''emptyset'', ''D4(a1)'', ''4A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''4A1'', ''D4(a1)'', ''3A2'', ''E6(a2)'',
+    ''2A1'', ''E6'', ''A3'', ''2A1+A3'', ''D5'']'
 - id: type10
   type: 10
   gap_id:
@@ -182,6 +193,8 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''2A'', ''2B'']'
   conj_classes_carter: '[''emptyset'', ''4A1'', ''2A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''4A1'', ''2A1+A3'', ''A2'', ''A3'', ''D4'',
+    ''2A1'', ''A1'', ''2A1+A2'', ''3A1'']'
 - id: type11
   type: 11
   gap_id:
@@ -200,3 +213,6 @@
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''2A'']'
   conj_classes_carter: '[''emptyset'', ''4A1'']'
+  centralizer_conj_classes: '[''emptyset'', ''4A1'', ''2A1'', ''2A2'', ''A1+A5'',
+    ''A1+A3'', ''A2'', ''D4'', ''2A1+A3'', ''A3'', ''D4(a1)'', ''3A1'', ''2A1+A2'',
+    ''E6'', ''A5'', ''3A2'', ''E6(a2)'', ''D5'', ''A1'']'

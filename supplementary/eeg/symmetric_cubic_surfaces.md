@@ -12,6 +12,10 @@ math: true
    sort_by="id"
 %}
 
+Some facts about this (data omitted from the table above):
+- For each of the 11 groups $G$ *except* $S_5$, we have that $N_{W(E_6)}(G)$ is solvable
+- For each of the 11 groups $G$, we have that $C_{W(E_6)}(G)$ is solvable.
+- For each of the 11 groups $G$, we have that $N_{W(E_6)}(G)/G$ is solvable.
 
 ## Subgroup lattice
 
@@ -23,3 +27,4 @@ Here is the subgroup lattice, where an edge indicates subconjugacy in $$W(E_6)$$
    width="90%"
    height="65vh"
 %}
+

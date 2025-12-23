@@ -13,35 +13,39 @@
   type: markdown
 
 - key: normalizer_id
-  label: Normalizer id
+  label: Normalizer
   type: markdown
 
-- key: normalizer_solvable
-  label: Normalizer solvable?
-  type: markdown
+# - key: normalizer_solvable
+#   label: Normalizer solvable?
+#   type: markdown
 
 - key: centralizer_id
-  label: Centralizer id
+  label: Centralizer
   type: markdown
 
-- key: centralizer_solvable
-  label: Centralizer solvable?
-  type: markdown
+# - key: centralizer_solvable
+#   label: Centralizer solvable?
+#   type: markdown
 
 - key: normalizer_mod_grp_id
-  label: Normalizer mod group (id)
+  label: Normalizer mod group
   type: markdown
 
-- key: normalizer_mod_grp_solvable
-  label: Normalizer mod group solvable?
-  type: markdown
+# - key: normalizer_mod_grp_solvable
+#   label: Normalizer mod group solvable?
+#   type: markdown
 
-- key: conj_classes_atlas
-  label: Conjugacy classes (Atlas)
-  type: markdown
+# - key: conj_classes_atlas
+#   label: Conjugacy classes (Atlas)
+#   type: markdown
 
-- key: conj_classes_carter
-  label: Conjugacy classes (Carter)
+# - key: conj_classes_carter
+#   label: Conjugacy classes (Carter)
+#   type: markdown
+
+- key: centralizer_conj_classes
+  label: Conjugacy classes in the centralizer
   type: markdown
 
 

@@ -71,7 +71,7 @@ In any case we can graph the adjacency matrix and get the (complement of the) Sc
 ## Tritangents
 All the 45 tritangents on the Fermat (in the labeling above) are as follows:
 
-```
+```python
 [1, 2, 25],
 [1, 6, 12],
 [1, 7, 9],
