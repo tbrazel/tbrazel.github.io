@@ -18,6 +18,8 @@ This course will look at algebraic manifolds from an algebraic topology perspect
 - some basic Hodge theory
 - Riemann-Roch for algebraic manifolds
 
+We meet **Tuesdays and Thursdays**, 9-10:15am in SC120.
+
 
 
 [Canvas link](https://canvas.harvard.edu/courses/162175)
