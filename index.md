@@ -5,7 +5,7 @@ layout: page
 
 # About
 
-I am a third-year NSF Postdoc at Harvard University, working with [Mike Hopkins](https://people.math.harvard.edu/~mjh/){:target="_blank"}. Prior to that, I was a graduate student at the University of Pennsylvania, where I was co-advised by [Mona Merling](https://www2.math.upenn.edu/~mmerling/){:target="_blank"} and [Kirsten Wickelgren](https://sites.math.duke.edu/~kgw/index.html){:target="_blank"}. Starting in Spring 2027, I will be an Assistant Professor at Vanderbilt University.
+I am a third-year NSF Postdoc at Harvard University, working with [Mike Hopkins](https://people.math.harvard.edu/~mjh/){:target="_blank"}. Prior to that, I was a graduate student at the University of Pennsylvania, where I was co-advised by [Mona Merling](https://www2.math.upenn.edu/~mmerling/){:target="_blank"} and [Kirsten Wickelgren](https://sites.math.duke.edu/~kgw/index.html){:target="_blank"}. In Fall 2026 I will be a postdoc at the [SLMath program on motivic homotopy theory](https://www.slmath.org/programs/384){:target="_blank"}. Starting in Spring 2027, I will be an Assistant Professor at Vanderbilt University.
 
 
 My CV is [here](/assets/misc/CV.pdf).

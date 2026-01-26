@@ -3,7 +3,7 @@
   course_number: "MATH266"
   type: "course notes"
   pdf: "motivic"
-  year: 2024
+  year: "Fall 2025"
   info: "topics class on motivic homotopy theory"
 
 - title: "An introduction to the norm residue isomorphism theorem"
@@ -31,7 +31,7 @@
   course_number: "MATH101"
   info: "course notes from MATH101"
   pdf: "math101"
-  year: "Spring 2024"
+  year: "Spring 2025"
 
 - title: "A motivic crash course"
   info: "Thursday seminar talk notes"
