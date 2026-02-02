@@ -1,3 +1,11 @@
+- title: "Topology of algebraic manifolds"
+  github: https://github.com/tbrazel/math231br
+  course_number: "MATH231br"
+  year: "Spring 2026"
+  type: "course notes"
+  pdf: "math231br"
+  info: "second-semester algebraic topology grad class"
+
 - title: "Unstable motivic homotopy theory"
   github: https://github.com/tbrazel/math266-motivic/
   course_number: "MATH266"

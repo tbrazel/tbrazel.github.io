@@ -15,7 +15,7 @@ permalink: /teaching/26a_math231br/
 ## Notes
 
 Notes are regularly updated [on GitHub](https://github.com/tbrazel/math231br).
-- Link to the pdf
+- [Local pdf](../../assets/coursenotes/math231br.pdf) (might be out of date at any given time, go to the GitHub for the most recent version)
 - Here is [how to submit a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
 If you're taking this class for credit, you will be responsible for contributing an appendix to the notes. Here is a [potential list of appendices](https://github.com/tbrazel/math231br/blob/main/potential_appendices.md) (I'll update this more throughout the semester).
