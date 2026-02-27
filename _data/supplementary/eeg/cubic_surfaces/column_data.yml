@@ -48,6 +48,9 @@
   label: Conjugacy classes in the centralizer
   type: markdown
 
+- key: normalizer_conj_classes
+  label: Conjugacy classes in the normalizer
+  type: markdown
 
 
 
