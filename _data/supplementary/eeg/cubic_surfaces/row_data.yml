@@ -121,7 +121,7 @@
   - 6
   - 1
   normalizer_mod_grp_solvable: true
-  grp_name: \\(S_3\\times C_2\\)
+  grp_name: \\(S_3 \\times C_2\\)
   centralizer_id: '[ 12, 4 ]'
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''6E'', ''2A'', ''3D'', ''2B'']'
@@ -206,7 +206,7 @@
   - 48
   - 48
   normalizer_mod_grp_solvable: true
-  grp_name: \\(C_2\\times C_2\\)
+  grp_name: \\(C_2 \\times C_2\\)
   centralizer_id: '[ 96, 226 ]'
   centralizer_solvable: 'true'
   conj_classes_atlas: '[''1A'', ''2A'', ''2B'']'
