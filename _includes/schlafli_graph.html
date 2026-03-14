@@ -78,8 +78,8 @@
     const nodesG = document.createElementNS(svgNS, 'g');
     const labelsG = document.createElementNS(svgNS, 'g');
     edgesG.setAttribute('stroke', '#444');
-    edgesG.setAttribute('stroke-opacity', String(opts.edgeOpacity ?? 0.35));
-    edgesG.setAttribute('stroke-width', String(opts.edgeWidth ?? 1));
+    edgesG.setAttribute('stroke-opacity', String(opts.edgeOpacity != null ? opts.edgeOpacity : 0.35));
+    edgesG.setAttribute('stroke-width',String(opts.edgeWidth != null ? opts.edgeWidth : 1));
     edgesG.setAttribute('fill', 'none');
 
     // Draw edges (undirected)
@@ -99,8 +99,8 @@
           line.setAttribute('data-j', String(j));
 
           // Set stroke opacity/width on each line to work with gradients
-          line.setAttribute('stroke-opacity', String(opts.edgeOpacity ?? 0.35));
-          line.setAttribute('stroke-width', String(opts.edgeWidth ?? 1));
+          line.setAttribute('stroke-opacity', String(opts.edgeOpacity != null ? opts.edgeOpacity : 0.35));
+          line.setAttribute('stroke-width', String(opts.edgeWidth != null ? opts.edgeWidth : 1));
 
           if (colorA && colorB && colorA !== colorB) {
             // Create a unique linearGradient for this edge aligned to the edge coordinates
@@ -142,7 +142,7 @@
       const c = document.createElementNS(svgNS, 'circle');
       c.setAttribute('cx', x);
       c.setAttribute('cy', y);
-      c.setAttribute('r', String(opts.nodeRadius ?? 10));
+      c.setAttribute('r', String(opts.nodeRadius != null ? opts.nodeRadius : 10));
       c.setAttribute('fill', colors[i]);
       c.setAttribute('stroke', '#111');
       c.setAttribute('stroke-width', '1');
@@ -154,13 +154,13 @@
     for (let i = 0; i < n; i++) {
       const a = angles[i];
       const [x, y] = pos[i];
-      const L = opts.labelOffset ?? 18;
+      const L = opts.labelOffset != null ? opts.labelOffset : 18;
       const lx = x + L * Math.cos(a);
       const ly = y + L * Math.sin(a);
       const t = document.createElementNS(svgNS, 'text');
       t.setAttribute('x', lx);
       t.setAttribute('y', ly);
-      t.setAttribute('font-size', String(opts.fontSize ?? 12));
+      t.setAttribute('font-size', String(opts.fontSize != null ? opts.fontSize : 12));
       t.setAttribute('text-anchor',
         Math.cos(a) > 0.05 ? 'start' : Math.cos(a) < -0.05 ? 'end' : 'middle'
       );
