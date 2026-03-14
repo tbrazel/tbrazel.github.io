@@ -1,111 +1,125 @@
 <div class="cgraph" data-title="{{ include.title | default: 'Circular Graph (27 nodes)' }}"></div>
 
 <script>
-(function ()
-{
-  // --- Load data from include params ---
+(function () {
   {% assign __matrix_obj = include.matrix | default: page.matrix %}
   {% if __matrix_obj %}
-  const matrix = {{ __matrix_obj | jsonify }};
+  var matrix = {{ __matrix_obj | jsonify }};
   {% else %}
   console.error('schlafli_graph include: No matrix passed. Provide include.matrix or page.matrix.');
-  const matrix = [];
+  var matrix = [];
   {% endif %}
+
   {% assign __groups_obj = include.groups | default: page.groups %}
   {% if __groups_obj %}
-  const groups = {{ __groups_obj | jsonify }};
+  var groups = {{ __groups_obj | jsonify }};
   {% else %}
-  const groups = [{"count":12,"color":"#1e90ff"},{"count":12,"color":"#16a34a"},{"count":3,"color":"#ef4444"}];
+  var groups = [
+    {"count":12,"color":"#1e90ff"},
+    {"count":12,"color":"#16a34a"},
+    {"count":3,"color":"#ef4444"}
+  ];
   {% endif %}
-  const options = {
+
+  var options = {
     edgeOpacity: 0.35,
     edgeWidth: 1,
     nodeRadius: 10,
     labelOffset: 18,
-    fontSize: 12,
+    fontSize: 12
   };
 
-  (function renderCircularGraph(containerEl, adj, groups, opts) {
-    const container = containerEl || (document.currentScript && document.currentScript.previousElementSibling);
+  function renderCircularGraph(containerEl, adj, groups, opts) {
+    var container = containerEl || (document.currentScript && document.currentScript.previousElementSibling);
     if (!container) return;
 
-    // Validate 27×27
-    const n = (adj && adj.length) || 0;
-    if (n !== 27 || adj.some(r => !Array.isArray(r) || r.length !== 27)) {
+    var n = (adj && adj.length) || 0;
+    var i, j;
+
+    if (n !== 27) {
       container.textContent = 'Expected a 27×27 adjacency matrix.';
       return;
     }
+    for (i = 0; i < n; i++) {
+      if (!Array.isArray(adj[i]) || adj[i].length !== 27) {
+        container.textContent = 'Expected a 27×27 adjacency matrix.';
+        return;
+      }
+    }
 
-    // Build colors array
-    const colors = [];
-    let idx = 0;
-    groups.forEach(g => {
-      for (let k = 0; k < g.count && idx < n; k++, idx++) colors.push(g.color || '#999');
-    });
-    while (colors.length < n) colors.push('#999'); // pad if needed
+    var colors = [];
+    var idx = 0;
+    for (i = 0; i < groups.length; i++) {
+      var g = groups[i];
+      var count = g.count || 0;
+      for (j = 0; j < count && idx < n; j++, idx++) {
+        colors.push(g.color || '#999');
+      }
+    }
+    while (colors.length < n) colors.push('#999');
 
-    // SVG setup
-    const W = 800, H = 800, R = 300, cx = W/2, cy = H/2;
-    const svgNS = 'http://www.w3.org/2000/svg';
+    var W = 800, H = 800, R = 300, cx = W / 2, cy = H / 2;
+    var svgNS = 'http://www.w3.org/2000/svg';
     container.innerHTML = '';
 
-    const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '100%');
     svg.style.display = 'block';
     svg.style.maxWidth = '900px';
     svg.style.margin = '1rem auto';
 
-    const defs = document.createElementNS(svgNS, 'defs');
+    var defs = document.createElementNS(svgNS, 'defs');
     svg.appendChild(defs);
 
-    const title = document.createElementNS(svgNS, 'text');
+    var title = document.createElementNS(svgNS, 'text');
     title.setAttribute('x', String(cx));
     title.setAttribute('y', '32');
     title.setAttribute('text-anchor', 'middle');
     title.setAttribute('font-size', '16');
     title.setAttribute('font-weight', '600');
-    title.textContent = container.dataset.title || 'Circular Graph';
+    title.textContent = container.getAttribute('data-title') || 'Circular Graph';
     svg.appendChild(title);
 
-    // Node positions (start at top)
-    const angles = Array.from({length: n}, (_, k) => 2*Math.PI*k/n - Math.PI/2);
-    const pos = angles.map(a => [cx + R*Math.cos(a), cy + R*Math.sin(a)]);
+    var angles = [];
+    var pos = [];
+    for (i = 0; i < n; i++) {
+      var a = 2 * Math.PI * i / n - Math.PI / 2;
+      angles.push(a);
+      pos.push([cx + R * Math.cos(a), cy + R * Math.sin(a)]);
+    }
 
-    // Layers
-    const edgesG = document.createElementNS(svgNS, 'g');
-    const nodesG = document.createElementNS(svgNS, 'g');
-    const labelsG = document.createElementNS(svgNS, 'g');
+    var edgesG = document.createElementNS(svgNS, 'g');
+    var nodesG = document.createElementNS(svgNS, 'g');
+    var labelsG = document.createElementNS(svgNS, 'g');
+
     edgesG.setAttribute('stroke', '#444');
     edgesG.setAttribute('stroke-opacity', String(opts.edgeOpacity != null ? opts.edgeOpacity : 0.35));
-    edgesG.setAttribute('stroke-width',String(opts.edgeWidth != null ? opts.edgeWidth : 1));
+    edgesG.setAttribute('stroke-width', String(opts.edgeWidth != null ? opts.edgeWidth : 1));
     edgesG.setAttribute('fill', 'none');
 
-    // Draw edges (undirected)
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
+    for (i = 0; i < n; i++) {
+      for (j = i + 1; j < n; j++) {
         if (adj[i][j]) {
-          const [x1, y1] = pos[i], [x2, y2] = pos[j];
-          const colorA = colors[i];
-          const colorB = colors[j];
+          var x1 = pos[i][0], y1 = pos[i][1];
+          var x2 = pos[j][0], y2 = pos[j][1];
+          var colorA = colors[i];
+          var colorB = colors[j];
 
-          const line = document.createElementNS(svgNS, 'line');
+          var line = document.createElementNS(svgNS, 'line');
           line.setAttribute('x1', x1);
           line.setAttribute('y1', y1);
           line.setAttribute('x2', x2);
           line.setAttribute('y2', y2);
           line.setAttribute('data-i', String(i));
           line.setAttribute('data-j', String(j));
-
-          // Set stroke opacity/width on each line to work with gradients
           line.setAttribute('stroke-opacity', String(opts.edgeOpacity != null ? opts.edgeOpacity : 0.35));
           line.setAttribute('stroke-width', String(opts.edgeWidth != null ? opts.edgeWidth : 1));
 
           if (colorA && colorB && colorA !== colorB) {
-            // Create a unique linearGradient for this edge aligned to the edge coordinates
-            const gid = `edge-grad-${i}-${j}`;
-            const grad = document.createElementNS(svgNS, 'linearGradient');
+            var gid = 'edge-grad-' + i + '-' + j;
+            var grad = document.createElementNS(svgNS, 'linearGradient');
             grad.setAttribute('id', gid);
             grad.setAttribute('gradientUnits', 'userSpaceOnUse');
             grad.setAttribute('x1', x1);
@@ -113,11 +127,11 @@
             grad.setAttribute('x2', x2);
             grad.setAttribute('y2', y2);
 
-            const stop1 = document.createElementNS(svgNS, 'stop');
+            var stop1 = document.createElementNS(svgNS, 'stop');
             stop1.setAttribute('offset', '0%');
             stop1.setAttribute('stop-color', colorA);
 
-            const stop2 = document.createElementNS(svgNS, 'stop');
+            var stop2 = document.createElementNS(svgNS, 'stop');
             stop2.setAttribute('offset', '100%');
             stop2.setAttribute('stop-color', colorB);
 
@@ -125,9 +139,8 @@
             grad.appendChild(stop2);
             defs.appendChild(grad);
 
-            line.setAttribute('stroke', `url(#${gid})`);
+            line.setAttribute('stroke', 'url(#' + gid + ')');
           } else {
-            // Same color on both ends (or missing color): solid stroke
             line.setAttribute('stroke', colorA || colorB || '#444');
           }
 
@@ -136,10 +149,9 @@
       }
     }
 
-    // Draw nodes
-    for (let i = 0; i < n; i++) {
-      const [x, y] = pos[i];
-      const c = document.createElementNS(svgNS, 'circle');
+    for (i = 0; i < n; i++) {
+      var x = pos[i][0], y = pos[i][1];
+      var c = document.createElementNS(svgNS, 'circle');
       c.setAttribute('cx', x);
       c.setAttribute('cy', y);
       c.setAttribute('r', String(opts.nodeRadius != null ? opts.nodeRadius : 10));
@@ -150,23 +162,23 @@
       nodesG.appendChild(c);
     }
 
-    // Labels 1–27
-    for (let i = 0; i < n; i++) {
-      const a = angles[i];
-      const [x, y] = pos[i];
-      const L = opts.labelOffset != null ? opts.labelOffset : 18;
-      const lx = x + L * Math.cos(a);
-      const ly = y + L * Math.sin(a);
-      const t = document.createElementNS(svgNS, 'text');
+    for (i = 0; i < n; i++) {
+      var ang = angles[i];
+      var px = pos[i][0], py = pos[i][1];
+      var L = opts.labelOffset != null ? opts.labelOffset : 18;
+      var lx = px + L * Math.cos(ang);
+      var ly = py + L * Math.sin(ang);
+
+      var t = document.createElementNS(svgNS, 'text');
       t.setAttribute('x', lx);
       t.setAttribute('y', ly);
       t.setAttribute('font-size', String(opts.fontSize != null ? opts.fontSize : 12));
-      t.setAttribute('text-anchor',
-        Math.cos(a) > 0.05 ? 'start' : Math.cos(a) < -0.05 ? 'end' : 'middle'
-      );
-      t.setAttribute('dominant-baseline',
-        Math.sin(a) > 0.05 ? 'hanging' : Math.sin(a) < -0.05 ? 'ideographic' : 'middle'
-      );
+
+      var ca = Math.cos(ang);
+      var sa = Math.sin(ang);
+      t.setAttribute('text-anchor', ca > 0.05 ? 'start' : (ca < -0.05 ? 'end' : 'middle'));
+      t.setAttribute('dominant-baseline', sa > 0.05 ? 'hanging' : (sa < -0.05 ? 'ideographic' : 'middle'));
+
       t.textContent = String(i + 1);
       t.setAttribute('data-node', String(i + 1));
       labelsG.appendChild(t);
@@ -177,34 +189,52 @@
     svg.appendChild(labelsG);
     container.appendChild(svg);
 
-    // Optional hover highlight
-    nodesG.addEventListener('mouseover', (e) => {
-      if (e.target.tagName !== 'circle') return;
-      const node = parseInt(e.target.getAttribute('data-node'), 10) - 1;
-      // Dim all non-incident edges; keep incident ones undimmed
-      edgesG.querySelectorAll('line').forEach(l => {
-        const ii = parseInt(l.getAttribute('data-i'), 10);
-        const jj = parseInt(l.getAttribute('data-j'), 10);
+    nodesG.addEventListener('mouseover', function (e) {
+      if (!e.target || e.target.tagName !== 'circle') return;
+
+      var node = parseInt(e.target.getAttribute('data-node'), 10) - 1;
+      var lines = edgesG.querySelectorAll('line');
+      var circles = nodesG.querySelectorAll('circle');
+      var texts = labelsG.querySelectorAll('text');
+      var k, l, ii, jj;
+
+      for (k = 0; k < lines.length; k++) {
+        l = lines[k];
+        ii = parseInt(l.getAttribute('data-i'), 10);
+        jj = parseInt(l.getAttribute('data-j'), 10);
         if (ii === node || jj === node) {
           l.classList.remove('edge-dim');
         } else {
           l.classList.add('edge-dim');
         }
-      });
-      // Dim all nodes and labels, then highlight hovered node
-      nodesG.querySelectorAll('circle').forEach(c => c.setAttribute('opacity', '0.35'));
-      labelsG.querySelectorAll('text').forEach(t => t.setAttribute('opacity', '0.35'));
-      const hoveredLabel = labelsG.querySelector(`text[data-node="${node + 1}"]`);
+      }
+
+      for (k = 0; k < circles.length; k++) circles[k].setAttribute('opacity', '0.35');
+      for (k = 0; k < texts.length; k++) texts[k].setAttribute('opacity', '0.35');
+
+      var hoveredLabel = labelsG.querySelector('text[data-node="' + (node + 1) + '"]');
       if (hoveredLabel) hoveredLabel.removeAttribute('opacity');
       e.target.setAttribute('opacity', '1');
     });
-    nodesG.addEventListener('mouseout', () => {
-      // Clear any dimming class and restore opacities
-      edgesG.querySelectorAll('line').forEach(l => l.classList.remove('edge-dim'));
-      nodesG.querySelectorAll('circle').forEach(c => c.removeAttribute('opacity'));
-      labelsG.querySelectorAll('text').forEach(t => t.removeAttribute('opacity'));
+
+    nodesG.addEventListener('mouseout', function () {
+      var lines = edgesG.querySelectorAll('line');
+      var circles = nodesG.querySelectorAll('circle');
+      var texts = labelsG.querySelectorAll('text');
+      var k;
+
+      for (k = 0; k < lines.length; k++) lines[k].classList.remove('edge-dim');
+      for (k = 0; k < circles.length; k++) circles[k].removeAttribute('opacity');
+      for (k = 0; k < texts.length; k++) texts[k].removeAttribute('opacity');
     });
-  })(document.currentScript && document.currentScript.previousElementSibling, matrix, groups, options);
+  }
+
+  renderCircularGraph(
+    document.currentScript && document.currentScript.previousElementSibling,
+    matrix,
+    groups,
+    options
+  );
 })();
 </script>
 
