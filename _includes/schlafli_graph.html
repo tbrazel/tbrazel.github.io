@@ -1,6 +1,7 @@
 <div class="cgraph" data-title="{{ include.title | default: 'Circular Graph (27 nodes)' }}"></div>
 
 <script>
+(function ()
 {
   // --- Load data from include params ---
   {% assign __matrix_obj = include.matrix | default: page.matrix %}
@@ -29,7 +30,7 @@
     if (!container) return;
 
     // Validate 27×27
-    const n = adj?.length || 0;
+    const n = (adj && adj.length) || 0;
     if (n !== 27 || adj.some(r => !Array.isArray(r) || r.length !== 27)) {
       container.textContent = 'Expected a 27×27 adjacency matrix.';
       return;
@@ -204,7 +205,7 @@
       labelsG.querySelectorAll('text').forEach(t => t.removeAttribute('opacity'));
     });
   })(document.currentScript && document.currentScript.previousElementSibling, matrix, groups, options);
-}
+})();
 </script>
 
 <style>
