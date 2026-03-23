@@ -11,19 +11,6 @@
   abstract: >
     Enumerative geometry, the art and science of counting geometric objects satisfying geometric conditions, has seen a resurgence of activity in recent years due to an influx of new techniques that allow for <i>enriched</i> computations. This paper offers a historical survey of enumerative geometry, starting with its classical origins and real counterparts, to new advances in quadratic enrichment. We include a brief survey of the paradigm shift initiated by Gromov-Witten theory, whose impact can be seen in recent results in quadratically enriched enumerative geometry. Finally, we conclude with a brief overview of emerging directions including random and equivariant enumerative geometry. 
 
-- id: cpm2
-  status: "submitted"
-  title: "$C_p$-Mackey functors in Macaulay2"
-  coauthors: "D. Chan, B. Mudrak, B. Spitz, C. Vogeli, C. Wang, M. Zeng, and S. Zotine"
-  # journal: "Conference on More Things"
-  year: 2025
-  arXiV_id: "2509.05456"
-  code_url: "https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/CpMackeyFunctors/html/index.html"
-  # external_url: "https://example.com/another-paper"
-  pdf: "cpm2"
-  abstract: >
-    We introduce the <code>CpMackeyFunctors</code> package for Macaulay2, which allows for computations with Mackey functors over a cyclic group of prime order.
-
 - id: fourfolds
   status: "submitted"
   title: "On algebraic vector bundles of rank 2 over smooth affine fourfolds"
@@ -54,13 +41,29 @@
   abstract: >
     We explore the enumerative problem of finding lines on cubic surfaces defined by symmetric polynomials. We prove that the moduli space of symmetric cubic surfaces is an arithmetic quotient of the complex hyperbolic line, and determine constraints on the monodromy group of lines on symmetric cubic surfaces arising from Hodge theory and geometry of the associated cover. This interestingly fails to pin down the entire Galois group. Leveraging computations in equivariant line geometry and homotopy continuation, we prove that the Galois group is the Klein 4-group. This means that, despite a general cubic surface admitting no formula in radicals for its lines, an $S_4$-symmetric cubic does; we work out these formulas explicitly. This is the first computation in what promises to be an interesting direction of research: studying monodromy in classical enumerative problems restricted by a finite group of symmetries.
 
-- id: bitangents
+- id: cpm2
   status: "to appear"
+  title: "$C_p$-Mackey functors in Macaulay2"
+  coauthors: "D. Chan, B. Mudrak, B. Spitz, C. Vogeli, C. Wang, M. Zeng, and S. Zotine"
+  journal: "J. Softw. Algebra Geom."
+  year: 2026
+  arXiV_id: "2509.05456"
+  code_url: "https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/CpMackeyFunctors/html/index.html"
+  # external_url: "https://example.com/another-paper"
+  pdf: "cpm2"
+  abstract: >
+    We introduce the <code>CpMackeyFunctors</code> package for Macaulay2, which allows for computations with Mackey functors over a cyclic group of prime order.
+
+- id: bitangents
+  status: "published"
   title: "Bitangents to symmetric quartics"
   coauthors: "C. Bethea"
-  journal: "J. Algebra"
-  year: 2025
+  year: 2026
   arXiV_id: "2410.09242"
+  journal: "J. Algebra"
+  volume: 694
+  page_range: "397-426"
+  external_url: "https://doi.org/10.1016/j.jalgebra.2025.12.010"
   code_url: "https://github.com/tbrazel/bitangents_code"
   pdf: "bitangents"
   abstract: >

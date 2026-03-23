@@ -1,3 +1,9 @@
+.table-wrapper > .pub-table tr.pub-row{
+  background-color: var(--main-bg);
+}
+
+
+
 .pub-abstract-cell {
   white-space: normal;      /* allow wrapping */
   word-wrap: break-word;    /* wrap long words */
