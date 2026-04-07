@@ -2,8 +2,6 @@
   background-color: var(--main-bg);
 }
 
-
-
 .pub-abstract-cell {
   white-space: normal;      /* allow wrapping */
   word-wrap: break-word;    /* wrap long words */
@@ -130,7 +128,6 @@ div.links a, button.pub-abstract-toggle{
   border:none;
 }
 
-
 /* Abstract */
 
 .pub-abstract-toggle {
@@ -171,7 +168,6 @@ div.table-wrapper {
   max-width: 100%;
 }
 
-
 .table-wrapper > table tbody tr td{
   white-space: inherit;
 }
@@ -188,12 +184,15 @@ col.col-info{
   width: 80%;
 }
 
-
-
 /* dark mode */
 
 /* abstract cells in dark mode */
 html[data-mode="dark"] td.pub-abstract-cell{
   color: white;
-  background-color: #717070;
+  background-color: #2b2a2a;
+}
+
+/* paper icons in dark mode */
+html[data-mode="dark"] div.table-wrapper i.fa-solid{
+  color: white;
 }
