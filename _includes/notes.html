@@ -17,13 +17,13 @@
 <!-- Link is different depending on course notes or not -->
 {% if note.course_number %}
     {% if note.pdf %}
-        <a href="/assets/coursenotes/{{ note.pdf }}.pdf" target="_blank">{{ note.title }}</a> -
+        <a href="/assets/coursenotes/{{ note.pdf }}.pdf?v={{ site.time | date: '%s' }}" target="_blank">{{ note.title }}</a> -
     {% else %}
         {{ note.title }} -
     {% endif %}
 {% else %}
     {% if note.pdf %}
-    <a href="/assets/notes/{{ note.pdf }}.pdf">{{ note.title }}</a> -
+    <a href="/assets/notes/{{ note.pdf }}.pdf?v={{ site.time | date: '%s' }}">{{ note.title }}</a> -
     {% else %}
         {{ note.title }} -
     {% endif %}
