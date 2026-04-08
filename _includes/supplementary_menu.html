@@ -3,12 +3,12 @@
 <ul>
   {%- for item in site.data.supplementary_menu -%}
     <li>
-      <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      <a href="{{ item.url | relative_url }}?v={{ site.time | date: '%s' }}">{{ item.title }}</a>
       {%- if item.children -%}
         <ul>
           {%- for child in item.children -%}
             <li>
-              <a href="{{ child.url | relative_url }}">{{ child.title }}</a>
+              <a href="{{ child.url | relative_url }}?v={{ site.time | date: '%s' }}">{{ child.title }}</a>
             </li>
           {%- endfor -%}
         </ul>

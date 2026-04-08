@@ -10,7 +10,7 @@
 <!-- Course number -->
 {% if class.course_number %}{{class.course_number}}: {% endif %}
 <!-- Title linking to page if it exists -->
-{% if class.pagelink %}<i><a href="/teaching/{{ class.pagelink }}">{{ class.title }}</a></i>
+{% if class.pagelink %}<i><a href="/teaching/{{ class.pagelink }}?v={{ site.time | date: '%s' }}">{{ class.title }}</a></i>
 {% else %}
 <i>{{ class.title }}</i>
 {% endif %}
