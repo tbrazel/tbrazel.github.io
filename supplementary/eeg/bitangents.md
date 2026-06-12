@@ -8,7 +8,10 @@ math: true
 
 It is classical that a smooth plane quartic (in fact a general plane quartic) admits 28 *bitangents*, which are lines meeting the quartic at two points, each of order two. This is a classical question in enumerative algebraic geometry, and we can ask how it interacts with symmetries of quartics. Since a plane quartic is a canonical smooth curve of genus 3, its automorphism group lives in $$\text{PGL}_3(\mathbb{C})$$ and therefore acts on the bitangents. There are 12 possible automorphism groups, and their action on the lines was [worked out by myself and Candace](https://arxiv.org/abs/2410.09242).
 
-Listed below are the 12 automorphism groups, a picture of the real bitangents where available, and some info about how the group sits inside the Galois group of the problem, which is $$W(E_7)/\pm1$$, or $$\text{PSL}(6,2)$$ if you prefer.
+The Galois group of the bitangents to a smooth planar quartic differs from the Weyl group of $$E_7$$ by order 2. Explicitly, by presenting the group $$W(E_7)$$ in $$\text{GL}_7(\mathbb{Z})$$ in terms of the $$E_7$$ root lattice, we can consider the determinant map $$\text{det} : W(E_7) \to \{+1,-1\}$$. The kernel is denoted $$W^+(E_7)$$, and the determinant is split by the inclusion of $$-I_7$$, hence we obtain an isomorphism
+$$W(E_7) \cong W^+(E_7)\times \{+1,-1\}$$. The Galois group of bitangents is this group $$W^+(E_7)$$, which admits an exceptional isomorphism $$W^+(E_7) \cong \text{Sp}_6(\mathbb{F}_2)$$.
+
+Listed below are the 12 automorphism groups, a picture of the real bitangents where available, and some info about how the group sits inside the Galois group of the problem.
 
 {% include render_table.html
    columns=site.data.supplementary.eeg.quartics.column_data
