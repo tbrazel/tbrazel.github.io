@@ -6,7 +6,7 @@ math: true
 
 # Symmetric quartics and bitangents
 
-It is classical that a smooth plane quartic (in fact a general plane quartic) admits 28 *bitangents*, which are lines meeting the quartic at two points, each of order two. This is a classical question in enumerative algebraic geometry, and we can ask how it interacts with symmetries of quartics. Since a plane quartic is a canonical smooth curve of genus 3, its automorphism group lives in $$\text{PGL}_3(\mathbb{C})$$ and therefore acts on the bitangents. There are 12 possible automorphism groups, and their action on the lines was [worked out by me and Candace](https://arxiv.org/abs/2410.09242).
+It is classical that a smooth plane quartic (in fact a general plane quartic) admits 28 *bitangents*, which are lines meeting the quartic at two points, each of order two. This is a classical question in enumerative algebraic geometry, and we can ask how it interacts with symmetries of quartics. Since a plane quartic is a canonical smooth curve of genus 3, its automorphism group lives in $$\text{PGL}_3(\mathbb{C})$$ and therefore acts on the bitangents. There are 12 possible automorphism groups, and their action on the lines was [worked out by myself and Candace](https://arxiv.org/abs/2410.09242).
 
 Listed below are the 12 automorphism groups, a picture of the real bitangents where available, and some info about how the group sits inside the Galois group of the problem, which is $$W(E_7)/\pm1$$, or $$\text{PSL}(6,2)$$ if you prefer.
 
@@ -15,6 +15,29 @@ Listed below are the 12 automorphism groups, a picture of the real bitangents wh
    rows=site.data.supplementary.eeg.quartics.row_data
    sort_by="id"
 %}
+
+## A presentation of the group
+By Harris, the Galois group of the 28 bitangents to a plane cubic curve is isomorphic to the symplectic group of $$6\times 6$$ matrices over the finite field $$\mathbb{F}_2$$. This can be presented in e.g. Sage as:
+```
+Sp62 = MatrixGroup([
+   matrix(GF(2),[
+         [1, 0, 1, 0, 0, 1],
+         [0, 1, 0, 0, 0, 0],
+         [0, 0, 1, 0, 0, 0],
+         [0, 0, 0, 1, 0, 1], 
+         [0, 0, 0, 0, 1, 0], 
+         [0, 0, 0, 0, 0, 1]
+         ]),
+   matrix(GF(2),[
+      [0, 0, 0, 1, 0, 0], 
+      [1, 0, 0, 0, 0, 0], 
+      [0, 1, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 0, 0, 0]
+      ])
+])
+```
 
 ## Subgroup lattice
 
