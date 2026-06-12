@@ -168,6 +168,7 @@
   - 384
   - 20089
   normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 256, 51978 ]'
 - id: type11
   type: 11
   visualization:
@@ -184,6 +185,7 @@
   - 432
   - 734
   normalizer_mod_grp_solvable: 'true'
+  centralizer_id: '[ 648, 533 ]'
 - id: type12
   type: 12
   visualization:
@@ -196,3 +198,4 @@
   normalizer_solvable: 'true'
   normalizer_mod_grp_id: n/a (order 2304)
   normalizer_mod_grp_solvable: 'true'
+  centralizer_id: 'n/a (order 4608)'
