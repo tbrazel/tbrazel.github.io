@@ -21,6 +21,7 @@ Listed below are the 12 automorphism groups, a picture of the real bitangents wh
 
 ## A presentation of the group
 By Harris, the Galois group of the 28 bitangents to a plane cubic curve is isomorphic to the symplectic group of $$6\times 6$$ matrices over the finite field $$\mathbb{F}_2$$. This can be presented in e.g. Sage as:
+
 ```
 Sp62 = MatrixGroup([
    matrix(GF(2),[
