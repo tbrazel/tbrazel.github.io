@@ -1,3 +1,12 @@
+- id: dress
+  status: "preprint"
+  title: "Operations on $G$-sets and the Dress map"
+  coauthors: "B. Spitz"
+  year: 2026
+  # pdf: "dress"
+  abstract: > 
+    We study versions of binomial and multichoose coefficients for finite $G$-sets, extending a result of Siebeneicher from the 1970’s concerning the duality between these operations. If the group $G$ comes from a finite Galois extension of fields, the Dress map provides a bridge from $G$-sets to quadratic forms over the base field. We show that this Dress map is compatible with binomial coefficients of finite $G$-sets and a particular operation on quadratic forms we define. This allows us to extend the definition of Brugallé and Wickelgren’s quadratically enriched binomial Grothendieck–Witt classes. This allows for a new proof that quadratically enriched binomial coefficients depend only on the trace form of the inputted étale algebra, as well as an elegant reproof of a result of Chen and Wickelgren about binomial coefficients over finite fields.
+
 - id: evolution
   status: "submitted"
   title: "The evolution of enumerative geometry: a narrative from classical problems to enriched invariants"
