@@ -9,6 +9,10 @@ math: true
 I am a mathematician, working in enumerative algebraic geometry and homotopy theory. This fall, I am an Uhlenbeck Postdoc at the [SLMath program on motivic homotopy theory](https://www.slmath.org/programs/384){:target="_blank"}. Starting in Spring 2027, I will be an Assistant Professor at Vanderbilt University. 
 <!-- I completed my PhD in 2023, co-advised by [Mona Merling](https://www2.math.upenn.edu/~mmerling/){:target="_blank"} and [Kirsten Wickelgren](https://sites.math.duke.edu/~kgw/index.html){:target="_blank"}. -->
 
+
+> My Harvard email is deactivated - I can be reached at `tbraz@alumni.upenn.edu` in the meantime
+{: .prompt-warning }
+
 My CV is [here](/assets/misc/CV.pdf).
 
 ## Mathematical interests
