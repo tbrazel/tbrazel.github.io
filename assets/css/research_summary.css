@@ -1,3 +1,29 @@
+.research-summary {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 6px;
+}
+
+.research-summary > summary {
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  list-style-position: inside;
+}
+
+.research-summary > summary:hover {
+  color: var(--link-hover-color);
+}
+
+.research-summary[open] > summary {
+  border-bottom: 1px solid var(--main-border-color);
+}
+
+.research-summary > .research-tabs {
+  margin: 0;
+  padding: 0.9rem;
+}
+
 .research-tabs {
   margin: 1rem 0 1.5rem;
 }

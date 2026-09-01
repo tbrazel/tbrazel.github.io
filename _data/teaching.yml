@@ -24,3 +24,9 @@
   school: "Harvard"
   title: "Unstable motivic homotopy theory"
   pagelink: "24c_motivic"
+
+- year: 2023
+  semester: "Spring"
+  # course_number
+  school: "University of Pennsylvania"
+  title: "Enumerative geometry"

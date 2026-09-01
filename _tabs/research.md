@@ -9,6 +9,8 @@ math: true
 <link rel="stylesheet" href="{{ '/assets/css/research_summary.css' | relative_url }}">
 
 
+<details class="research-summary">
+  <summary>Research summary</summary>
 <div class="research-tabs">
   <input type="radio" id="for-non-mathematicians" name="research-topic" checked>
   <input type="radio" id="for-experts" name="research-topic">
@@ -103,6 +105,7 @@ math: true
     </section>
   </div>
 </div>
+</details>
 
 
 ## Preprints
