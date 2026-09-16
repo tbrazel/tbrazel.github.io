@@ -18,6 +18,9 @@ My CV is [here](/assets/misc/CV.pdf).
 > I am running a [conference on AI and mathematics](https://aimathconference.github.io/) at Santa Cruz in Fall 2026!
 {: .prompt-info }
 
+> With Kirsten Wickelgren I am organizing a [seminar on $\mathbb{A}^1$-enumerative geometry](/26c-a1-seminar) this fall
+{: .prompt-info }
+
 ## Mathematical interests
 
 I work primarily in enumerative geometry, which is the science of counting geometric objects satisfying some geometric conditions. My background is in homotopy theory and algebraic geometry. Broadly speaking I like anything in geometry that I can enumerate, solve, and visualize. More about my research [here](/research/)
