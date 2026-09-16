@@ -1,3 +1,11 @@
+- id: symmetry
+  status: "preprint"
+  title: "Symmetry and solvability: Galois groups of equivariant enumerative problems"
+  coauthors: "A. Landi, S. Raman"
+  year: 2026
+  abstract: >
+    At the genesis of Galois theory at the end of the 19th century, enumerative geometers were concerned with the <i>solvability</i> of various problems: for instance whether one can express lines on a cubic surface in radicals in terms of the coefficients that define it. By work of Hermite and a celebrated theorem of Harris, this is equivalent to determining whether the monodromy group of a certain finite étale cover is solvable. This problem, as well as the related problem of computing bitangents to plane quartics, are both unsolvable. When one restricts to the locus of $G$-symmetric cubic surfaces, monodromy will drop and can become solvable. In this setting there are four flavors of monodromy one can consider: the one from restricting the classical cover, the one over the GIT quotient after modding out by projective transformations, and two related notions of "monodromy" coming from the stacky cover of $G$-symmetric lines on $G$-symmetric cubic surfaces --- unlike in the non-symmetric setting these are all different. In this paper we characterize the relationships between all four notions of monodromy in the general setting of quotient stacks, and use these connections to compute all these monodromy groups for all 11 possible automorphism groups of smooth cubic surfaces, as well as for all 12 possible automorphism groups for smooth planar quartics. We demonstrate that, in the presence of <i>any symmetry</i> whatsoever, the problem of solving for lines on cubic surfaces or bitangents to plane quartics is solvable.
+
 - id: dress
   status: "preprint"
   title: "Operations on $G$-sets and the Dress map"
