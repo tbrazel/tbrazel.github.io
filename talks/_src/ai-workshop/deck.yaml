@@ -34,9 +34,9 @@ slides:
 
 - id: finished-demo
   layout: standard
-  title: Lattice-point explorer
+  title: Let's learn how to build stuff like this
   kicker: Where we are going
-  body: Let's learn how to build stuff like this
+  body: Lattice-point explorer
   visual: lattice-explorer
   class: demo-frame
 - id: goal
@@ -44,13 +44,9 @@ slides:
   title: Today’s goal
   kicker: What you leave with
   body: |-
-    Everyone leaves with
+    Everyone uses AI to build a small mathematical tool they can **rerun** and **modify**
 
-    - a small mathematical tool you can **rerun**,
-    - an example you have **checked**,
-    - a useful **next question**.
-
-    The point is a repeatable process, not a particular program.
+    Built locally on your machine (we can chat after about how to deploy)
   visual: process-flow
 # - id: schedule
 #   layout: standard
@@ -83,28 +79,39 @@ slides:
 
     The process through which a model learns raw input (usually language), knowledge, etc.
 
-    > Mathematics: backpropagation calculus, linear algebra
+    Constrained by arithmetic capacity 
 
     ---
 
-    ## Post-training / RL (Reinforcement Learning) / Alignment
+    ## Post-training / RL (Reinforcement Learning)
 
     When an AI is fine-tuned to provide more precise answers, to avoid giving dangerous answers, etc.
 
-    > Mathematics: gradient descent, multivariable calculus
+
+    Constrained by memory bandwidth
 
     ---
 
     ## Inference
 
-    When an AI is applied to produce new knowledge (e.g. it is trained on new data) to see how it performs
+    Running the trained model on new input to produce output.
+
+    Constrained by memory bandwidth
+
+    ---
+
+    ## Alignment
+
+    The goal: produce an AI which can do what we want and not do what we don't want (for instance extinct us).
+
   class: property-highlights term-cards
 
 - id: workload
   layout: standard
-  title: Alignment has increasingly become important
+  title: RL has increasingly become important
   body: >
     ![Hasse diagram](assets/workload.png)
+  footer: Chart from SemiAnalysis estimates, via [OfficeChai](https://officechai.com/ai/while-share-of-inference-has-held-steady-over-the-last-2-years-pre-training-compute-has-moved-to-post-training-semi-analysis/)
   design:
     align: center
     images:
@@ -132,8 +139,6 @@ slides:
     ### Token
 
     A unit into which text is divided for processing: a word, part of a word, or punctuation.
-
-    *Long documents and mathematical notation consume space differently.*
 
     ---
 
@@ -180,9 +185,9 @@ slides:
   body: |-
     ### Agent
 
-    A system that repeatedly chooses actions, uses tools, inspects results, and continues toward a singular goal.
+    A system that repeatedly chooses actions, uses tools, inspects results, and continues toward its goal.
 
-    *Agentic programming* is the approach of spawning a team of agents to do various tasks.
+    *Agentic coding*: letting an agent edit files, run code, etc.
 
     ---
     
@@ -204,9 +209,9 @@ slides:
 
     ### Weights
 
-    Very literally scalars in linear transformations. These are the basics of how the AI functions and are often proprietary. 
-    
-    *Open weight* models are open source (Kimi K3, Qwen, etc.)
+    Very literally scalar matrix entries. These are the learned numbers that define the model.
+        
+    *Open weight* models can be downloaded and run locally (Kimi, Qwen, etc.)
 
 
   class: property-highlights term-cards
@@ -442,7 +447,7 @@ slides:
 - id: section-projects
   layout: section
   title: Choosing a project
-  kicker: '3'
+  kicker: '4'
   nav_title: Projects
   body: Each project has a mathematical input, a visible output, and a check you can understand without reading the code.
 # - id: starting-points
@@ -506,6 +511,30 @@ slides:
     | **Matrix perturbation experiment** \newline \small{linear algebra} | Perturb a small matrix; compare eigenvalues and eigenvectors | Trace, determinant, eigenvector residuals |
     | **Quadrature comparison** \newline \small{numerical analysis} | Compare integration methods as resolution increases | $\int_0^1x^2\,dx=\tfrac13$ |
   class: compact menu-table
+
+- id: aesthetic
+  layout: standard
+  kicker: Personalize the vibe
+  title: AI aesthetic slop
+  body: |-
+    
+    - Border-radius roundrect, dark mode/light mode
+    - Beige, white, black
+    - Post-Fontawesome icons
+    - Sans serif
+    - Whitespace, letter spacing
+
+    AI will default to its internal aesthetics when generating visuals. You can tweak this - hand it a color palette, a font, an inspiration page, etc.
+
+    E.g. how could we use the [early 2010's parallax trend](https://examples.motion.dev/js/parallax) for math visualization?
+
+    ---
+
+    ![Aesthetics](assets/ai-aesthetics.png)
+  footer: Photo from [Jim Nielsen's blog](https://blog.jim-nielsen.com/2026/ai-aesthetic/)
+  design:
+    preset: columns-2
+
 - id: directions
   layout: standard
   title: Beyond “make a visualization”
@@ -552,10 +581,13 @@ slides:
 #     - **Lattice points:** allow rational vertices, or count interior points only.
 
 #     > Choose the extension yourself; the mathematics decides what is interesting.
+
+
+
 - id: section-lab
   layout: section
   title: Hands-on work
-  kicker: '4'
+  kicker: '5'
   nav_title: Hands-on
   body: Work in pairs. One person drives the interface; the other checks definitions and examples. Switch halfway.
 - id: template
@@ -607,7 +639,7 @@ slides:
 - id: section-share
   layout: section
   title: Share-out
-  kicker: '5'
+  kicker: '6'
   body: Three short demonstrations, then save your work.
 - id: demonstrations
   layout: split
