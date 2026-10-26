@@ -1,0 +1,124 @@
+/* Talk theme for "skills": after the Soviet design journal Tekhnicheskaya Estetika
+   (VNIITE, 1964–92). Paper, black and one red; a heavy grotesque for headings over
+   monospaced body text; rules, squares and circles on a modular grid. Loaded after theme-site.css and only by this talk, so the
+   shared theme in talks/assets stays untouched. */
+
+@font-face { font-family:'Golos Text'; font-weight:400; font-display:swap; src:url(fonts/golos-text-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family:'Golos Text'; font-weight:500; font-display:swap; src:url(fonts/golos-text-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family:'Golos Text'; font-weight:700; font-display:swap; src:url(fonts/golos-text-latin-700-normal.woff2) format('woff2'); }
+@font-face { font-family:'Golos Text'; font-weight:900; font-display:swap; src:url(fonts/golos-text-latin-900-normal.woff2) format('woff2'); }
+
+:root,html[data-time=day],html[data-time=dusk] {
+  --ground:#d6cfbf; --bay:#ece6d7; --panel:#e2dbca; --ink:#1b1a18; --strong:#0f0f0e; --muted:#6f6a5f;
+  --accent:#d3261d; --gold:#d3261d; --wood:#1b1a18; --wood-dark:#1b1a18; --wood-light:#1b1a18;
+  --line:#1b1a18; --hair:rgb(27 26 24 / 22%); --cream:#ece6d7; --block:#1b1a18; --on-block:#ece6d7;
+  --info-bg:#1b1a18; --info-icon:#d3261d; --code-bg:#e2dbca; --code-ink:#1b1a18; --inline-code-bg:rgb(27 26 24 / 9%); --row-odd:#e4ddcc;
+  --card-shadow:none;
+  --display-font:'Golos Text','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --body-font:Monaco,Menlo,Consolas,'DejaVu Sans Mono',monospace; --mono-font:var(--body-font);
+}
+html[data-time=night] {
+  --ground:#0b0b0a; --bay:#191816; --panel:#22211e; --ink:#e4ddcc; --strong:#f3eee2; --muted:#9a9384;
+  --accent:#e5392d; --gold:#e5392d; --wood:#e4ddcc; --wood-dark:#e4ddcc; --wood-light:#e4ddcc;
+  --line:#e4ddcc; --hair:rgb(228 221 204 / 20%); --cream:#191816; --block:#e4ddcc; --on-block:#191816;
+  --info-bg:#e4ddcc; --info-icon:#e5392d; --code-bg:#22211e; --code-ink:#e4ddcc; --inline-code-bg:rgb(228 221 204 / 10%); --row-odd:#1f1e1b;
+}
+
+body { background:var(--ground); }
+button { border-radius:0; }
+a { color:inherit; border-bottom:2px solid var(--accent); }
+a:hover { color:var(--accent); }
+#slide-viewport { border-radius:0; box-shadow:0 18px 50px rgb(0 0 0 / 22%); }
+
+/* The page: paper, a black masthead band, a red register square, a footer rule. */
+.slide { background:var(--bay); color:var(--ink); padding:118px 96px 92px 196px; font-family:var(--body-font); }
+.slide .top-rail,.slide .bottom-rail,.slide .transom { display:block; position:absolute; pointer-events:none; z-index:0; opacity:1; -webkit-mask:none; mask:none; }
+.slide .top-rail { left:0; right:0; top:0; height:46px; background:var(--block); }
+.slide .top-rail::before { content:'skills'; position:absolute; left:96px; top:9px; font:700 25px/1 var(--display-font); letter-spacing:-.02em; color:var(--on-block); }
+.slide .top-rail::after { content:'seminar · 2026'; position:absolute; right:96px; top:16px; font:400 12px/1 var(--body-font); letter-spacing:.12em; text-transform:uppercase; color:var(--on-block); opacity:.75; }
+.slide .transom { left:96px; top:118px; width:58px; height:58px; background:var(--accent); }
+.slide .bottom-rail { left:96px; right:96px; bottom:72px; height:0; background:none; border-top:3px solid var(--line); }
+
+/* Headings: heavy grotesque, tight, flush left. */
+.eyebrow { font:400 14px/1.2 var(--body-font); font-variant-caps:normal; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); margin:0 0 14px; }
+.slide h1 { font:700 58px/1.02 var(--display-font); letter-spacing:-.03em; color:var(--strong); margin:0 0 40px; max-width:900px; }
+.slide h1::after { display:none; }
+
+.slide-content { font-size:22px; line-height:1.55; color:var(--ink); }
+.slide-content p { margin:0 0 20px; }
+.slide-content strong { font-weight:700; color:var(--accent); }
+.slide-content ul,.slide-content ol { padding:0; margin:0 0 22px; list-style:none; }
+.slide-content li { position:relative; padding-left:44px; margin:0 0 14px; }
+.slide-content ul > li::before { content:''; position:absolute; left:0; top:.42em; width:14px; height:14px; background:var(--accent); }
+.slide-content ol { counter-reset:tek; }
+.slide-content ol > li { counter-increment:tek; padding-left:72px; }
+.slide-content ol > li::before { content:counter(tek,decimal-leading-zero); position:absolute; left:0; top:-.06em; font:700 1.15em/1.35 var(--display-font); color:var(--accent); font-variant-numeric:tabular-nums; }
+.slide-content code { font-family:var(--mono-font); border-radius:0; background:var(--inline-code-bg); color:var(--code-ink); }
+
+/* Blockquotes are solid black slabs with a red key. */
+.slide-content blockquote { background:var(--block); color:var(--on-block); border-radius:0; padding:20px 28px 20px 74px; margin:26px 0; }
+.slide-content blockquote::before { left:28px; top:25px; margin:0; width:20px; height:20px; border-radius:0; background:var(--accent); -webkit-mask:none; mask:none; }
+.slide-content blockquote::after { display:none; }
+.slide-content blockquote p:last-child { margin-bottom:0; }
+
+/* Tables: ruled, no stripes or rounding. */
+.slide-content table { border:0; border-top:3px solid var(--line); border-bottom:3px solid var(--line); border-radius:0; }
+.slide-content th { background:transparent; text-transform:uppercase; letter-spacing:.12em; font-size:16px; font-weight:700; border-bottom:1px solid var(--line); }
+.slide-content td { border-bottom:1px solid var(--hair); }
+.slide-content tbody tr:nth-child(odd) td { background:transparent; }
+
+/* Footer: the issue number, set large, on the rule. */
+.slide-footer { left:96px; right:96px; bottom:26px; font:400 13px/1 var(--body-font); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); align-items:baseline; }
+.slide-credit { letter-spacing:.08em; }
+.slide-credit a { border-bottom-width:1px; }
+.slide-number { font:700 30px/1 var(--display-font); letter-spacing:-.02em; color:var(--strong); }
+.slide-number::before { content:'№ '; font-weight:500; font-size:16px; letter-spacing:0; color:var(--accent); vertical-align:4px; }
+
+/* Split: text in one module, the visual in the next, separated by a hairline. */
+.layout-split .slide-grid { grid-template-columns:1.15fr 1fr; gap:0; align-items:start; }
+.layout-split .slide-body { padding-right:48px; }
+.layout-split .visual { border-left:1px solid var(--hair); padding-left:48px; }
+.process-flow { font-size:17px; }
+.process-flow li { border-radius:0; background:transparent; border:2px solid var(--line); padding:10px 16px; margin:0 0 14px; }
+.process-flow li:not(:last-child)::after { left:36px; bottom:-16px; height:14px; border-left:2px solid var(--line); }
+.process-flow .step-index { border-radius:0; width:34px; height:34px; background:var(--accent); color:#fff; font:700 20px/1 var(--display-font); }
+.process-flow li:last-child { background:var(--block); color:var(--on-block); }
+
+/* Statements and code panels lose their rounding. */
+.paper-statement { border-left:8px solid var(--accent); border-radius:0; background:var(--panel); }
+.statement-label { color:var(--accent); letter-spacing:.18em; }
+.code-panel,.code-panel .code-title { border-radius:0; border-color:var(--line); }
+
+/* Section dividers: a full red field, a huge numeral and a black disc. */
+.slide.layout-section { background:var(--accent); color:#f4efe3; padding:0; }
+.layout-section .top-rail { background:transparent; border-bottom:2px solid rgb(15 15 14 / 75%); }
+.layout-section .top-rail::before,.layout-section .top-rail::after { color:#0f0f0e; }
+.layout-section .transom { left:auto; right:-150px; top:120px; width:620px; height:620px; border-radius:50%; background:#0f0f0e; }
+.layout-section .bottom-rail { border-top-color:#0f0f0e; }
+.layout-section .slide-grid { padding:0 96px; height:100%; align-items:flex-end; padding-bottom:112px; }
+.layout-section .slide-grid::before { display:none; }
+.layout-section .slide-body { padding-left:0; position:relative; z-index:1; max-width:760px; }
+.layout-section .eyebrow { font:700 300px/.78 var(--display-font); letter-spacing:-.06em; color:#0f0f0e; text-transform:none; margin:0 0 30px -10px; }
+.layout-section h1 { font-size:76px; color:#f4efe3; margin:0 0 14px; max-width:760px; }
+.layout-section .slide-content { font-size:20px; color:#0f0f0e; }
+.layout-section .slide-footer { color:#0f0f0e; }
+.layout-section .slide-number { color:#f4efe3; position:relative; z-index:1; }
+.layout-section .slide-number::before { color:#f4efe3; }
+
+/* Title and closing: a red column, a black disc overlapping it, the title set huge. */
+.slide.layout-title.site-home { padding:0; }
+.layout-title .transom { left:0; top:46px; bottom:0; width:380px; height:auto; }
+.layout-title .transom::after { content:''; position:absolute; left:250px; top:150px; width:260px; height:260px; border-radius:50%; background:var(--block); }
+.layout-title .bottom-rail { left:560px; }
+.site-home.no-sidebar .slide-grid { margin-left:0; padding:150px 96px 110px 560px; display:block; height:100%; }
+.site-home h1 { font:700 156px/.86 var(--display-font); letter-spacing:-.055em; text-transform:lowercase; margin:0 0 40px -6px; }
+.site-home .eyebrow { margin-bottom:26px; }
+.site-home .slide-content { font-size:21px; line-height:1.5; max-width:600px; }
+.site-home .slide-content > p:first-child { color:var(--strong); }
+.site-home.no-sidebar .slide-footer { left:560px; }
+
+/* Audience chrome: a flat black bar. */
+#audience-nav { background:var(--block); color:var(--on-block); border-top:0; font-family:var(--body-font); font-size:14px; }
+#audience-nav button,#audience-nav select { color:var(--on-block); background:transparent; }
+#audience-nav button:hover { background:var(--accent); color:#fff; }
+#audience-nav select option { color:#1b1a18; background:#ece6d7; }
