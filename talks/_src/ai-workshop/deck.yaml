@@ -17,11 +17,26 @@ slides:
     FIGURE:lattice-dilates
   footer: Thomas Brazelton · [tbrazel.github.io](https://tbrazel.github.io)
   class: site-home no-sidebar
+
+
+- id: disclaimer
+  layout: standard
+  title: Disclaimer(s)
+  body: |
+    I know very little about all this
+
+    The advice here is very limited to producing small AI artifacts, not necessarily massive projects
+
+    The accuracy of everything in this talk is subject to erosion within years or months
+
+
+
+
 - id: finished-demo
   layout: standard
   title: Lattice-point explorer
   kicker: Where we are going
-  body: In ten minutes we will build this from an ordinary mathematical request, then check it.
+  body: Let's learn how to build stuff like this
   visual: lattice-explorer
   class: demo-frame
 - id: goal
@@ -37,34 +52,34 @@ slides:
 
     The point is a repeatable process, not a particular program.
   visual: process-flow
-- id: schedule
-  layout: standard
-  title: The hour
-  kicker: Schedule
-  body: |-
-    | Minutes | Activity | Intended result |
-    |---|---|---|
-    | 0–3 | Show the finished demo; state today’s goal | See something you could make |
-    | 3–11 | Essential AI vocabulary | Understand what the interface is doing |
-    | 11–21 | Build one project live | See the whole process, from request to usable output |
-    | 21–25 | Choose a project; form pairs | Everyone has a bounded task |
-    | 25–52 | Hands-on work | A first working version and one checked example |
-    | 52–58 | Three short participant demonstrations | A useful result, correction, or surprise |
-    | 58–60 | Save outputs; name the next step | Leave with something reusable |
-  class: compact
+# - id: schedule
+#   layout: standard
+#   title: The hour
+#   kicker: Schedule
+#   body: |-
+#     | Minutes | Activity | Intended result |
+#     |---|---|---|
+#     | 0–3 | Show the finished demo; state today’s goal | See something you could make |
+#     | 3–11 | Essential AI vocabulary | Understand what the interface is doing |
+#     | 11–21 | Build one project live | See the whole process, from request to usable output |
+#     | 21–25 | Choose a project; form pairs | Everyone has a bounded task |
+#     | 25–52 | Hands-on work | A first working version and one checked example |
+#     | 52–58 | Three short participant demonstrations | A useful result, correction, or surprise |
+#     | 58–60 | Save outputs; name the next step | Leave with something reusable |
+#   class: compact
 
 
 - id: section-vocabulary
   layout: section
   title: Vocabulary
   kicker: '1'
-  body: What the interface is doing, in terms you will meet today.
+  body: Terms to know
 
 - id: training-vocab
   layout: standard
   title: AI Training vocab
   body: |-
-    ## Pretraining
+    ## Pre-training
 
     The process through which a model learns raw input (usually language), knowledge, etc.
 
@@ -138,6 +153,26 @@ slides:
 
   class: property-highlights term-cards
 
+
+- id: why-cli
+  layout: standard
+  title: Why work with a CLI versus Desktop app
+  body: |-
+    **CLI advantages**:
+    - Automatic context by working directory
+    - automation
+    - permissions modes
+
+    **Desktop app advantages**:
+    - Graphics
+    - UI
+    - Diff review
+
+    ---
+
+    ![Claude Code CLI](assets/cli-screenshot.png)
+  design:
+    preset: columns-2
 
 - id: vocabulary-more
   layout: standard
@@ -331,6 +366,79 @@ slides:
 
 #     > Keep this as an audience-driven extension or a participant project.
 #   class: explained
+
+- id: section-lanuages
+  layout: section
+  title: What already exists
+  kicker: '3'
+  body: "Don't reinvent the wheel, exploit the existing coding ecosystem"
+
+- id: reuse-vs-reinvent
+  layout: standard
+  title: For visualization
+  kicker: Build on established libraries
+  body: |-
+
+    ### Do
+
+    - Ask for a visualization to be written in a precise language if you know it or prefer it
+    - Default to HTML visualizations (AI will do this automatically)
+    - Use pre-existing open source libraries like matplotlib, three.js
+
+    ---
+
+    ### Don't
+
+    - Ask for an output which is costly for the AI to render (e.g. a 1080p mp4 file)
+    - Ask the AI to compile something large that you could compile yourself without burning tokens
+    - Work internal to a closed-source software environment when an open-source one would work
+  design:
+    preset: columns-2
+  class: check-x
+
+- id: reuse-vs-reinvent-software
+  layout: standard
+  title: For coding
+  kicker: Build on established libraries
+  body: |-
+
+    ### Do
+
+    - Default to well-documented open-source mathematical software (SageMath, Macaulay2, GAP, OSCAR, Julia)
+    - Learn the pre-existing ecosystem (which languages are good for which tasks)
+
+    ---
+
+    ### Don't
+
+    - Use proprietary software (e.g. Mathematica, Magma, etc.) without a good reason to -- AI isn't trained as well on this software, and it can't easily test its output without an MCP
+
+  design:
+    preset: columns-2
+  class: check-x
+
+
+- id: dodont-data
+  layout: standard
+  title: For data
+  body: |-
+
+    ### Do
+
+    - Build your data from trusted software or sources
+    - Learn standard data formats (CSV, JSON, YAML) and keep your data in one of these formats
+    - Version control your working environment
+    - Ask AI to read the file
+    
+    ---
+    
+    ### Don't
+
+    - Ask AI to modify your data file
+    - Ask AI to generate the data for you - instead ask it to generate the code that produces the data! The distinction is important
+  design:
+    preset: columns-2
+  class: check-x
 - id: section-projects
   layout: section
   title: Choosing a project
@@ -421,21 +529,16 @@ slides:
 
     ---
 
-    ### Investigate a parameter
+    ### Generate a visual for teaching
 
-    Make a family visible and identify transitions or exceptional cases.
-
-    ---
-
-    ### Automate a calculation
-
-    Turn a calculation you already understand into a reusable script.
+    Make a visual (interactive or not) for use in a class you're teaching
 
     ---
 
-    ### Prepare a research figure
+    ### Make a figure for a paper or talk
 
     Convert a precise mathematical specification into an editable, reproducible diagram.
+    
   class: property-highlights term-cards tall-cards
 # - id: extensions
 #   layout: standard

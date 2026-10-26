@@ -625,3 +625,10 @@ title-conic-animation[data-paused] .title-contact-sway {animation-play-state:pau
 .conics-fundamental .statement-text p {margin-bottom:12px;}
 .conics-full-theorem .statement-text p {margin-bottom:10px;}
 .conics-full-theorem .paper-statement {padding:12px 20px;}
+.slide.check-x .editor-column ul {list-style:none;padding-left:0;}
+.slide.check-x .editor-column li {position:relative;padding-left:1.4em;margin:.35em 0;}
+.slide.check-x .editor-column li::before {position:absolute;left:0;font-weight:700;}
+.slide.check-x .editor-column:nth-child(1) li::before {content:'✓';color:#2e7d32;}
+.slide.check-x .editor-column:nth-child(2) li::before {content:'✗';color:#c62828;}
+html[data-time=night] .slide.check-x .editor-column:nth-child(1) li::before {color:#7bc67e;}
+html[data-time=night] .slide.check-x .editor-column:nth-child(2) li::before {color:#ef7a7a;}

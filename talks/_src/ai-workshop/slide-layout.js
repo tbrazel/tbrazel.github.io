@@ -25,7 +25,7 @@ window.SlideLayout=(()=>{
     const d=s.design||{};
     return Object.keys(d).filter(k=>k!=='images'&&k!=='preset').map(k=>'design-'+k).concat(d.preset?['design-custom','design-'+d.preset]:[]).join(' ');
   }
-  function baseClass(s){return custom(s)?(s.class||'').split(/\s+/).filter(c=>c==='lab-slide').join(' '):(s.class||'');}
+  function baseClass(s){return custom(s)?(s.class||'').split(/\s+/).filter(c=>['lab-slide','check-x'].includes(c)).join(' '):(s.class||'');}
   function style(s){
     const d=s.design||{},css=[];
     for(const [k,range] of Object.entries(numbers))if(numeric(d[k],range))css.push(`--design-${k}:${d[k]}${k==='lineHeight'?'':k==='columnRatio'?'%':'px'}`);
