@@ -45,6 +45,16 @@ jobs:
           ruby-version: 3.3
           bundler-cache: true
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build talks
+        run: |
+          for req in talks/_src/*/requirements.txt; do pip install -r "$req"; done
+          bash tools/build-talks.sh
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

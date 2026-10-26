@@ -1,0 +1,546 @@
+# Edit Markdown and LaTeX inside the block fields below.
+meta:
+  title: Building small mathematical tools with AI
+  slug: ai-workshop
+  presenter: Thomas Brazelton
+  description: A one-hour hands-on workshop for research mathematicians.
+slides:
+- id: title
+  layout: title
+  title: Building small mathematical tools with AI
+  kicker: SLMath Professional development workshop · Fall 2026
+  body: |-
+    A hands-on hour for mathematicians. No programming experience assumed.
+
+    State a problem, build something small, check it, refine it.
+
+    FIGURE:lattice-dilates
+  footer: Thomas Brazelton · [tbrazel.github.io](https://tbrazel.github.io)
+  class: site-home no-sidebar
+- id: finished-demo
+  layout: standard
+  title: Lattice-point explorer
+  kicker: Where we are going
+  body: In ten minutes we will build this from an ordinary mathematical request, then check it.
+  visual: lattice-explorer
+  class: demo-frame
+- id: goal
+  layout: split
+  title: Today’s goal
+  kicker: What you leave with
+  body: |-
+    Everyone leaves with
+
+    - a small mathematical tool you can **rerun**,
+    - an example you have **checked**,
+    - a useful **next question**.
+
+    The point is a repeatable process, not a particular program.
+  visual: process-flow
+- id: schedule
+  layout: standard
+  title: The hour
+  kicker: Schedule
+  body: |-
+    | Minutes | Activity | Intended result |
+    |---|---|---|
+    | 0–3 | Show the finished demo; state today’s goal | See something you could make |
+    | 3–11 | Essential AI vocabulary | Understand what the interface is doing |
+    | 11–21 | Build one project live | See the whole process, from request to usable output |
+    | 21–25 | Choose a project; form pairs | Everyone has a bounded task |
+    | 25–52 | Hands-on work | A first working version and one checked example |
+    | 52–58 | Three short participant demonstrations | A useful result, correction, or surprise |
+    | 58–60 | Save outputs; name the next step | Leave with something reusable |
+  class: compact
+
+
+- id: section-vocabulary
+  layout: section
+  title: Vocabulary
+  kicker: '1'
+  body: What the interface is doing, in terms you will meet today.
+
+- id: training-vocab
+  layout: standard
+  title: AI Training vocab
+  body: |-
+    ## Pretraining
+
+    The process through which a model learns raw input (usually language), knowledge, etc.
+
+    > Mathematics: backpropagation calculus, linear algebra
+
+    ---
+
+    ## Post-training / RL (Reinforcement Learning) / Alignment
+
+    When an AI is fine-tuned to provide more precise answers, to avoid giving dangerous answers, etc.
+
+    > Mathematics: gradient descent, multivariable calculus
+
+    ---
+
+    ## Inference
+
+    When an AI is applied to produce new knowledge (e.g. it is trained on new data) to see how it performs
+  class: property-highlights term-cards
+
+- id: workload
+  layout: standard
+  title: Alignment has increasingly become important
+  body: >
+    ![Hasse diagram](assets/workload.png)
+  design:
+    align: center
+    images:
+      assets/workload.png:
+        height: 470
+
+- id: working-vocab
+  layout: standard
+  title: Working with an AI
+  kicker: The model and what it sees
+  body: |-
+
+    ### Model / LLM
+
+    The specific system that generates responses given input (Claude Opus 5.5, GPT Astra, etc.)
+
+    ---
+
+    ### Prompt
+
+    The request you send the AI, generally in plain text.
+
+    ---
+
+    ### Token
+
+    A unit into which text is divided for processing: a word, part of a word, or punctuation.
+
+    *Long documents and mathematical notation consume space differently.*
+
+    ---
+
+    ### Context window
+
+    The bounded amount of information available to the model during a response.
+
+    *This is different from training.*
+
+    ---
+
+    ### CLI
+
+    A command-line interface accepts typed commands; a terminal is the application where you use it.
+
+    *An AI coding assistant can work here as well as in a graphical app.*
+
+  class: property-highlights term-cards
+
+
+- id: vocabulary-more
+  layout: standard
+  title: More AI vocab
+  body: |-
+    ### Agent
+
+    A system that repeatedly chooses actions, uses tools, inspects results, and continues toward a singular goal.
+
+    *Agentic programming* is the approach of spawning a team of agents to do various tasks.
+
+    ---
+    
+    ### API
+
+    A defined interface through which programs request functionality from other programs or services.
+
+    *Useful for putting AI inside a script or a larger workflow.*
+
+    ---
+
+    ### MCP
+
+    Model Context Protocol: a standard for connecting AI applications to external tools and data.
+
+    *It can give access to a computation service or a reference collection.*
+
+    ---
+
+    ### Weights
+
+    Very literally scalars in linear transformations. These are the basics of how the AI functions and are often proprietary. 
+    
+    *Open weight* models are open source (Kimi K3, Qwen, etc.)
+
+
+  class: property-highlights term-cards
+
+- id: computed
+  layout: standard
+  title: Displayed code versus executed code
+  kicker: Has anything been computed yet?
+  body: |-
+    A response can contain code that has never run.
+
+    - **Proposed code** is text the model wrote.
+    - **An executed result** is output from a program that actually ran.
+
+    Before trusting a number, find the execution output, or run the code yourself.
+
+    > Ask: “Run the computation if your environment supports it, and distinguish executed results from proposed code.”
+  code_title: Python · lattice points in nP
+  code: |-
+    # Lattice points in nP, P = triangle (0,0), (2,1), (1,3)
+    def L(n):
+        V = [(0, 0), (2*n, n), (n, 3*n)]
+        def inside(x, y):  # (x, y) is on the left of every edge
+            return all((b[0]-a[0])*(y-a[1]) >= (b[1]-a[1])*(x-a[0])
+                       for a, b in zip(V, V[1:] + V[:1]))
+        return sum(inside(x, y) for x in range(2*n + 1)
+                                for y in range(3*n + 1))
+
+    print([L(n) for n in range(7)])
+  code_result: \texttt{[1, 5, 14, 28, 47, 71, 100]}
+  class: with-code explained
+
+- id: section-demo
+  layout: section
+  title: A ten-minute build
+  kicker: '2'
+  nav_title: Demo
+  body: One project, from a mathematical request to a checked, reusable file.
+
+- id: problem
+  layout: problem
+  title: How many lattice points lie in the dilates of a lattice polygon?
+  kicker: 'Problem:'
+  body: $$L_P(n)=\#\bigl(nP\cap\mathbb Z^2\bigr),\qquad n=0,1,2,\ldots$$
+
+- id: specification
+  layout: split
+  title: Lattice-point explorer
+  kicker: The specification
+  body: |-
+    The finished demo contains only
+
+    - three preset polygons,
+    - a dilation slider,
+    - a picture separating boundary and interior points,
+    - a table of counts, with first and second differences,
+    - a file that runs again after download.
+
+    One self-contained HTML file: it opens in a browser with nothing to install.
+  visual: lattice-dilates
+
+- id: timeline
+  layout: standard
+  title: Lattice-point explorer
+  kicker: Ten minutes, live
+  body: |-
+    | Minutes | Presenter action | What participants learn |
+    |---|---|---|
+    | 0–1 | State the question; submit the initial request | Turn a mathematical intention into a bounded task |
+    | 1–4 | Generate and open the first version | AI can produce a usable computational artifact |
+    | 4–6 | Check the square and triangle; inspect how points are counted | Correctness requires more than a convincing picture |
+    | 6–8 | Add finite differences and a candidate formula | Refine the tool with a mathematical follow-up |
+    | 8–10 | Test more values; save the result | Complete a small project and keep it |
+  class: compact
+- id: prompt-1
+  layout: standard
+  title: Lattice-point explorer
+  kicker: Prompt 1 · the initial request
+  body: |-
+
+    PAPERSTATEMENT
+  statement_label: Prompt
+  statement: |-
+    Build a small interactive explorer for counting lattice points in dilates of convex polygons. Make a single self-contained HTML file that opens in a browser without installing anything.
+
+    Include the unit square, the triangle with vertices (0,0), (1,0), (0,1), and the triangle with vertices (0,0), (2,1), (1,3).
+
+    Add a slider for integer dilations n = 0, …, 6. Draw the dilated polygon and distinguish interior and boundary lattice points. Show a table of the total counts.
+
+    Compute the counts by enumerating lattice points, using exact integer tests. Handle n = 0 explicitly. Keep the interface simple and explain the counting method briefly.
+  class: prompt-slide
+- id: prompt-2
+  layout: standard
+  title: Lattice-point explorer
+  kicker: Prompt 2 · make verification visible
+  body: |-
+    There are two counts we know by hand, the square and the triangle:
+
+    $$\#\bigl(n[0,1]^2\cap\mathbb Z^2\bigr)=(n+1)^2,\qquad \#\bigl(n\Delta\cap\mathbb Z^2\bigr)=\dfrac{(n+1)(n+2)}{2},$$
+
+    where $\Delta$ is the triangle with vertices $(0,0),(1,0),(0,1)$.
+
+    PAPERSTATEMENT
+  statement_label: Prompt
+  statement: Check the output against $(n+1)^2$ for the unit square and $(n+1)(n+2)/2$ for the standard triangle, for every displayed value of n. Show the comparison. Keep the enumeration separate from these checking formulas.
+  class: prompt-slide
+- id: prompt-3
+  layout: standard
+  title: Lattice-point explorer
+  kicker: Prompt 3 · a mathematical refinement
+  body: |-
+    Refine the tool with a mathematical follow-up.
+
+    PAPERSTATEMENT
+  statement_label: Prompt
+  statement: Add first and second differences to the count table. Fit a quadratic using only the values at n = 0, 1, 2, then compare its predictions with the independently enumerated values at n = 3, 4, 5, 6. Label the fit as a candidate formula.
+  class: prompt-slide
+- id: counts
+  layout: standard
+  title: Lattice-point explorer
+  kicker: What the tool should report
+  body: |-
+    For the triangle $P$ with vertices $(0,0),(2,1),(1,3)$, exact enumeration gives
+
+    | $n$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+    |---|---|---|---|---|---|---|---|
+    | $L_P(n)$ | 1 | 5 | 14 | 28 | 47 | 71 | 100 |
+    | first difference |  | 4 | 9 | 14 | 19 | 24 | 29 |
+    | second difference |  |  | 5 | 5 | 5 | 5 | 5 |
+
+    > Candidate from $n=0,1,2$: $\;L_P(n)=\tfrac52n^2+\tfrac32n+1$. Three values determine a quadratic; four further matches are evidence, not a proof.
+  class: result-table
+- id: theorem
+  layout: standard
+  title: Lattice-point explorer
+  kicker: The theorem supplies the general conclusion
+  body: |-
+    PAPERSTATEMENT
+
+    For $P$ with vertices $(0,0),(2,1),(1,3)$: $A=\tfrac52$ and each edge has lattice length $1$, so $B=3$. This recovers the candidate.
+
+    In dimension $2$ the formula follows from Pick’s theorem; Ehrhart proved that $L_P$ is a polynomial of degree $\dim P$ for every lattice polytope $P$.
+  statement_label: Theorem (Pick 1899; Ehrhart 1962)
+  statement: |-
+    Let $P\subset\mathbb R^2$ be a convex polygon with vertices in $\mathbb Z^2$, area $A$, and $B$ lattice points on its boundary. For every integer $n\ge 0$,
+    $$L_P(n)=A\,n^2+\frac{B}{2}\,n+1.$$
+  class: has-statement explained
+# - id: rational-extension
+#   layout: standard
+#   title: Lattice-point explorer
+#   kicker: Extension · a rational polygon
+#   body: |-
+#     Change to $P=[0,\tfrac12]^2$. Then
+#     $$L_P(n)=\bigl(\lfloor n/2\rfloor+1\bigr)^2:\qquad 1,\ 1,\ 4,\ 4,\ 9,\ 9,\ 16,\ \ldots$$
+#     A quadratic fit to $n=0,1,2$ fails at $n=3$. Even and odd $n$ follow different quadratics:
+#     $$L_P(n)=\begin{cases}\tfrac14n^2+n+1, & n\text{ even},\\[2pt] \tfrac14n^2+\tfrac12n+\tfrac14, & n\text{ odd}.\end{cases}$$
+
+#     > Keep this as an audience-driven extension or a participant project.
+#   class: explained
+- id: section-projects
+  layout: section
+  title: Choosing a project
+  kicker: '3'
+  nav_title: Projects
+  body: Each project has a mathematical input, a visible output, and a check you can understand without reading the code.
+# - id: starting-points
+#   layout: standard
+#   title: Recommended starting points
+#   kicker: Pick one, or bring your own question
+#   body: |-
+#     ### Lattice points
+
+#     Geometry and combinatorics
+
+#     **First version:** plot three polygons and count points in their dilates.
+
+#     **Check:** $(n+1)^2$ and $\tfrac{(n+1)(n+2)}{2}$.
+
+#     ---
+
+#     ### Simplicial homology
+
+#     Topology
+
+#     **First version:** enter a small complex; compute boundary matrices over $\mathbb F_2$.
+
+#     **Check:** the hollow triangle has $(b_0,b_1)=(1,1)$; the filled triangle has $(1,0)$.
+
+#     ---
+
+#     ### Monomial-ideal staircase
+
+#     Commutative algebra
+
+#     **First version:** draw the monomials that survive modulo a supplied ideal.
+
+#     **Check:** for $(x^3,xy,y^2)$ the quotient basis is $1,x,x^2,y$.
+#   class: property-highlights term-cards tall-cards
+- id: menu-1
+  layout: standard
+  title: Project menu
+  kicker: Geometry, topology, analysis
+  body: |-
+    | Project | First working version | Independent check |
+    |---|---|---|
+    | **Lattice-point explorer** \newline \small{geometry, combinatorics} | Plot three polygons and count points in their dilates | Square and triangle formulas |
+    | **Graph Laplacian explorer** \newline \small{spectral theory} | Draw a small graph and display its Laplacian eigenvalues | The 4-cycle has eigenvalues $0,2,2,4$ |
+    | **Simplicial homology calculator** \newline \small{topology} | Enter a small complex; compute boundary matrices over $\mathbb F_2$ | Hollow triangle $(b_0,b_1)=(1,1)$; filled $(1,0)$ |
+    | **Fourier approximation explorer** \newline \small{analysis} | Plot partial Fourier sums of a square wave | Odd symmetry; values at selected points |
+    | **Logistic-map explorer** \newline \small{dynamics} | Plot orbits of $x_{k+1}=rx_k(1-x_k)$ with parameter controls | At $r=2$, $x_0=\tfrac12$ gives a constant orbit |
+    | **Plane cubic family** \newline \small{algebraic geometry} | Plot $y^2=x^3+ax+b$ while varying $a,b$ | Singular exactly when $4a^3+27b^2=0$ |
+  class: compact menu-table
+- id: menu-2
+  layout: standard
+  title: Project menu
+  kicker: Algebra, combinatorics, numerics
+  body: |-
+    | Project | First working version | Independent check |
+    |---|---|---|
+    | **Finite-field point counter** \newline \small{number theory} | Count points on $y^2=x^3+ax+b$ for small primes $p>3$ | $y^2=x^3+x+1$ over $\mathbb F_5$ has 9 projective points |
+    | **Dyck-path generator** \newline \small{enumerative combinatorics} | Generate and draw all Dyck paths for small $n$ | Counts begin $1,1,2,5,14$ |
+    | **Monomial-ideal staircase** \newline \small{commutative algebra} | Draw the monomials surviving modulo a supplied ideal | For $(x^3,xy,y^2)$: $1,x,x^2,y$ |
+    | **Young-tableau generator** \newline \small{representation theory} | Enumerate standard tableaux of a small shape | Shape $(3,2)$ has 5 standard tableaux |
+    | **Matrix perturbation experiment** \newline \small{linear algebra} | Perturb a small matrix; compare eigenvalues and eigenvectors | Trace, determinant, eigenvector residuals |
+    | **Quadrature comparison** \newline \small{numerical analysis} | Compare integration methods as resolution increases | $\int_0^1x^2\,dx=\tfrac13$ |
+  class: compact menu-table
+- id: directions
+  layout: standard
+  title: Beyond “make a visualization”
+  kicker: Project directions
+  body: |-
+    ### Generate examples
+
+    Enumerate objects satisfying explicit conditions and display representative cases.
+
+    ---
+
+    ### Search for counterexamples
+
+    Specify a bounded search space and return a witness that can be checked independently.
+
+    ---
+
+    ### Compare algorithms
+
+    Implement two approaches; examine agreement, speed, or numerical error.
+
+    ---
+
+    ### Investigate a parameter
+
+    Make a family visible and identify transitions or exceptional cases.
+
+    ---
+
+    ### Automate a calculation
+
+    Turn a calculation you already understand into a reusable script.
+
+    ---
+
+    ### Prepare a research figure
+
+    Convert a precise mathematical specification into an editable, reproducible diagram.
+  class: property-highlights term-cards tall-cards
+# - id: extensions
+#   layout: standard
+#   title: Beyond “make a visualization”
+#   kicker: Once the first version works
+#   body: |-
+#     Each starting point leads to a research-like decision:
+
+#     - **Graph Laplacians:** search for nonisomorphic graphs with the same Laplacian spectrum.
+#     - **Simplicial homology:** what happens to $b_0,b_1,b_2$ when one simplex is added?
+#     - **Lattice points:** allow rational vertices, or count interior points only.
+
+#     > Choose the extension yourself; the mathematics decides what is interesting.
+- id: section-lab
+  layout: section
+  title: Hands-on work
+  kicker: '4'
+  nav_title: Hands-on
+  body: Work in pairs. One person drives the interface; the other checks definitions and examples. Switch halfway.
+- id: template
+  layout: standard
+  title: A prompt template
+  kicker: Adapt it to your project
+  body: PAPERSTATEMENT
+  statement_label: Prompt template
+  statement: |-
+    I want to investigate `[mathematical question]`.
+
+    The objects and conventions are `[definitions]`.
+
+    Build the smallest working `[notebook / script / interactive page]` that takes `[input]` and produces `[output]`.
+
+    Start with `[specific example]`. A result I already know is `[check]`.
+
+    Use `[exact arithmetic / a stated numerical precision]`. Run the computation if your environment supports it, and distinguish executed results from proposed code.
+
+    Get the basic version working first. Then suggest one useful extension.
+  class: prompt-slide
+- id: followups
+  layout: standard
+  title: Follow-up prompts
+  kicker: As important as the first prompt
+  body: |-
+    - “Here is the error message. Diagnose it and make the smallest correction.”
+    - “Explain the mathematical algorithm before changing the code.”
+    - “Test the empty, smallest, or degenerate case.”
+    - “Find a small example where this proposed pattern fails.”
+    - “Change this convention and rerun the examples.”
+    - “Save the current working version and explain how to reproduce the result.”
+  class: followups
+- id: checkpoints
+  layout: standard
+  title: Hands-on work
+  kicker: Checkpoints · minutes 25–52
+  body: |-
+    | Minutes | Task | Checkpoint |
+    |---|---|---|
+    | 25–28 | Choose a project; write its input, output, and a known example | A three-sentence project brief |
+    | 28–38 | Build the smallest working version | Something runs and produces output |
+    | 38–44 | Check a known case and one edge case | A recorded comparison |
+    | 44–50 | Add one mathematically motivated extension | A new example, feature, or experiment |
+    | 50–52 | Rerun and save the project | A reusable file with short instructions |
+
+    > Driver and checker switch at minute 38.
+  class: compact
+- id: section-share
+  layout: section
+  title: Share-out
+  kicker: '5'
+  body: Three short demonstrations, then save your work.
+- id: demonstrations
+  layout: split
+  title: Three short demonstrations
+  kicker: Two minutes per pair
+  body: |-
+    Each pair shows
+
+    1. **one output**,
+    2. **one check**: how you know it is right,
+    3. **one next question**.
+
+    Corrections and surprises count as results.
+  visual: process-flow
+- id: save
+  layout: standard
+  title: Before you leave
+  kicker: Save what you made
+  body: |-
+    Keep four things together:
+
+    - the **file** that runs, with a line on how to run it;
+    - the **prompts** that worked, including the follow-ups;
+    - the **check** you ran, and its result;
+    - the **next question** you would ask.
+
+    > Next time, start from your saved file and your next question, not from a blank prompt.
+- id: closing
+  layout: title
+  title: Building small mathematical tools with AI
+  kicker: Slides and the explorer
+  body: |-
+    Slides: [tbrazel.github.io/talks/ai-workshop](https://tbrazel.github.io/talks/ai-workshop/)
+
+    Explorer: [lattice-explorer.html](https://tbrazel.github.io/talks/ai-workshop/assets/lattice-explorer.html)
+
+    ![QR code for the slides](assets/qr-slides.svg)
+  footer: 'Slide template: [Kiwari slides](https://github.com/zengrf/kiwari-slides) by [Michael Zeng](https://zengrf.github.io)'
+  class: site-home no-sidebar closing-links

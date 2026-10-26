@@ -1,3 +1,9 @@
 .DS_Store
 _site/
-talks/ai-workshop-src
+# Talks are built from talks/_src/<name> by tools/build-talks.sh (CI does this on push)
+talks/*
+!talks/_src/
+talks/_src/*/.venv/
+talks/_src/*/.local/
+talks/_src/*/dist/
+__pycache__/
