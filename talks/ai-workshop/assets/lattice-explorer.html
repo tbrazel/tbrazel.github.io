@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lattice-point explorer</title>
+<meta name="description" content="Count lattice points in dilates of polygons, with checks against known formulas and a candidate quadratic fit.">
+<link rel="stylesheet" href="../lib/site-fonts.css">
+<style>
+:root {
+  --bg:#ffffff; --panel:#f6f8fa; --ink:#34343c; --strong:#2a2a2a; --muted:#757575; --line:#eaeaea;
+  --accent:#0056b2; --accent-soft:#e1f5fe; --interior:#34343c; --outside:#c1c3c5;
+  --good:#03b303; --good-bg:rgb(123 247 144 / 20%); --bad:#df3c30; --bad-bg:rgb(248 215 218 / 56%);
+  --row:#fbfcfd; color-scheme:light;
+}
+:root[data-mode=dark] {
+  --bg:rgb(27 27 30); --panel:#1e1e1e; --ink:rgb(175 176 177); --strong:#cccccc; --muted:#868686; --line:rgb(58 58 62);
+  --accent:rgb(138 180 248); --accent-soft:rgb(7 59 104 / 80%); --interior:#d6d6d6; --outside:rgb(78 79 82);
+  --good:rgb(60 200 60); --good-bg:rgb(22 60 36 / 64%); --bad:#ff6b5e; --bad-bg:rgb(86 28 8 / 80%);
+  --row:#252526; color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html,body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 'Source Sans Pro','Segoe UI',system-ui,sans-serif; }
+h1 { font-family:Lato,'Segoe UI',system-ui,sans-serif; font-weight:400; color:var(--strong); font-size:30px; margin:0 0 4px; }
+.lede { margin:0 0 18px; color:var(--muted); }
+main { max-width:1180px; margin:0 auto; padding:28px 24px 36px; }
+.embed main { padding:10px 12px; max-width:none; }
+.embed header { display:none; }
+.app { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:22px; align-items:start; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; margin-bottom:10px; }
+label { font-weight:600; color:var(--strong); font-size:15px; display:flex; align-items:center; gap:8px; }
+select,button { font:inherit; font-size:15px; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:5px 10px; }
+button { cursor:pointer; }
+button:hover,select:hover { border-color:var(--accent); }
+input[type=range] { accent-color:var(--accent); width:150px; }
+.n-value { font-variant-numeric:tabular-nums; min-width:1.2em; color:var(--accent); font-size:18px; }
+.figure { background:var(--panel); border-radius:10px; padding:10px; }
+svg { display:block; width:100%; height:330px; }
+.embed svg { height:282px; }
+.embed .method { display:none; }
+.embed .lede { display:none; }
+.grid { stroke:var(--line); stroke-width:.04; }
+.axis { stroke:var(--muted); stroke-width:.05; }
+.poly { fill:var(--accent); fill-opacity:.09; stroke:var(--accent); stroke-width:.07; stroke-linejoin:round; }
+.pt-out { fill:var(--outside); }
+.pt-in { fill:var(--interior); }
+.pt-bd { fill:var(--bg); stroke:var(--accent); stroke-width:.09; }
+.legend { display:flex; gap:16px; flex-wrap:wrap; font-size:14px; color:var(--muted); margin-top:6px; }
+.legend i { display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:6px; vertical-align:-1px; }
+.legend .bd { border:2px solid var(--accent); background:var(--bg); }
+.legend .in { background:var(--interior); }
+.legend .out { background:var(--outside); }
+.readout { font-size:17px; margin:8px 0 0; }
+.readout strong { color:var(--strong); }
+table { width:100%; border-collapse:collapse; font-size:15px; font-variant-numeric:tabular-nums; }
+th { text-align:right; font-weight:600; color:var(--strong); border-bottom:2px solid var(--line); padding:5px 7px; white-space:nowrap; }
+td { text-align:right; padding:4px 7px; border-bottom:1px solid var(--line); }
+th:first-child,td:first-child { text-align:center; }
+tbody tr:nth-child(odd) td { background:var(--row); }
+tbody tr.current td { background:var(--accent-soft); }
+td.ok { color:var(--good); } td.no { color:var(--bad); font-weight:600; }
+.fit { margin:10px 0 0; padding:8px 12px; border-radius:10px; background:var(--panel); font-size:15px; }
+.fit strong { color:var(--strong); }
+.method { font-size:14px; color:var(--muted); margin:10px 0 0; }
+.tag { display:inline-block; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--accent); border:1px solid currentColor; border-radius:4px; padding:0 5px; margin-left:4px; vertical-align:1px; }
+@media (max-width:760px) { .app { grid-template-columns:1fr; } svg { height:280px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Lattice-point explorer</h1>
+    <p class="lede">For a polygon P, count L<sub>P</sub>(n) = #(nP ∩ ℤ²) by enumeration, and compare the counts with known formulas and with a candidate quadratic.</p>
+  </header>
+  <div class="app">
+    <section>
+      <div class="controls">
+        <label>Polygon
+          <select id="shape">
+            <option value="square">Unit square</option>
+            <option value="standard">Triangle (0,0), (1,0), (0,1)</option>
+            <option value="oblique" selected>Triangle (0,0), (2,1), (1,3)</option>
+            <option value="half">Square [0, 1/2]² (extension)</option>
+          </select>
+        </label>
+        <label>Dilation n <input id="n" type="range" min="0" max="6" step="1" value="3"><span class="n-value" id="n-value">3</span></label>
+      </div>
+      <div class="figure"><svg id="plot" role="img" aria-label="Lattice points in the dilated polygon"></svg>
+        <div class="legend"><span><i class="bd"></i>boundary</span><span><i class="in"></i>interior</span><span><i class="out"></i>outside</span></div>
+      </div>
+      <p class="readout" id="readout"></p>
+    </section>
+    <section>
+      <table>
+        <thead><tr><th>n</th><th>L(n)</th><th>bdry</th><th>int</th><th>Δ</th><th>Δ²</th><th>check</th><th>fit</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="fit" id="fit"></p>
+      <p class="method"><strong>Counting method.</strong> Every integer point in the bounding box of nP is tested against each edge with an exact integer cross product; a point is in nP when no test is negative and on the boundary when one test is zero. Vertices with denominator d are scaled by d first, so no floating point is used. The case n = 0 is the single point 0. The <em>check</em> column uses closed formulas kept separate from the enumeration.</p>
+      <p class="controls" style="margin-top:12px"><button id="download" type="button">Download this file</button></p>
+    </section>
+  </div>
+</main>
+<script>
+'use strict';
+// Vertices are integers over a common denominator d, listed counterclockwise.
+const SHAPES={
+  square:{d:1,v:[[0,0],[1,0],[1,1],[0,1]],check:n=>(n+1)**2,checkLabel:'(n+1)²'},
+  standard:{d:1,v:[[0,0],[1,0],[0,1]],check:n=>(n+1)*(n+2)/2,checkLabel:'(n+1)(n+2)/2'},
+  oblique:{d:1,v:[[0,0],[2,1],[1,3]],check:null,checkLabel:null},
+  half:{d:2,v:[[0,0],[1,0],[1,1],[0,1]],check:n=>(Math.floor(n/2)+1)**2,checkLabel:'(⌊n/2⌋+1)²'}
+};
+const $=s=>document.querySelector(s);
+const params=new URLSearchParams(location.search);
+if(params.has('embed'))document.body.classList.add('embed');
+
+function enumerate(shape,n){
+  const {d,v}=shape,points=[];
+  if(n===0){points.push({x:0,y:0,inside:true,boundary:true});return {points,box:[-1,1,-1,1]};}
+  const xs=v.map(p=>n*p[0]/d),ys=v.map(p=>n*p[1]/d);
+  const box=[Math.floor(Math.min(...xs)),Math.ceil(Math.max(...xs)),Math.floor(Math.min(...ys)),Math.ceil(Math.max(...ys))];
+  for(let x=box[0];x<=box[1];x++)for(let y=box[2];y<=box[3];y++){
+    // cross(n(V[i+1]-V[i]), d·p - n·V[i]) has the sign of the edge test for p against nP.
+    const tests=v.map((a,i)=>{const b=v[(i+1)%v.length];return n*(b[0]-a[0])*(d*y-n*a[1])-n*(b[1]-a[1])*(d*x-n*a[0]);});
+    const inside=tests.every(t=>t>=0);
+    points.push({x,y,inside,boundary:inside&&tests.some(t=>t===0)});
+  }
+  return {points,box};
+}
+function counts(shape,n){const {points}=enumerate(shape,n);const total=points.filter(p=>p.inside).length,boundary=points.filter(p=>p.boundary).length;return {total,boundary,interior:total-boundary};}
+
+// Exact rationals for the quadratic through n = 0, 1, 2.
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+function frac(p,q){if(q<0){p=-p;q=-q;}const g=gcd(p,q)||1;return [p/g,q/g];}
+function fracText([p,q]){return q===1?String(p):`${p}/${q}`;}
+function quadraticFit(L){
+  // a = (L2 - 2L1 + L0)/2, b = L1 - L0 - a, c = L0
+  const a=frac(L[2]-2*L[1]+L[0],2),b=frac(2*(L[1]-L[0])-a[0]*2/a[1],2),c=[L[0],1];
+  const value=n=>(a[0]*n*n*b[1]*c[1]+b[0]*n*a[1]*c[1]+c[0]*a[1]*b[1])/(a[1]*b[1]*c[1]);
+  return {a,b,c,value};
+}
+function polyText({a,b,c}){
+  const term=(f,power)=>{if(f[0]===0)return null;const abs=[Math.abs(f[0]),f[1]];const coef=(abs[0]===1&&abs[1]===1&&power)?'':fracText(abs)+(power?' ':'');return {sign:f[0]<0?'−':'+',text:coef+(power===2?'n²':power===1?'n':'')};};
+  const terms=[term(a,2),term(b,1),term(c,0)].filter(Boolean);
+  if(!terms.length)return '0';
+  return terms.map((t,i)=>i===0?(t.sign==='−'?'−':'')+t.text:` ${t.sign} ${t.text}`).join('');
+}
+
+function svgPlot(shape,n){
+  const {points,box}=enumerate(shape,n);
+  const [x0,x1,y0,y1]=box,m=.8;
+  const w=Math.max(x1-x0,2)+2*m,h=Math.max(y1-y0,2)+2*m;
+  const cx=(x0+x1)/2,cy=(y0+y1)/2;
+  const vb=[cx-w/2,-(cy+h/2),w,h];
+  const r=Math.min(.16,.07+.6/Math.max(w,h));
+  let out=`<g class="grid">`;
+  for(let x=Math.ceil(vb[0]);x<=vb[0]+w;x++)out+=`<path d="M${x} ${vb[1]}V${vb[1]+h}"/>`;
+  for(let y=Math.ceil(vb[1]);y<=vb[1]+h;y++)out+=`<path d="M${vb[0]} ${y}H${vb[0]+w}"/>`;
+  out+=`</g><path class="axis" d="M${vb[0]} 0H${vb[0]+w}M0 ${vb[1]}V${vb[1]+h}"/>`;
+  if(n>0)out+=`<polygon class="poly" points="${shape.v.map(([x,y])=>`${n*x/shape.d},${-n*y/shape.d}`).join(' ')}"/>`;
+  for(const p of points)out+=`<circle class="${p.boundary?'pt-bd':p.inside?'pt-in':'pt-out'}" cx="${p.x}" cy="${-p.y}" r="${p.inside?r*1.25:r*.6}"/>`;
+  const svg=$('#plot');svg.setAttribute('viewBox',vb.join(' '));svg.innerHTML=out;
+}
+
+function render(){
+  const key=$('#shape').value,shape=SHAPES[key],n=Number($('#n').value);
+  $('#n-value').textContent=n;
+  svgPlot(shape,n);
+  const rows=[0,1,2,3,4,5,6].map(k=>({n:k,...counts(shape,k)}));
+  const L=rows.map(r=>r.total),fit=quadraticFit(L);
+  $('#rows').innerHTML=rows.map((r,i)=>{
+    const d1=i>0?L[i]-L[i-1]:'',d2=i>1?L[i]-2*L[i-1]+L[i-2]:'';
+    const check=shape.check?shape.check(r.n):null,checkCell=check===null?'<td>—</td>':`<td class="${check===r.total?'ok':'no'}">${check} ${check===r.total?'✓':'✗'}</td>`;
+    const predicted=fit.value(r.n),fitCell=r.n<=2?`<td>${predicted} <span class="tag">fit</span></td>`:`<td class="${predicted===r.total?'ok':'no'}">${Number.isInteger(predicted)?predicted:predicted.toFixed(2)} ${predicted===r.total?'✓':'✗'}</td>`;
+    return `<tr class="${r.n===n?'current':''}"><td>${r.n}</td><td><strong>${r.total}</strong></td><td>${r.boundary}</td><td>${r.interior}</td><td>${d1}</td><td>${d2}</td>${checkCell}${fitCell}</tr>`;
+  }).join('');
+  const agree=[3,4,5,6].every(k=>fit.value(k)===L[k]);
+  $('#fit').innerHTML=`<strong>Candidate formula</strong> (fit to n = 0, 1, 2): L(n) = ${polyText(fit)}. `+(agree?'It agrees with the enumerated values at n = 3, 4, 5, 6 — evidence, not a proof.':'It <strong>fails</strong> at some n ≥ 3, so no single quadratic describes these counts.')+(shape.checkLabel?` Check column: ${shape.checkLabel}.`:'');
+  const c=rows[n];
+  $('#readout').innerHTML=`n = ${n}: <strong>${c.total}</strong> lattice points in nP, ${c.boundary} on the boundary and ${c.interior} inside.`;
+}
+$('#shape').addEventListener('change',render);
+$('#n').addEventListener('input',render);
+
+// Downloads a copy of this page that runs again on its own.
+$('#download').addEventListener('click',async()=>{
+  let source;
+  try{source=await (await fetch(location.href.split('?')[0])).text();}
+  catch(e){source='<!doctype html>\n'+document.documentElement.outerHTML;}
+  const url=URL.createObjectURL(new Blob([source],{type:'text/html'}));
+  const a=document.createElement('a');a.href=url;a.download='lattice-explorer.html';document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+// Light and dark modes follow the slides when embedded, otherwise the system setting.
+function setMode(mode){document.documentElement.dataset.mode=mode==='night'||mode==='dark'?'dark':'light';}
+function initialMode(){
+  if(params.get('mode'))return params.get('mode');
+  try{const t=parent!==window&&parent.document.documentElement.dataset.time;if(t)return t;}catch(e){}
+  try{const m=sessionStorage.getItem('mode');if(m)return m;}catch(e){}
+  return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+setMode(initialMode());
+addEventListener('message',e=>{if(e.data&&e.data.type==='conics-theme')setMode(e.data.value);});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+/* Fonts of tbrazel.github.io (Chirpy theme): Source Sans Pro for text, Lato for headings. SIL Open Font License; see site-fonts/. */
+@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:400;font-display:swap;src:url("site-fonts/SourceSansPro-Regular.woff2") format("woff2")}
+@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:600;font-display:swap;src:url("site-fonts/SourceSansPro-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:700;font-display:swap;src:url("site-fonts/SourceSansPro-Bold.woff2") format("woff2")}
+@font-face{font-family:"Source Sans Pro";font-style:normal;font-weight:900;font-display:swap;src:url("site-fonts/SourceSansPro-Black.woff2") format("woff2")}
+@font-face{font-family:Lato;font-style:normal;font-weight:400;font-display:swap;src:url("site-fonts/Lato-Regular.woff2") format("woff2")}
