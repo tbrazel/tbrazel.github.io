@@ -1,0 +1,56 @@
+# Edit Markdown and LaTeX inside the block fields below.
+meta:
+  title: Skills
+  slug: skills
+  presenter: Thomas Brazelton
+  description: Placeholder deck for a talk on skills.
+slides:
+- id: title
+  layout: title
+  title: Skills
+  kicker: Placeholder talk · 2026
+  body: |-
+    A short talk about skills.
+
+    Content to come.
+  footer: Thomas Brazelton · [tbrazel.github.io](https://tbrazel.github.io)
+  class: site-home no-sidebar
+- id: outline
+  layout: standard
+  title: Outline
+  kicker: Where we are going
+  body: |-
+    1. What is a skill?
+    2. An example
+    3. Writing your own
+- id: section-what
+  layout: section
+  title: What is a skill?
+  kicker: '1'
+  body: Placeholder section
+- id: definition
+  layout: standard
+  title: A working definition
+  body: |-
+    A **skill** is a packaged set of instructions that can be loaded on demand.
+
+    > Placeholder text: replace with the real definition.
+- id: example
+  layout: split
+  title: An example
+  kicker: Placeholder
+  body: |-
+    - Step one
+    - Step two
+    - Step three
+
+    A formula for good measure: $\sum_{k=1}^n k = \tfrac{n(n+1)}{2}$.
+  visual: process-flow
+- id: closing
+  layout: title
+  title: Skills
+  kicker: Thanks
+  body: |-
+    Slides: [tbrazel.github.io/talks/skills](https://tbrazel.github.io/talks/skills/)
+  footer: 'Slide template: [Kiwari slides](https://github.com/zengrf/kiwari-slides) by [Michael Zeng](https://zengrf.github.io)'
+  class: site-home no-sidebar closing-links

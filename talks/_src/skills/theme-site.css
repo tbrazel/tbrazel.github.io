@@ -1,0 +1,254 @@
+/* Site theme for Kiwari slides: matches tbrazel.github.io (Jekyll Chirpy 7).
+   Loaded after slides.css. Light = Chirpy light mode, dark (data-time=night) = Chirpy dark mode. */
+:root,html[data-time=day],html[data-time=dusk] {
+  --ground:#f6f8fa; --bay:#ffffff; --panel:#f6f8fa; --ink:#34343c; --strong:#2a2a2a; --muted:#757575;
+  --accent:#0056b2; --gold:#0070cb; --wood:#efefef; --wood-dark:#e9ecef; --wood-light:#dee2e6;
+  --line:#eaeaea; --cream:#fbfcfd;
+  --info-bg:#e1f5fe; --info-icon:#0070cb; --tip-bg:rgb(123 247 144 / 20%); --tip-icon:#03b303;
+  --code-bg:#f6f8fa; --code-ink:#3f596f; --inline-code-bg:rgb(25 25 28 / 5%); --row-odd:#fbfcfd;
+  --sidebar-bg:#f6f8fa; --sidebar-border:#efefef; --sidebar-muted:#545454; --site-title:#717171;
+  --card-shadow:rgb(104 104 104 / 5%) 0 2px 6px 0, rgb(211 209 209 / 15%) 0 0 0 1px;
+  --body-font:'Source Sans Pro','Microsoft Yahei',system-ui,sans-serif; --display-font:Lato,'Microsoft Yahei',system-ui,sans-serif;
+  --mono-font:SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;
+  color-scheme:light;
+}
+html[data-time=night] {
+  --ground:#1e1e1e; --bay:rgb(27 27 30); --panel:#1e1e1e; --ink:rgb(175 176 177); --strong:#cccccc; --muted:#868686;
+  --accent:rgb(138 180 248); --gold:rgb(116 178 243); --wood:#292929; --wood-dark:#2e2f31; --wood-light:rgb(82 108 150);
+  --line:rgb(58 58 62); --cream:#252526;
+  --info-bg:rgb(7 59 104 / 80%); --info-icon:#3d9bf0; --tip-bg:rgb(22 60 36 / 64%); --tip-icon:rgb(15 164 15 / 81%);
+  --code-bg:#151515; --code-ink:#c9def1; --inline-code-bg:rgb(255 255 255 / 5%); --row-odd:#252526;
+  --sidebar-bg:#1e1e1e; --sidebar-border:#292929; --sidebar-muted:#868686; --site-title:#9a9a9a;
+  --card-shadow:rgb(21 21 21 / 72%) 0 6px 18px 0, rgb(137 135 135 / 24%) 0 0 0 1px;
+  color-scheme:dark;
+}
+
+/* Surfaces: plain Chirpy page, no paper or wood. */
+body { background:var(--ground); font-family:var(--body-font); }
+button { border-radius:6px; }
+a { color:var(--accent); text-decoration:none; border-bottom:1px solid var(--wood-light); }
+a:hover { border-bottom-color:currentColor; }
+.slide { background:var(--bay); padding:62px 84px 58px; }
+.slide::before,.slide::after,.slide .top-rail,.slide .bottom-rail,.slide .transom { display:none; }
+#slide-viewport { box-shadow:var(--card-shadow),0 10px 40px rgb(0 0 0 / 8%); border-radius:4px; overflow:hidden; }
+
+/* Headings and text. */
+.eyebrow { font-family:var(--body-font); font-variant-caps:normal; text-transform:uppercase; font-size:16px; font-weight:600; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; }
+.slide h1 { font-family:var(--display-font); font-weight:400; font-size:48px; line-height:1.12; color:var(--strong); letter-spacing:0; margin:0 0 30px; }
+.slide h1::after { display:none; }
+.slide-content { font-size:27px; line-height:1.42; }
+.slide-content p { margin:0 0 18px; }
+.slide-content strong { font-weight:600; color:var(--strong); }
+.slide-content em { font-style:italic; }
+.slide-content li { margin:0 0 13px; }
+.slide-content li::marker { color:var(--accent); }
+.slide-content h2,.slide-content h3 { font-family:var(--display-font); font-weight:400; color:var(--strong); }
+.slide-content code { font-family:var(--mono-font); font-size:.8em; background:var(--inline-code-bg); color:var(--code-ink); border-radius:6px; padding:2px 7px; }
+.fmt-small { font-size:.78em; color:var(--muted); }
+
+/* Blockquotes are Chirpy "prompt-info" boxes. */
+.slide-content blockquote { position:relative; background:var(--info-bg); border:0; border-radius:10px; padding:16px 24px 16px 66px; margin:22px 0; color:var(--ink); }
+.slide-content blockquote::before { content:''; position:absolute; left:24px; top:50%; width:24px; height:24px; margin-top:-12px; background:var(--info-icon); border-radius:50%;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12'/%3E%3C/svg%3E") center/contain no-repeat; }
+.slide-content blockquote::after { content:'i'; position:absolute; left:24px; top:50%; width:24px; height:24px; margin-top:-12px; text-align:center; font:700 17px/24px Georgia,serif; color:var(--bay); }
+.slide-content blockquote .katex-display { margin:.2em 0; }
+
+/* Tables follow Chirpy: quiet rules, striped rows. */
+.slide-content table { font-size:24px; margin:6px 0 18px; border:1px solid var(--line); border-radius:6px; border-collapse:separate; border-spacing:0; overflow:hidden; }
+.slide-content th { font-variant-caps:normal; text-transform:none; letter-spacing:0; font-size:21px; font-weight:600; color:var(--strong); background:var(--bay); border-bottom:2px solid var(--line); padding:10px 16px; }
+.slide-content td { border-bottom:1px solid var(--line); padding:9px 16px; vertical-align:top; }
+.slide-content tbody tr:nth-child(odd) td { background:var(--row-odd); }
+.slide-content tbody tr:last-child td { border-bottom:0; }
+.compact .slide-content { font-size:24px; }
+.compact .slide-content table { font-size:21px; }
+.compact .slide-content td { padding:7px 14px; }
+.compact .slide-content th { font-size:19px; padding:8px 14px; }
+
+/* Footer echoes the site's address. */
+.slide-footer { bottom:24px; left:84px; right:84px; font-size:15px; color:var(--muted); }
+/* Optional per-slide `footer` text, left-aligned opposite the slide number. */
+.slide-credit { margin-right:auto; letter-spacing:.02em; }
+
+/* Title slide: the website's sidebar on the left, the talk on the right. */
+.layout-title.site-home { padding:0; }
+.site-home .visual.title-art { position:absolute; left:0; top:0; bottom:0; width:330px; right:auto; }
+.site-home .slide-grid { display:block; margin-left:330px; height:100%; padding:110px 70px 60px 76px; }
+.site-home .slide-body { max-width:none; position:relative; }
+.site-home h1 { font-size:60px; line-height:1.08; max-width:820px; margin-bottom:28px; }
+.site-home .eyebrow { font-size:17px; margin-bottom:22px; }
+.site-home .slide-content { font-size:26px; color:var(--ink); }
+.site-home .slide-content > p:first-child { max-width:500px; }
+.site-home .lattice-figure { position:absolute; right:0; top:205px; width:265px; }
+.site-home .lattice-figure figcaption { display:none; }
+.site-home .slide-footer { left:406px; }
+.site-sidebar { height:100%; background:var(--sidebar-bg); border-right:1px solid var(--sidebar-border); display:flex; flex-direction:column; align-items:flex-start; padding:76px 0 46px 52px; }
+.site-avatar { width:132px; height:132px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 3px var(--bay); margin-bottom:26px; }
+.site-name { font-family:var(--body-font); font-weight:900; font-size:34px; line-height:1.15; color:var(--site-title); letter-spacing:.25px; margin:0 0 6px; max-width:200px; }
+.site-tagline { font-style:italic; font-size:19px; color:var(--site-title); margin:0 0 40px; }
+.site-nav { list-style:none; padding:0; margin:0; }
+.site-nav li { display:flex; align-items:center; gap:18px; font-size:17px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--sidebar-muted); margin:0 0 18px; }
+.site-nav-index { width:22px; text-align:center; font-weight:400; color:var(--muted); letter-spacing:0; }
+.site-url { margin-top:auto; font-size:16px; color:var(--muted); }
+/* Without visual: site-sidebar, the talk fills the slide. */
+.site-home.no-sidebar .slide-grid { margin-left:0; padding:110px 110px 60px; }
+.site-home.no-sidebar .slide-footer { left:84px; }
+
+/* Section and problem slides. */
+.layout-section .slide-grid { padding-left:4px; }
+.layout-section .eyebrow { font-family:var(--display-font); font-size:40px; font-weight:400; letter-spacing:0; text-transform:none; color:var(--accent); margin-bottom:12px; }
+.layout-section h1 { font-size:76px; margin-bottom:24px; }
+.layout-section .slide-content { font-size:28px; color:var(--muted); max-width:900px; }
+.layout-section .slide-grid::before { content:''; position:absolute; left:84px; top:62px; bottom:58px; width:4px; border-radius:2px; background:var(--accent); opacity:.85; }
+.layout-section .slide-body { padding-left:36px; }
+.layout-problem .eyebrow { font-family:var(--body-font); font-size:20px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); }
+.layout-problem h1 { font-size:56px; line-height:1.18; }
+.layout-problem .slide-content { margin-top:34px; font-size:28px; }
+.layout-problem .slide-content .katex-display { font-size:38px; }
+
+/* Split layout and diagram captions. */
+.layout-split .slide-grid { gap:52px; }
+.visual .diagram-caption { font-style:normal; color:var(--muted); font-size:19px; }
+svg text { font-family:var(--body-font); }
+
+/* Statements (definitions, theorems) as Chirpy cards. */
+.paper-statement { border-left:4px solid var(--accent); background:var(--panel); border-radius:0 10px 10px 0; padding:16px 26px 14px 24px; }
+.statement-label { font-family:var(--body-font); font-size:17px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
+.statement-text { font-size:26px; }
+
+/* Code panels look like Chirpy code blocks. */
+.code-panel { border:1px solid var(--line); border-top:0; border-radius:10px; background:var(--code-bg); padding:0 0 14px; overflow:hidden; }
+.code-panel .code-title { font-family:var(--body-font); font-size:15px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 18px; margin:0 0 12px; }
+html[data-time=night] .code-panel .code-title { background:#1e1e1e; }
+.code-panel pre { padding:0 18px; font:16px/1.5 var(--mono-font); color:var(--ink); }
+.code-panel pre code { font:inherit; background:none; padding:0; color:inherit; }
+.recorded-code-output,.recorded-caption,.recorded-answer { margin:12px 18px 0; }
+.recorded-code-output > p,.recorded-caption { font-family:var(--body-font); font-size:14px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:14px 18px 2px; border-top:1px dashed var(--line); padding-top:12px; }
+.recorded-code-output > p { margin:0 0 2px; }
+.recorded-code-output .katex-display,.recorded-answer .katex-display { text-align:left; font-size:23px; margin:.2em 0 0; }
+.recorded-code-output .katex-display > .katex,.recorded-answer .katex-display > .katex { text-align:left; }
+.with-code h1 { font-size:46px; }
+.with-code .slide-content { font-size:24px; line-height:1.38; }
+
+/* Cards for vocabulary and project choices (property-highlights + term-cards). */
+.slide.property-highlights.term-cards { padding:62px 84px 58px; }
+.term-cards > .eyebrow,.term-cards > h1 { display:block; }
+.term-cards > .slide-footer { display:flex; }
+.term-cards h1 { margin-bottom:24px; }
+.term-cards .slide-grid,.term-cards .slide-body,.term-cards .slide-content { height:auto; }
+.term-cards .property-grid { height:auto; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:none; gap:20px 22px; }
+.term-cards.cols-2 .property-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.term-cards .property-card { justify-content:flex-start; border:0; border-radius:10px; background:var(--bay); box-shadow:var(--card-shadow); padding:16px 20px 16px; font-size:19.5px; line-height:1.36; min-height:0; }
+html[data-time=night] .term-cards .property-card { background:#1e1e1e; }
+.term-cards .property-card h3 { font-family:var(--display-font); font-weight:400; font-size:27px; line-height:1.15; color:var(--strong); margin:0 0 8px; }
+.term-cards .property-card p { margin:0 0 7px; }
+.term-cards .property-card p:last-child { margin-bottom:0; }
+.term-cards .property-card em { font-style:normal; color:var(--accent); }
+.term-cards .property-card em::before { content:'→ '; }
+.term-cards .property-card.muted-card { background:transparent; box-shadow:none; border:1px dashed var(--line); }
+.term-cards.tall-cards .property-card { font-size:22px; padding:22px 24px; }
+.term-cards.tall-cards .property-card h3 { font-size:31px; }
+.term-cards .property-card .card-meta { font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+.term-cards .property-card strong { color:var(--strong); }
+
+/* The repeatable process. */
+.process-flow { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0; font-size:25px; }
+.process-flow li { position:relative; display:flex; align-items:center; gap:18px; padding:12px 18px; border-radius:10px; background:var(--panel); margin:0 0 22px; color:var(--strong); }
+.process-flow li:not(:last-child)::after { content:''; position:absolute; left:37px; bottom:-21px; height:20px; border-left:2px solid var(--wood-light); }
+.process-flow .step-index { flex:none; width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:var(--accent); color:var(--bay); font-weight:600; font-size:20px; }
+.process-flow li:last-child { background:var(--info-bg); }
+
+/* Lattice figure. */
+.lattice-figure { margin:0; }
+.lattice-figure svg { width:100%; height:auto; overflow:visible; }
+.lp-grid path { stroke:var(--line); stroke-width:1; }
+.lattice-figure .dilate { fill:var(--accent); fill-opacity:.05; stroke:var(--accent); stroke-width:2.2; stroke-linejoin:round; opacity:calc(.35 + .2 * var(--k)); }
+.lattice-figure .dilate-3 { fill-opacity:.08; }
+.lp-outside { fill:var(--wood-light); }
+.lp-interior { fill:var(--ink); }
+.lp-boundary { fill:var(--bay); stroke:var(--accent); stroke-width:2.6; }
+.lattice-figure figcaption { text-align:center; font-size:18px; color:var(--muted); margin-top:10px; }
+.lp-key { display:inline-block; width:12px; height:12px; border-radius:50%; margin:0 6px 0 14px; vertical-align:-1px; }
+.lp-key.boundary { border:2px solid var(--accent); }
+.lp-key.interior { background:var(--ink); }
+@media (prefers-reduced-motion:no-preference) {
+  .slide:not(#print-deck *) .lattice-figure .dilate { stroke-dasharray:2000; animation:lp-draw 1.4s ease-out both; animation-delay:calc(var(--k) * .25s); }
+  .slide:not(#print-deck *) .lattice-figure .lp-interior,.slide:not(#print-deck *) .lattice-figure .lp-boundary { animation:lp-pop .35s ease-out both; animation-delay:calc(1.1s + var(--i) * 45ms); transform-box:fill-box; transform-origin:center; }
+}
+@keyframes lp-draw { from { stroke-dashoffset:2000; } to { stroke-dashoffset:0; } }
+@keyframes lp-pop { from { transform:scale(0); opacity:0; } to { transform:scale(1); opacity:1; } }
+.layout-split .lattice-figure { max-width:330px; margin:0 auto; }
+
+/* Embedded explorer. */
+.explorer-embed { border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--bay); }
+.lattice-frame { height:452px; }
+.demo-frame .slide-content { font-size:24px; }
+.demo-frame .slide-content p { margin-bottom:12px; }
+.demo-frame h1 { margin-bottom:14px; }
+.demo-frame .eyebrow { margin-bottom:8px; }
+.demo-frame .conics-print .lattice-figure { width:260px; margin:10px auto; }
+
+/* Prompt slides: the statement is a prompt card, copyable as plain text. */
+.prompt-slide .paper-statement { border-left:0; border:1px solid var(--line); border-radius:10px; background:var(--code-bg); padding:0 0 4px; overflow:hidden; }
+.prompt-slide .statement-label { margin:0; padding:10px 22px; background:var(--panel); border-bottom:1px solid var(--line); color:var(--muted); font-size:15px; display:flex; align-items:center; gap:10px; }
+.prompt-slide .statement-label::before { content:''; width:18px; height:18px; flex:none; background:var(--accent);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z'/%3E%3C/svg%3E") center/contain no-repeat; }
+html[data-time=night] .prompt-slide .statement-label { background:#1e1e1e; }
+.prompt-slide .statement-text { font-size:23px; line-height:1.42; padding:16px 26px 6px; color:var(--strong); }
+.prompt-slide .statement-text p { margin:0 0 12px; }
+.prompt-slide .statement-text code { font-family:var(--mono-font); font-size:.82em; background:var(--info-bg); color:var(--accent); border-radius:6px; padding:1px 7px; }
+.prompt-slide .slide-content > p { font-size:24px; color:var(--ink); margin-bottom:16px; }
+.prompt-slide .slide-content > p .katex-display { margin:.1em 0; }
+.prompt-slide.prompt-long .statement-text { font-size:21px; line-height:1.38; }
+.followups .slide-content li { margin-bottom:10px; }
+.followups .slide-content ul { list-style:none; padding:0; }
+.followups .slide-content li { background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:9px 20px; font-size:23px; }
+
+/* Small helpers. */
+.closing-links .slide-content p { margin-bottom:12px; }
+.qr { float:right; }
+.site-home .slide-content img.qr-code,.slide-content img[alt^="QR"] { width:190px; height:190px; border-radius:10px; background:#fff; padding:8px; box-shadow:var(--card-shadow); }
+.result-table .slide-content table { width:auto; }
+.result-table .slide-content td,.result-table .slide-content th { text-align:center; min-width:62px; padding:9px 12px; }
+.result-table .slide-content td:first-child,.result-table .slide-content th:first-child { text-align:left; min-width:110px; }
+
+/* Authoring chrome uses the site's colors. */
+.toolbar { background:var(--bay); }
+.home-link { font-weight:900; color:var(--site-title); border:0; }
+.home-link span { font-weight:600; font-variant-caps:normal; text-transform:uppercase; letter-spacing:.06em; font-size:14px; color:var(--muted); }
+#section-nav { background:var(--bay); }
+#editor,#speaker { background:var(--bay); }
+
+/* Audience page controls. */
+#audience-nav { background:var(--bay); border-top:1px solid var(--line); font-family:var(--body-font); }
+#audience-nav button { border-radius:6px; }
+#audience-nav select { font-family:var(--body-font); }
+
+@media print {
+  html,body { background:#fff; }
+  #slide-viewport { box-shadow:none; }
+}
+
+/* Revisions after visual review. */
+.with-code .slide-grid { grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr); gap:30px; }
+.with-code .code-panel pre { font-size:15px; line-height:1.5; white-space:pre; overflow:hidden; }
+.recorded-code-output .katex,.recorded-answer .katex { font-size:1em; }
+.term-cards .property-card em { color:var(--strong); font-weight:600; }
+.term-cards .property-card em::before { color:var(--accent); }
+.vocab-tools .property-card:nth-child(3) { background:var(--info-bg); box-shadow:none; }
+.vocab-tools .property-card:nth-child(3) h3 { color:var(--strong); }
+.site-home .slide-content > p { max-width:540px; }
+.site-home .lattice-figure { top:150px; width:250px; right:-6px; }
+.menu-table h1 { margin-bottom:18px; }
+.menu-table .slide-content table { font-size:19px; table-layout:fixed; }
+.menu-table .slide-content th { font-size:17px; padding:7px 12px; }
+.menu-table .slide-content td { padding:6px 12px; line-height:1.3; }
+.menu-table .slide-content th:nth-child(1) { width:30%; } .menu-table .slide-content th:nth-child(2) { width:38%; }
+.menu-table .slide-content td .fmt-small { font-size:15px; display:inline-block; margin-top:1px; }
+.term-cards.tall-cards .property-card { font-size:23px; line-height:1.38; }
+.term-cards.tall-cards .property-card h3 { font-size:32px; margin-bottom:10px; }
+.lattice-figure figcaption i { font-family:'KaTeX_Math','Times New Roman',serif; }
+.followups .slide-content li { font-size:26px; padding:11px 22px; margin-bottom:14px; }
+
+/* Body images never overflow their column; size them per slide with design.images. */
+.slide-content img { max-width:100%; }
