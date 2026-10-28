@@ -34,8 +34,9 @@ a:hover { color:var(--accent); }
 .slide { background:var(--bay); color:var(--ink); padding:118px 96px 92px 196px; font-family:var(--body-font); }
 .slide .top-rail,.slide .bottom-rail,.slide .transom { display:block; position:absolute; pointer-events:none; z-index:0; opacity:1; -webkit-mask:none; mask:none; }
 .slide .top-rail { left:0; right:0; top:0; height:46px; background:var(--block); }
-.slide .top-rail::before { content:'skills'; position:absolute; left:96px; top:9px; font:700 25px/1 var(--display-font); letter-spacing:-.02em; color:var(--on-block); }
-.slide .top-rail::after { content:'seminar · 2026'; position:absolute; right:96px; top:16px; font:400 12px/1 var(--body-font); letter-spacing:.12em; text-transform:uppercase; color:var(--on-block); opacity:.75; }
+/* Masthead text comes from meta.masthead and meta.masthead_note in deck.yaml. */
+.slide .top-rail .masthead { position:absolute; left:96px; top:9px; font:700 25px/1 var(--display-font); letter-spacing:-.02em; color:var(--on-block); }
+.slide .top-rail .masthead-note { position:absolute; right:96px; top:16px; font:400 12px/1 var(--body-font); letter-spacing:.12em; text-transform:uppercase; color:var(--on-block); opacity:.75; }
 .slide .transom { left:96px; top:118px; width:58px; height:58px; background:var(--accent); }
 .slide .bottom-rail { left:96px; right:96px; bottom:72px; height:0; background:none; border-top:3px solid var(--line); }
 
@@ -92,7 +93,7 @@ a:hover { color:var(--accent); }
 /* Section dividers: a full red field, a huge numeral and a black disc. */
 .slide.layout-section { background:var(--accent); color:#f4efe3; padding:0; }
 .layout-section .top-rail { background:transparent; border-bottom:2px solid rgb(15 15 14 / 75%); }
-.layout-section .top-rail::before,.layout-section .top-rail::after { color:#0f0f0e; }
+.layout-section .top-rail .masthead,.layout-section .top-rail .masthead-note { color:#0f0f0e; }
 .layout-section .transom { left:auto; right:-150px; top:120px; width:620px; height:620px; border-radius:50%; background:#0f0f0e; }
 .layout-section .bottom-rail { border-top-color:#0f0f0e; }
 .layout-section .slide-grid { padding:0 96px; height:100%; align-items:flex-end; padding-bottom:112px; }

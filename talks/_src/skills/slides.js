@@ -86,8 +86,10 @@ function renderSlide(s,i){
   const visual=(s.code?renderCode(s):(FigureText.render(s.visual||'',s)))+mapNote;
   const title=markdown(s.title,true);
   const titleLayout=['title','section','problem'].includes(s.layout);
+  const m=deck.meta||{};
+  const masthead=m.masthead||m.masthead_note?`<span class="masthead">${markdown(m.masthead??'',true)}</span><span class="masthead-note">${markdown(m.masthead_note??'',true)}</span>`:'';
   const header=`<p class="eyebrow">${markdown(s.kicker??'',true)}</p><h1>${title}</h1>`;
-  return SlideLayout.decorate(`<div class="top-rail"></div><div class="transom"></div><div class="bottom-rail"></div>${titleLayout?'':header}<div class="slide-grid"><div class="slide-body">${titleLayout?header:''}<div class="slide-content">${slideContent(s)}</div></div>${visual?`<div class="visual ${titleLayout?'title-art':''}">${visual}</div>`:''}</div><footer class="slide-footer">${s.footer?`<span class="slide-credit">${markdown(s.footer,true)}</span>`:''}<span class="slide-number">${String(i+1).padStart(2,'0')}</span></footer>`,s);
+  return SlideLayout.decorate(`<div class="top-rail">${masthead}</div><div class="transom"></div><div class="bottom-rail"></div>${titleLayout?'':header}<div class="slide-grid"><div class="slide-body">${titleLayout?header:''}<div class="slide-content">${slideContent(s)}</div></div>${visual?`<div class="visual ${titleLayout?'title-art':''}">${visual}</div>`:''}</div><footer class="slide-footer">${s.footer?`<span class="slide-credit">${markdown(s.footer,true)}</span>`:''}<span class="slide-number">${String(i+1).padStart(2,'0')}</span></footer>`,s);
 }
 function classes(s){return 'slide layout-'+(['standard','title','split','theorem','result','closing','section','problem'].includes(s.layout)?s.layout:'standard')+' '+SlideLayout.baseClass(s).replace(/[^a-zA-Z0-9 -]/g,'')+' '+SlideLayout.classNames(s);}
 function render(){
@@ -207,7 +209,7 @@ function setup(){
 async function init(){
   try{
     const loaded=await DeckStorage.load();original=loaded.original;deck=loaded.deck;
-    document.title=deck.meta.title+' · Michael R. Zeng';
+    document.title=deck.meta.presenter?deck.meta.title+' · '+deck.meta.presenter:deck.meta.title;
     if(isPresenter){document.body.classList.add('presenter');$('#speaker').hidden=false;}
     for(const [v,f] of Object.entries(FIGURES)){const o=document.createElement('option');o.value=v;o.textContent=f.label;$('#edit-visual').append(o);}
     rebuildSelect();setup();const i=deck.slides.findIndex(s=>s.id===decodeURIComponent(location.hash.slice(1)));go(i<0?0:i,false);

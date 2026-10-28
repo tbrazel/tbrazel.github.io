@@ -8,6 +8,8 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+# Prefer the shared talks/.venv when it exists (CI installs into its own Python).
+if [[ -z "${PYTHON:-}" && -x talks/.venv/bin/python ]]; then PYTHON=talks/.venv/bin/python; fi
 PYTHON="${PYTHON:-python3}"
 
 if [[ $# -gt 0 ]]; then

@@ -3,49 +3,163 @@ meta:
   title: Skills
   slug: skills
   presenter: Thomas Brazelton
-  description: Placeholder deck for a talk on skills.
+  description: A 10 minute talk on skills.
+  masthead: skills
+  masthead_note: AI Conferenece · Santa Cruz CA, · 2026
 slides:
 - id: title
   layout: title
   title: Skills
-  kicker: Placeholder talk · 2026
+  kicker: Accelerating Mathematical Discovery · Fall 2026
   body: |-
-    A short talk about skills.
+    A 10 minute talk about skills
 
-    Content to come.
+    Then we make skills
   footer: Thomas Brazelton · [tbrazel.github.io](https://tbrazel.github.io)
   class: site-home no-sidebar
-- id: outline
-  layout: standard
-  title: Outline
-  kicker: Where we are going
-  body: |-
-    1. What is a skill?
-    2. An example
-    3. Writing your own
-- id: section-what
-  layout: section
-  title: What is a skill?
-  kicker: '1'
-  body: Placeholder section
+
+# - id: outline
+#   layout: standard
+#   title: Outline
+#   kicker: Where we are going
+#   body: |-
+#     1. What is a skill?
+#     2. An example
+#     3. Writing your own
+
+
+# - id: section-what
+#   layout: section
+#   title: What is a skill?
+#   kicker: '1'
+#   body: Placeholder section
+
 - id: definition
   layout: standard
   title: A working definition
   body: |-
-    A **skill** is a packaged set of instructions that can be loaded on demand.
+    A **skill** is a reusable, modular set of instructions that extend the capabilities of your AI (Claude for this talk), giving them instructions for a particular domain of work.
 
-    > Placeholder text: replace with the real definition.
+    To quote from Anthropic's [overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), the main benefits are to
+
+    - **Specialize Claude**: tailor capabilities for domain-specific tasks
+    - **Reduce repetition**: create once, use automatically
+    - **Compose capabilities**: combine Skills for complex, multistep tasks
+
+
+- id: components
+  layout: standard
+  title: Components
+  kicker: The pieces of a skill
+  body: >
+
+    1. **Metadata (written in YAML)**: contains name and description. Loaded at startup, costs very few tokens
+
+    1. **SKILL.md file (Markdown)**: contains a set of instructions. Loaded when triggered, costs less than 5k tokens
+
+    1. **Resources (various)**: reference files, scripts, run when needed.
+
+    
+
+
 - id: example
-  layout: split
-  title: An example
-  kicker: Placeholder
+  layout: standard
+  title: Example - reading arXiV
+  kicker: arXiV example
   body: |-
-    - Step one
-    - Step two
-    - Step three
+    YAML title and description at the top of file:
+    ```
+    ---
+    name: researching-arxiv-papers
+    description: Finds, retrieves, reads, and cites arXiv preprints. Use when the user mentions arXiv, 
+    gives an arXiv ID or URL, or asks to search, summarize, compare, or cite preprints or recent
+    research papers.
+    ---
+    ```
 
-    A formula for good measure: $\sum_{k=1}^n k = \tfrac{n(n+1)}{2}$.
-  visual: process-flow
+- id: example-cont
+  layout: standard
+  title: Example (continued)
+  kicker: arXiV example
+  body: |-
+    ```
+    # arXiv papers
+    ## Identifiers
+    Normalize every reference to a bare ID before doing anything else. Strip `https://arxiv.org/abs/`,
+    `/pdf/`, `.pdf`, and any `arXiv:` prefix.
+
+    - New-style IDs look like `2401.12345` or `2401.12345v2`. They have 5 digits after the dot
+    from 2015 on, and 4 digits for 2007–2014.
+    - Old-style IDs look like `hep-th/9901001`.
+    - An ID without `vN` means the latest version. Keep the version whenever you quote or rely on
+    specific content.
+    ```
+
+- id: example-link
+  layout: standard
+  title: Example (link)
+
+  body: See [here]() for the full SKILL file
+
+
+- id: installing
+  layout: standard
+  title: Installing
+
+  body: |-
+
+    - For the Desktop app, put the SKILL.md file inside a folder with the skill title, e.g. `researching-arxiv-papers/SKILL.md.`
+    - Zip this folder
+    - In the Desktop app, go to `Customize > Skills > +` then Upload
+
+
+- id: did-it-work
+  layout: standard
+  title: Did it work?
+
+
+- id: did-it-work-v2
+  layout: standard
+  title: Did it work?
+
+  body: |-
+    Define 'work'...
+
+- id: did-it-work-v3
+  layout: standard
+  title: Did it work?
+
+  body: |-
+    Define 'work'...
+
+    We need to **benchmark** this in some capacity. This should happen *before writing the SKILLS file* - we need to determine what it means for this to succeed
+
+    For me, Claude with the arXiV skill file is comparably accurate to without it (BibTeX looks the same, dates aren't fudged, etc.) but the number of API calls is fewer and the latency is increased!
+
+- id: data
+  layout: standard
+  title: For the skill I wrote
+  body: |-
+    - Valid BibTeX: 85% → 100%
+    - Correct first-version date: 91% → 100%
+    - No unsupported "published" claims: 93% → 100%
+
+    Claude described the number of data points I used to get this data as "statistically insignificant" (rude)
+
+- id: todo
+  layout: standard
+  title: In this session
+  body: |-
+    1. In small groups determine a skill you would like Claude to have. (Optional: set this up in a repo)
+    1. Before writing the skill, determine **benchmarks** for whether Claude has improved by using the skill or not.
+    1. Write the skill file referring to Anthropic's [best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+    1. (Optional) Test it against the benchmarks and demonstrate it works!
+
+
+    References: [slides](https://tbrazel.github.io/talks/skills/) and [arXiV skill]()
+
+
+
 - id: closing
   layout: title
   title: Skills
