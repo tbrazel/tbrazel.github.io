@@ -5,7 +5,7 @@ meta:
   presenter: Thomas Brazelton
   description: A 10 minute talk on skills.
   masthead: skills
-  masthead_note: AI Conferenece · Santa Cruz CA, · 2026
+  masthead_note: Accelerating Mathematical Discovery · Santa Cruz CA, · 2026
 slides:
 - id: title
   layout: title
@@ -164,8 +164,6 @@ slides:
 
 
     References and instructions: [https://github.com/aimathconference/example-arxiv-skill](https://github.com/aimathconference/example-arxiv-skill)
-
-
 
 - id: closing
   layout: title
