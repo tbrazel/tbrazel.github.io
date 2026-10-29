@@ -99,7 +99,7 @@ slides:
   layout: standard
   title: Example (link)
 
-  body: See [here](https://github.com/aimathconference/example-arxiv-skill/blob/main/researching-arxiv-papers/SKILL.md) for the full SKILL file
+  body: See [here](https://github.com/aimathconference/skills/blob/main/researching-arxiv-papers/SKILL.md) for the full SKILL file
 
 
 - id: installing
@@ -163,7 +163,7 @@ slides:
     1. (Optional) Test it against the benchmarks and demonstrate it works!
 
 
-    References and instructions: [https://github.com/aimathconference/example-arxiv-skill](https://github.com/aimathconference/example-arxiv-skill)
+    References and instructions: [https://github.com/aimathconference/skills](https://github.com/aimathconference/skills)
 
 - id: closing
   layout: title
