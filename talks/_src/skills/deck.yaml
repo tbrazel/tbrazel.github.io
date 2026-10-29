@@ -173,10 +173,7 @@ slides:
     1. In small group, *without looking at the list of pre-existing skills*, determine a skill you would like Claude to have.
     1. Determine some **benchmarks** for whether Claude has improved in your use case by using the skill or not.
     1. Write the skill file referring to Anthropic's [best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
-
-    Time pending:
-
-    4. Write benchmarks and test it, then A/B test it against any pre-existing skills with the same scope!
+    1. (Optional) Write benchmarks and test it, then A/B test it against any pre-existing skills with the same scope!
 
 
     References and instructions: [https://github.com/aimathconference/skills](https://github.com/aimathconference/skills)
