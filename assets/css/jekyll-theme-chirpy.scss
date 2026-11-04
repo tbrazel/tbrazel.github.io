@@ -21,6 +21,97 @@
 }
 
 
+// upcoming travel timeline (_includes/travel.html)
+
+.travel-list {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  // the vertical line, centered under the dots
+  &::before {
+    content: '';
+    position: absolute;
+    left: calc(7.5rem + 1.25rem + 5px);
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: var(--main-border-color);
+  }
+}
+
+.travel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.travel-date {
+  flex: 0 0 7.5rem;
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-muted-color);
+  white-space: nowrap;
+}
+
+.travel-dot {
+  flex: 0 0 12px;
+  height: 12px;
+  margin-top: 0.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted-color);
+  background: var(--main-bg);
+  position: relative; // sit above the line
+}
+
+.travel-body {
+  min-width: 0;
+}
+
+.travel-event {
+  font-weight: 600;
+}
+
+.travel-location {
+  color: var(--text-muted-color);
+  font-size: 0.95rem;
+}
+
+.travel-item.is-next {
+  .travel-date {
+    color: var(--link-color);
+  }
+
+  .travel-dot {
+    border-color: var(--link-color);
+    background: var(--link-color);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--link-color) 20%, transparent);
+  }
+}
+
+@media (max-width: 576px) {
+  .travel-list::before {
+    left: calc(4.75rem + 0.75rem + 5px);
+  }
+
+  .travel-item {
+    gap: 0.75rem;
+  }
+
+  .travel-date {
+    flex-basis: 4.75rem;
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+}
+
+
 // hide search functionality
 
 #search-trigger,

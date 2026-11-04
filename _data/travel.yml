@@ -1,0 +1,36 @@
+# Upcoming travel, shown on the homepage via _includes/travel.html.
+#
+# Fields:
+#   start:    first day, YYYY-MM-DD (required)
+#   end:      last day, YYYY-MM-DD (omit for a one-day trip)
+#   event:    name of the event (required)
+#   url:      link for the event name (optional)
+#   location: where it is (required)
+#
+# Order doesn't matter (entries are sorted by start date), and past trips are
+# hidden automatically, so old entries can be left here or deleted.
+# If no upcoming trips remain, the whole section is hidden.
+
+- start: 2026-11-07
+  end: 2026-11-08
+  event: AMS-Sectional, ASU
+  url: https://www.ams.org/meetings/sectional/2335_progfull.html
+  location: Tempe, AZ
+
+- start: 2027-02-22
+  end: 2027-02-26
+  event: Macaulay2 Workshop, Auburn University
+  url: https://johndcobb.github.io/organizing/M2atAuburn/
+  location: Auburn, AL
+
+- start: 2027-04-24
+  end: 2027-04-25
+  event: Meeting on Applied Algebraic Geometry, Georgia Tech
+  url: https://d-torrance.github.io/maag-27/
+  location: Atlanta, GA
+
+- start: 2027-05-23
+  end: 2027-05-28
+  event: Homotopical Combinatorics, BANFF
+  url: https://www.birs.ca/events/2027/5-day-workshops/27w5760
+  location: Oaxaca, Mexico

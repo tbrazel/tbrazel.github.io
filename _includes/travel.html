@@ -1,0 +1,65 @@
+{% comment %}
+  Upcoming travel timeline. Data lives in _data/travel.yml.
+  Past trips are dropped at build time, and again in the browser (the site is
+  only rebuilt on push, so a trip can end between builds).
+{% endcomment %}
+{% assign today = site.time | date: "%Y-%m-%d" %}
+{% if site.data.travel %}{% assign trips = site.data.travel | sort: "start" %}{% else %}{% assign trips = "" | split: "" %}{% endif %}
+{% capture items %}
+{% for trip in trips %}
+  {% assign start = trip.start | date: "%Y-%m-%d" %}
+  {% if trip.end %}{% assign end = trip.end | date: "%Y-%m-%d" %}{% else %}{% assign end = start %}{% endif %}
+  {% if end >= today %}
+    {% assign s_month = trip.start | date: "%b" %}
+    {% assign s_day = trip.start | date: "%-d" %}
+    {% if end == start %}
+      {% capture when %}{{ s_month }} {{ s_day }}{% endcapture %}
+    {% else %}
+      {% assign e_month = trip.end | date: "%b" %}
+      {% assign e_day = trip.end | date: "%-d" %}
+      {% if e_month == s_month %}
+        {% capture when %}{{ s_month }} {{ s_day }}–{{ e_day }}{% endcapture %}
+      {% else %}
+        {% capture when %}{{ s_month }} {{ s_day }} – {{ e_month }} {{ e_day }}{% endcapture %}
+      {% endif %}
+    {% endif %}
+    <li class="travel-item" data-end="{{ end }}">
+      <div class="travel-date">{{ when }}</div>
+      <div class="travel-dot" aria-hidden="true"></div>
+      <div class="travel-body">
+        <div class="travel-event">
+          {% if trip.url %}<a href="{{ trip.url }}" target="_blank" rel="noopener">{{ trip.event }}</a>{% else %}{{ trip.event }}{% endif %}
+        </div>
+        <div class="travel-location">{{ trip.location }}</div>
+      </div>
+    </li>
+  {% endif %}
+{% endfor %}
+{% endcapture %}
+
+{% assign items_stripped = items | strip %}
+{% if items_stripped != "" %}
+<section id="upcoming-travel" class="travel">
+  <h2>Upcoming travel</h2>
+  <ul class="travel-list">
+    {{ items }}
+  </ul>
+</section>
+
+<script>
+  (function () {
+    var section = document.getElementById('upcoming-travel');
+    if (!section) return;
+    var d = new Date();
+    var today = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+    section.querySelectorAll('.travel-item').forEach(function (item) {
+      if (item.dataset.end < today) item.remove();
+    });
+    var first = section.querySelector('.travel-item');
+    if (first) first.classList.add('is-next');
+    else section.remove();
+  })();
+</script>
+{% endif %}
