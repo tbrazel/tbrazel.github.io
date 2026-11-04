@@ -7,12 +7,17 @@ import websocket
 def free_port():
  with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 class Browser:
- def __init__(self,port):
-  for _ in range(100):
+ def __init__(self,port,process=None,log=None):
+  tab=None
+  for _ in range(300):
+   if process and process.poll() is not None:break
    try:
     tabs=json.load(urllib.request.urlopen(f'http://127.0.0.1:{port}/json'));tab=next(t for t in tabs if t['type']=='page');break
    except Exception:time.sleep(.1)
-  else:raise RuntimeError('Chrome did not start')
+  if tab is None:
+   detail=''
+   if log:log.flush();log.seek(0);detail='\n--- Chrome output ---\n'+log.read()[-4000:]
+   raise RuntimeError(f'Chrome did not start (exit code {process.poll() if process else None})'+detail)
   self.ws=websocket.create_connection(tab['webSocketDebuggerUrl'],origin=f'http://127.0.0.1:{port}',timeout=120);self.i=0
  def call(self,method,params=None):
   self.i+=1;self.ws.send(json.dumps({'id':self.i,'method':method,'params':params or {}}))
@@ -46,10 +51,10 @@ def main():
    record=json.loads(path.read_text());name=path.stem;record['source']=(source/'code'/f'{name}.m2').read_text();records[name]=record
  handler=lambda *a,**kw:http.server.SimpleHTTPRequestHandler(*a,directory=str(source),**kw)
  server=http.server.ThreadingHTTPServer(('127.0.0.1',0),handler);threading.Thread(target=server.serve_forever,daemon=True).start();port=free_port()
- with tempfile.TemporaryDirectory(prefix='kiwari-export-') as profile,open(os.devnull,'w') as log:
-  process=subprocess.Popen([chrome,'--headless','--disable-gpu',*(['--no-sandbox'] if os.environ.get('CI') else []),f'--remote-debugging-port={port}',f'--remote-allow-origins=http://127.0.0.1:{port}',f'--user-data-dir={profile}','about:blank'],stdout=log,stderr=log)
+ with tempfile.TemporaryDirectory(prefix='kiwari-export-') as profile,tempfile.TemporaryFile('w+') as log:
+  process=subprocess.Popen([chrome,'--headless','--disable-gpu',*(['--no-sandbox','--disable-dev-shm-usage','--no-first-run'] if os.environ.get('CI') else []),f'--remote-debugging-port={port}',f'--remote-allow-origins=http://127.0.0.1:{port}',f'--user-data-dir={profile}','about:blank'],stdout=log,stderr=log)
   try:
-   b=Browser(port);b.navigate(f'http://127.0.0.1:{server.server_port}/');b.ev('document.fonts.ready')
+   b=Browser(port,process,log);b.navigate(f'http://127.0.0.1:{server.server_port}/');b.ev('document.fonts.ready')
    b.ev('window.EXPORT_RECORDINGS='+json.dumps(records))
    exporter=Path(__file__).with_name('export-render.js').read_text();release=b.ev(exporter)
    assert not b.ev('mathErrors'),b.ev('mathErrors')
