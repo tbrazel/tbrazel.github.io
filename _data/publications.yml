@@ -1,11 +1,15 @@
 - id: twistedwronski
-  status: "preprint"
+  status: "submitted"
   title: "Twisted $\\mathbb{A}^1$-degrees and Wronski maps"
   coauthors: "J. Levinson"
   year: 2026
+  pdf: "twisted-wronski"
+  arXiV_id:  "2610.23816"
+  abstract: >
+    The Wronski map is a central object of study in osculating Schubert calculus, and has been the focus of much work in real algebraic geometry over the last few decades due to its remarkable reality properties. In this work, we study it over arbitrary fields through the lens of quadratically-enriched enumerative geometry. A basic obstruction is that the Wronski map is not oriented in general, so existing approaches do not apply directly. To that end, we introduce twisted A1-degrees of finite flat lci maps of schemes, which generalize ordinary A1-degrees by allowing us to twist an orientation by the equation of a divisor, and A1-chambers, which generalize the notion of connected component of a real manifold. We then show that a certain weighted count of the fibers of the Wronski map depends only on the action of the absolute Galois group of the base field on the roots of the Wronski polynomial. This unifies Eremenko and Gabrielov's work on real degrees of Wronski maps, Levinson and Purbhoo's work on the character orientation of the real Wronski map, and Brazelton's work on enriched degrees of Wronski maps into one framework. 
 
 - id: symmetry
-  status: "preprint"
+  status: "submitted"
   title: "Symmetry and solvability: Galois groups of equivariant enumerative problems"
   coauthors: "A. Landi, S. Raman"
   arXiV_id: "2609.30442"
